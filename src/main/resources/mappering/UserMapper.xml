@@ -21,6 +21,12 @@
     <result column="ziwei" jdbcType="VARCHAR" property="ziwei" />
     <result column="area" jdbcType="VARCHAR" property="area" />
     <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="lat" jdbcType="DOUBLE" property="lat" />
+    <result column="lng" jdbcType="DOUBLE" property="lng" />
+    <result column="spare" jdbcType="VARCHAR" property="spare" />
+    <result column="spare1" jdbcType="VARCHAR" property="spare1" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="obligate" jdbcType="VARCHAR" property="obligate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -82,7 +88,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, username, sex, date, time, zone, facebook, num, head, picture, vip, viptime, 
-    city, bazi, zodiac, xingzuo, ziwei, area, country
+    city, bazi, zodiac, xingzuo, ziwei, area, country, lat, lng, spare, spare1, updatetime, 
+    obligate
   </sql>
   <select id="selectByExample" parameterType="com.example.demo.model.UserExample" resultMap="BaseResultMap">
     select
@@ -113,14 +120,15 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+   
     <select id="QueryUser" parameterType="String" resultMap="BaseResultMap">
-    select 
+      select 
     <include refid="Base_Column_List" />
     from dt_user
     where facebook = #{facebook}
   </select>
   
-  <select id="QueryUserByCity" parameterType="com.example.demo.model.User" resultType="java.lang.Integer">
+      <select id="QueryUserByCity" parameterType="com.example.demo.model.User" resultType="java.lang.Integer">
     select id
  <!--   <include refid="Base_Column_List" /> --> 
     from dt_user 
@@ -136,6 +144,73 @@
     </if>
     and id != #{id,jdbcType=INTEGER}
   </select>
+  
+  
+   <!-- 根据faceid更新用户表 -->
+    <update id="updateByFaceIDSelective" parameterType="com.example.demo.model.User">
+    update dt_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="zone != null">
+        zone = #{zone,jdbcType=INTEGER},
+      </if>
+      <if test="facebook != null">
+        facebook = #{facebook,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="head != null">
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null">
+        vip = #{vip,jdbcType=INTEGER},
+      </if>
+      <if test="viptime != null">
+        viptime = #{viptime,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="bazi != null">
+        bazi = #{bazi,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiac != null">
+        zodiac = #{zodiac,jdbcType=VARCHAR},
+      </if>
+      <if test="xingzuo != null">
+        xingzuo = #{xingzuo,jdbcType=VARCHAR},
+      </if>
+      <if test="ziwei != null">
+        ziwei = #{ziwei,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where facebook = #{facebook,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -157,15 +232,17 @@
       num, head, picture, 
       vip, viptime, city, 
       bazi, zodiac, xingzuo, 
-      ziwei, area, country
-      )
+      ziwei, area, country, 
+      lat, lng, spare, spare1, 
+      updatetime, obligate)
     values (#{username,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
       #{time,jdbcType=VARCHAR}, #{zone,jdbcType=INTEGER}, #{facebook,jdbcType=VARCHAR}, 
       #{num,jdbcType=INTEGER}, #{head,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
       #{vip,jdbcType=INTEGER}, #{viptime,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{bazi,jdbcType=VARCHAR}, #{zodiac,jdbcType=VARCHAR}, #{xingzuo,jdbcType=VARCHAR}, 
-      #{ziwei,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}
-      )
+      #{ziwei,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=DOUBLE}, #{lng,jdbcType=DOUBLE}, #{spare,jdbcType=VARCHAR}, #{spare1,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{obligate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -227,6 +304,24 @@
       <if test="country != null">
         country,
       </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="spare != null">
+        spare,
+      </if>
+      <if test="spare1 != null">
+        spare1,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="obligate != null">
+        obligate,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="username != null">
@@ -282,6 +377,24 @@
       </if>
       <if test="country != null">
         #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=DOUBLE},
+      </if>
+      <if test="spare != null">
+        #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obligate != null">
+        #{obligate,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -351,6 +464,24 @@
       <if test="record.country != null">
         country = #{record.country,jdbcType=VARCHAR},
       </if>
+      <if test="record.lat != null">
+        lat = #{record.lat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lng != null">
+        lng = #{record.lng,jdbcType=DOUBLE},
+      </if>
+      <if test="record.spare != null">
+        spare = #{record.spare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare1 != null">
+        spare1 = #{record.spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null">
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.obligate != null">
+        obligate = #{record.obligate,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -376,7 +507,13 @@
       xingzuo = #{record.xingzuo,jdbcType=VARCHAR},
       ziwei = #{record.ziwei,jdbcType=VARCHAR},
       area = #{record.area,jdbcType=VARCHAR},
-      country = #{record.country,jdbcType=VARCHAR}
+      country = #{record.country,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=DOUBLE},
+      lng = #{record.lng,jdbcType=DOUBLE},
+      spare = #{record.spare,jdbcType=VARCHAR},
+      spare1 = #{record.spare1,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      obligate = #{record.obligate,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -438,71 +575,27 @@
       <if test="country != null">
         country = #{country,jdbcType=VARCHAR},
       </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=DOUBLE},
+      </if>
+      <if test="spare != null">
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        spare1 = #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obligate != null">
+        obligate = #{obligate,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <!-- 根据faceid更新用户表 -->
-    <update id="updateByFaceIDSelective" parameterType="com.example.demo.model.User">
-    update dt_user
-    <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="date != null">
-        date = #{date,jdbcType=VARCHAR},
-      </if>
-      <if test="time != null">
-        time = #{time,jdbcType=VARCHAR},
-      </if>
-      <if test="zone != null">
-        zone = #{zone,jdbcType=INTEGER},
-      </if>
-      <if test="facebook != null">
-        facebook = #{facebook,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null">
-        num = #{num,jdbcType=INTEGER},
-      </if>
-      <if test="head != null">
-        head = #{head,jdbcType=VARCHAR},
-      </if>
-      <if test="picture != null">
-        picture = #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="vip != null">
-        vip = #{vip,jdbcType=INTEGER},
-      </if>
-      <if test="viptime != null">
-        viptime = #{viptime,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="bazi != null">
-        bazi = #{bazi,jdbcType=VARCHAR},
-      </if>
-      <if test="zodiac != null">
-        zodiac = #{zodiac,jdbcType=VARCHAR},
-      </if>
-      <if test="xingzuo != null">
-        xingzuo = #{xingzuo,jdbcType=VARCHAR},
-      </if>
-      <if test="ziwei != null">
-        ziwei = #{ziwei,jdbcType=VARCHAR},
-      </if>
-      <if test="area != null">
-        area = #{area,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null">
-        country = #{country,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where facebook = #{facebook,jdbcType=VARCHAR}
-  </update>
-  
   <update id="updateByPrimaryKey" parameterType="com.example.demo.model.User">
     update dt_user
     set username = #{username,jdbcType=VARCHAR},
@@ -522,7 +615,13 @@
       xingzuo = #{xingzuo,jdbcType=VARCHAR},
       ziwei = #{ziwei,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},
-      country = #{country,jdbcType=VARCHAR}
+      country = #{country,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=DOUBLE},
+      lng = #{lng,jdbcType=DOUBLE},
+      spare = #{spare,jdbcType=VARCHAR},
+      spare1 = #{spare1,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      obligate = #{obligate,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

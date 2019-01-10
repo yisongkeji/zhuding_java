@@ -28,9 +28,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-	User QueryUser(String facebook);
+	User QueryUser(String facebookid);
 
-	List<Integer> QueryUserByCity(User user);    
-	
-	 int updateByFaceIDSelective(User record);
+	List<Integer> QueryUserByCity(User user);
+
+	int updateByFaceIDSelective(User record);
 }

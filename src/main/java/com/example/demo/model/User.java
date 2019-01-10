@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author 
@@ -43,6 +44,18 @@ public class User implements Serializable {
     private String area;
 
     private String country;
+
+    private Double lat;
+
+    private Double lng;
+
+    private String spare;
+
+    private String spare1;
+
+    private Date updatetime;
+
+    private String obligate;
 
     private static final long serialVersionUID = 1L;
 
@@ -198,6 +211,54 @@ public class User implements Serializable {
         this.country = country;
     }
 
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+
+    public String getSpare() {
+        return spare;
+    }
+
+    public void setSpare(String spare) {
+        this.spare = spare;
+    }
+
+    public String getSpare1() {
+        return spare1;
+    }
+
+    public void setSpare1(String spare1) {
+        this.spare1 = spare1;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public String getObligate() {
+        return obligate;
+    }
+
+    public void setObligate(String obligate) {
+        this.obligate = obligate;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -228,7 +289,13 @@ public class User implements Serializable {
             && (this.getXingzuo() == null ? other.getXingzuo() == null : this.getXingzuo().equals(other.getXingzuo()))
             && (this.getZiwei() == null ? other.getZiwei() == null : this.getZiwei().equals(other.getZiwei()))
             && (this.getArea() == null ? other.getArea() == null : this.getArea().equals(other.getArea()))
-            && (this.getCountry() == null ? other.getCountry() == null : this.getCountry().equals(other.getCountry()));
+            && (this.getCountry() == null ? other.getCountry() == null : this.getCountry().equals(other.getCountry()))
+            && (this.getLat() == null ? other.getLat() == null : this.getLat().equals(other.getLat()))
+            && (this.getLng() == null ? other.getLng() == null : this.getLng().equals(other.getLng()))
+            && (this.getSpare() == null ? other.getSpare() == null : this.getSpare().equals(other.getSpare()))
+            && (this.getSpare1() == null ? other.getSpare1() == null : this.getSpare1().equals(other.getSpare1()))
+            && (this.getUpdatetime() == null ? other.getUpdatetime() == null : this.getUpdatetime().equals(other.getUpdatetime()))
+            && (this.getObligate() == null ? other.getObligate() == null : this.getObligate().equals(other.getObligate()));
     }
 
     @Override
@@ -254,6 +321,12 @@ public class User implements Serializable {
         result = prime * result + ((getZiwei() == null) ? 0 : getZiwei().hashCode());
         result = prime * result + ((getArea() == null) ? 0 : getArea().hashCode());
         result = prime * result + ((getCountry() == null) ? 0 : getCountry().hashCode());
+        result = prime * result + ((getLat() == null) ? 0 : getLat().hashCode());
+        result = prime * result + ((getLng() == null) ? 0 : getLng().hashCode());
+        result = prime * result + ((getSpare() == null) ? 0 : getSpare().hashCode());
+        result = prime * result + ((getSpare1() == null) ? 0 : getSpare1().hashCode());
+        result = prime * result + ((getUpdatetime() == null) ? 0 : getUpdatetime().hashCode());
+        result = prime * result + ((getObligate() == null) ? 0 : getObligate().hashCode());
         return result;
     }
 
@@ -282,6 +355,12 @@ public class User implements Serializable {
         sb.append(", ziwei=").append(ziwei);
         sb.append(", area=").append(area);
         sb.append(", country=").append(country);
+        sb.append(", lat=").append(lat);
+        sb.append(", lng=").append(lng);
+        sb.append(", spare=").append(spare);
+        sb.append(", spare1=").append(spare1);
+        sb.append(", updatetime=").append(updatetime);
+        sb.append(", obligate=").append(obligate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
