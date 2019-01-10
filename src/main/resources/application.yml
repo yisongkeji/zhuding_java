@@ -1,0 +1,46 @@
+server:
+  port: 8080
+spring:
+
+    datasource:
+        name: localhost
+        url: jdbc:mysql://localhost:3306/zhuding?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+        username: root
+        password: root
+
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mappering/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.example.demo.model  # 注意：对应实体类的路径com.example.demo.model
+
+  
+#返回的前缀   目录对应src/main/webapp下
+#spring.mvc.view.prefix: /WEB-INF/jsp/
+#返回的后缀
+#spring.mvc.view.suffix: .jsp
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+logging:
+ # file: zhuding.log    
+  level:
+    com.example.demo.mapper.ZoneMapper : debug
