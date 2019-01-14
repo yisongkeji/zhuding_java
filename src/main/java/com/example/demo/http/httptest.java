@@ -185,7 +185,7 @@ public class httptest {
         mapd.put("accountId", i);
         mapd.put("target",a);
         mapd.put("debug", "false");
-        System.out.println(JSON.toJSONString(mapd));
+      //  System.out.println(JSON.toJSONString(mapd));
         
         /*环信
        String hstr=  "http://a1.easemob.com/1122161011178276/testapp/token";
@@ -195,10 +195,40 @@ public class httptest {
         maph.put("grant_type", "YXA6VsR5JypETS3iPFvNNxYklmho0Vw");
        */  
         
-        String body = sendPostDataByJson(url, JSON.toJSONString(map), "utf-8");
-        JSONObject ojb = JSON.parseObject(body);
+        String rebody = sendPostDataByJson(urld, JSON.toJSONString(mapd), "utf-8");
+        JSONObject ojb = JSON.parseObject(rebody);
         System.out.println(ojb);
-//        JSONArray result =   ojb.getJSONArray("result");
+        JSONArray result =   ojb.getJSONArray("result");
+		for(int j = 0;j<result.size();j++) {					
+			JSONObject resultjson = JSON.parseObject(result.get(j).toString());
+			int user_id = resultjson.getInteger("user_id");
+			
+			System.out.println(user_id);
+			String score = resultjson.get("score").toString();
+			String desc = resultjson.get("desc").toString();
+			JSONObject comment = JSON.parseObject(resultjson.get("comment").toString());
+			String commentdesc = comment.get("desc").toString();
+			String commentgood = comment.get("good").toString();
+			String commentbad = comment.get("bad").toString();
+			JSONObject characteristic = JSON.parseObject(resultjson.get("characteristic").toString());
+			String characteristicdesc = characteristic.get("desc").toString();
+			String characteristicgood = characteristic.get("good").toString();
+			String characteristicbad = characteristic.get("bad").toString();
+			JSONObject mind = JSON.parseObject(resultjson.get("mind").toString());
+			String mindscore = mind.get("score").toString();
+			String minddesc = mind.get("desc").toString();
+			JSONObject body = JSON.parseObject(resultjson.get("body").toString());
+			String bodyscore = body.get("score").toString();
+			String bodydesc = body.get("desc").toString();
+			JSONObject character = JSON.parseObject(resultjson.get("character").toString());
+			String characterscore = character.get("score").toString();
+			String characterdesc = character.get("desc").toString();
+			
+//			System.out.println(commentdesc);
+//			System.out.println(characteristicdesc);
+//			System.out.println(characterscore);
+//			System.out.println(characterdesc);
+		}
 //        for(int z = 0;z<result.size();z++) {
 //        	JSONObject test = result.getJSONObject(z);
 //        	String  comment = test.getString("comment");
@@ -206,19 +236,21 @@ public class httptest {
 //        	//System.out.println(commentjs.get("desc"));
 //        }
 
-  //接收ziwei的方法
+  /*
+                接收ziwei的方法
         JSONArray  jsonArray  =   ojb.getJSONArray("ziwei");
-      //  System.out.println(jsonArray.to));
     	StringBuffer ziwei =  new StringBuffer();
     	String s4 = null;
         for(int j= 0;j<jsonArray.size();j++) {
 			  String ziwei1 = jsonArray.get(j).toString();
-			  s4 = ziwei.append(ziwei1+",").toString();
-        //	System.out.println(s4);
+			  s4 = ziwei.append(ziwei1+",").toString();       
         }
         String s = s4.substring(0,s4.length()-1);
         System.out.println(s);
+        */
     }
+ 
+		
 /*
     @Test
     public void testSendGetData() throws ClientProtocolException, IOException {

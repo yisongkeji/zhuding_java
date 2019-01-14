@@ -42,4 +42,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.updateByFaceIDSelective(record);
 	}
 
+	@Override
+	public User selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+
 }

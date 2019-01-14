@@ -12,4 +12,5 @@ public interface UserService {
 	 List<Integer> QueryUserByCity(User user);
 	 
 	 int updateByFaceIDSelective(User record);
+	 User selectByPrimaryKey(Integer id);
 }

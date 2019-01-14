@@ -142,12 +142,18 @@
     <if test="area != null">
     and area = #{area,jdbcType=VARCHAR}
     </if>
+    <if test="spare != null">
+    and spare = #{spare,jdbcType=VARCHAR}
+    </if>
+    <if test="spare1 != null">
+    and spare1 = #{spare1,jdbcType=VARCHAR}
+    </if>
     and id != #{id,jdbcType=INTEGER}
   </select>
   
   
    <!-- 根据faceid更新用户表 -->
-    <update id="updateByFaceIDSelective" parameterType="com.example.demo.model.User">
+<update id="updateByFaceIDSelective" parameterType="com.example.demo.model.User">
     update dt_user
     <set>
       <if test="username != null">
@@ -204,10 +210,27 @@
       <if test="country != null">
         country = #{country,jdbcType=VARCHAR},
       </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=DOUBLE},
+      </if>
+      <if test="spare != null">
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        spare1 = #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obligate != null">
+        obligate = #{obligate,jdbcType=VARCHAR},
+      </if>
     </set>
     where facebook = #{facebook,jdbcType=VARCHAR}
   </update>
-  
   
   
   
