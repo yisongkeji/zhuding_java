@@ -179,7 +179,7 @@ public class httptest {
         map.put("accountId",1);
         
         String urld = "https://api2047.foreseers.com/Dating/matching";
-        int i = 1;
+        int i = 3;
         int a[] = {2};
         Map<String, Object> mapd = new HashMap<String, Object>();
         mapd.put("accountId", i);
@@ -203,7 +203,7 @@ public class httptest {
 			JSONObject resultjson = JSON.parseObject(result.get(j).toString());
 			int user_id = resultjson.getInteger("user_id");
 			
-			System.out.println(user_id);
+		//	System.out.println(user_id);
 			String score = resultjson.get("score").toString();
 			String desc = resultjson.get("desc").toString();
 			JSONObject comment = JSON.parseObject(resultjson.get("comment").toString());
@@ -224,8 +224,8 @@ public class httptest {
 			String characterscore = character.get("score").toString();
 			String characterdesc = character.get("desc").toString();
 			
-//			System.out.println(commentdesc);
-//			System.out.println(characteristicdesc);
+			System.out.println(score);
+		System.out.println(commentdesc);
 //			System.out.println(characterscore);
 //			System.out.println(characterdesc);
 		}

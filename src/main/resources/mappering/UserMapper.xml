@@ -113,6 +113,29 @@
       </if>
     </if>
   </select>
+  
+ <select id="selectUserlistbyCountry" parameterType="com.example.demo.model.User" resultMap="BaseResultMap">
+    select 
+   <include refid="Base_Column_List" />
+    from dt_user 
+   <trim prefix="where" prefixOverrides="and">
+    <if test="country != null">
+    country = #{country,jdbcType=VARCHAR}
+    </if>
+    <if test="city != null">
+     and city = #{city,jdbcType=VARCHAR}
+    </if>
+    <if test="area != null">
+    and area = #{area,jdbcType=VARCHAR}
+    </if>
+    <if test="spare != null">
+    and spare = #{spare,jdbcType=VARCHAR}
+    </if>
+    and id != #{id,jdbcType=INTEGER}
+    </trim>
+  </select>  
+ 
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -144,9 +167,6 @@
     </if>
     <if test="spare != null">
     and spare = #{spare,jdbcType=VARCHAR}
-    </if>
-    <if test="spare1 != null">
-    and spare1 = #{spare1,jdbcType=VARCHAR}
     </if>
     and id != #{id,jdbcType=INTEGER}
   </select>

@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UsermatchMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.Usermatch">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="zhuid" jdbcType="INTEGER" property="zhuid" />
+    <result column="congid" jdbcType="INTEGER" property="congid" />
+    <result column="userscore" jdbcType="INTEGER" property="userscore" />
+    <result column="userdesc" jdbcType="VARCHAR" property="userdesc" />
+    <result column="commentgood" jdbcType="VARCHAR" property="commentgood" />
+    <result column="commentbad" jdbcType="VARCHAR" property="commentbad" />
+    <result column="characteristicgood" jdbcType="VARCHAR" property="characteristicgood" />
+    <result column="characteristicbad" jdbcType="VARCHAR" property="characteristicbad" />
+    <result column="mindscore" jdbcType="INTEGER" property="mindscore" />
+    <result column="minddesc" jdbcType="VARCHAR" property="minddesc" />
+    <result column="bodyscore" jdbcType="INTEGER" property="bodyscore" />
+    <result column="bodydesc" jdbcType="VARCHAR" property="bodydesc" />
+    <result column="characterscore" jdbcType="INTEGER" property="characterscore" />
+    <result column="characterdesc" jdbcType="VARCHAR" property="characterdesc" />
+    <result column="distance" jdbcType="INTEGER" property="distance" />
+    <result column="spare" jdbcType="VARCHAR" property="spare" />
+    <result column="spare1" jdbcType="VARCHAR" property="spare1" />
+    <result column="spare2" jdbcType="VARCHAR" property="spare2" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.UsermatchWithBLOBs">
+    <result column="commentdesc" jdbcType="LONGVARCHAR" property="commentdesc" />
+    <result column="characteristicdesc" jdbcType="LONGVARCHAR" property="characteristicdesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, zhuid, congid, userscore, userdesc, commentgood, commentbad, characteristicgood, 
+    characteristicbad, mindscore, minddesc, bodyscore, bodydesc, characterscore, characterdesc, 
+    distance, spare, spare1, spare2
+  </sql>
+  <sql id="Blob_Column_List">
+    commentdesc, characteristicdesc
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.model.UsermatchExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dt_usermatch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.example.demo.model.UsermatchExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dt_usermatch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dt_usermatch
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询 -->
+      <select id="usermatchQuery" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dt_usermatch
+    where (zhuid = #{zhuid,jdbcType=INTEGER} and congid = #{congid,jdbcType=INTEGER})  or (zhuid = #{congid,jdbcType=INTEGER} and congid = #{zhuid,jdbcType=INTEGER}) 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dt_usermatch
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.model.UsermatchExample">
+    delete from dt_usermatch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into dt_usermatch (zhuid, congid, userscore, 
+      userdesc, commentgood, commentbad, 
+      characteristicgood, characteristicbad, 
+      mindscore, minddesc, bodyscore, 
+      bodydesc, characterscore, characterdesc, 
+      distance, spare, spare1, 
+      spare2, commentdesc, characteristicdesc
+      )
+    values (#{zhuid,jdbcType=INTEGER}, #{congid,jdbcType=INTEGER}, #{userscore,jdbcType=INTEGER}, 
+      #{userdesc,jdbcType=VARCHAR}, #{commentgood,jdbcType=VARCHAR}, #{commentbad,jdbcType=VARCHAR}, 
+      #{characteristicgood,jdbcType=VARCHAR}, #{characteristicbad,jdbcType=VARCHAR}, 
+      #{mindscore,jdbcType=INTEGER}, #{minddesc,jdbcType=VARCHAR}, #{bodyscore,jdbcType=INTEGER}, 
+      #{bodydesc,jdbcType=VARCHAR}, #{characterscore,jdbcType=INTEGER}, #{characterdesc,jdbcType=VARCHAR}, 
+      #{distance,jdbcType=INTEGER}, #{spare,jdbcType=VARCHAR}, #{spare1,jdbcType=VARCHAR}, 
+      #{spare2,jdbcType=VARCHAR}, #{commentdesc,jdbcType=LONGVARCHAR}, #{characteristicdesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into dt_usermatch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="zhuid != null">
+        zhuid,
+      </if>
+      <if test="congid != null">
+        congid,
+      </if>
+      <if test="userscore != null">
+        userscore,
+      </if>
+      <if test="userdesc != null">
+        userdesc,
+      </if>
+      <if test="commentgood != null">
+        commentgood,
+      </if>
+      <if test="commentbad != null">
+        commentbad,
+      </if>
+      <if test="characteristicgood != null">
+        characteristicgood,
+      </if>
+      <if test="characteristicbad != null">
+        characteristicbad,
+      </if>
+      <if test="mindscore != null">
+        mindscore,
+      </if>
+      <if test="minddesc != null">
+        minddesc,
+      </if>
+      <if test="bodyscore != null">
+        bodyscore,
+      </if>
+      <if test="bodydesc != null">
+        bodydesc,
+      </if>
+      <if test="characterscore != null">
+        characterscore,
+      </if>
+      <if test="characterdesc != null">
+        characterdesc,
+      </if>
+      <if test="distance != null">
+        distance,
+      </if>
+      <if test="spare != null">
+        spare,
+      </if>
+      <if test="spare1 != null">
+        spare1,
+      </if>
+      <if test="spare2 != null">
+        spare2,
+      </if>
+      <if test="commentdesc != null">
+        commentdesc,
+      </if>
+      <if test="characteristicdesc != null">
+        characteristicdesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="zhuid != null">
+        #{zhuid,jdbcType=INTEGER},
+      </if>
+      <if test="congid != null">
+        #{congid,jdbcType=INTEGER},
+      </if>
+      <if test="userscore != null">
+        #{userscore,jdbcType=INTEGER},
+      </if>
+      <if test="userdesc != null">
+        #{userdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="commentgood != null">
+        #{commentgood,jdbcType=VARCHAR},
+      </if>
+      <if test="commentbad != null">
+        #{commentbad,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristicgood != null">
+        #{characteristicgood,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristicbad != null">
+        #{characteristicbad,jdbcType=VARCHAR},
+      </if>
+      <if test="mindscore != null">
+        #{mindscore,jdbcType=INTEGER},
+      </if>
+      <if test="minddesc != null">
+        #{minddesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyscore != null">
+        #{bodyscore,jdbcType=INTEGER},
+      </if>
+      <if test="bodydesc != null">
+        #{bodydesc,jdbcType=VARCHAR},
+      </if>
+      <if test="characterscore != null">
+        #{characterscore,jdbcType=INTEGER},
+      </if>
+      <if test="characterdesc != null">
+        #{characterdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null">
+        #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="spare != null">
+        #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="spare2 != null">
+        #{spare2,jdbcType=VARCHAR},
+      </if>
+      <if test="commentdesc != null">
+        #{commentdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="characteristicdesc != null">
+        #{characteristicdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.model.UsermatchExample" resultType="java.lang.Long">
+    select count(*) from dt_usermatch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dt_usermatch
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.zhuid != null">
+        zhuid = #{record.zhuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.congid != null">
+        congid = #{record.congid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userscore != null">
+        userscore = #{record.userscore,jdbcType=INTEGER},
+      </if>
+      <if test="record.userdesc != null">
+        userdesc = #{record.userdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentgood != null">
+        commentgood = #{record.commentgood,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentbad != null">
+        commentbad = #{record.commentbad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.characteristicgood != null">
+        characteristicgood = #{record.characteristicgood,jdbcType=VARCHAR},
+      </if>
+      <if test="record.characteristicbad != null">
+        characteristicbad = #{record.characteristicbad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mindscore != null">
+        mindscore = #{record.mindscore,jdbcType=INTEGER},
+      </if>
+      <if test="record.minddesc != null">
+        minddesc = #{record.minddesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bodyscore != null">
+        bodyscore = #{record.bodyscore,jdbcType=INTEGER},
+      </if>
+      <if test="record.bodydesc != null">
+        bodydesc = #{record.bodydesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.characterscore != null">
+        characterscore = #{record.characterscore,jdbcType=INTEGER},
+      </if>
+      <if test="record.characterdesc != null">
+        characterdesc = #{record.characterdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.distance != null">
+        distance = #{record.distance,jdbcType=INTEGER},
+      </if>
+      <if test="record.spare != null">
+        spare = #{record.spare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare1 != null">
+        spare1 = #{record.spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare2 != null">
+        spare2 = #{record.spare2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentdesc != null">
+        commentdesc = #{record.commentdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.characteristicdesc != null">
+        characteristicdesc = #{record.characteristicdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update dt_usermatch
+    set id = #{record.id,jdbcType=INTEGER},
+      zhuid = #{record.zhuid,jdbcType=INTEGER},
+      congid = #{record.congid,jdbcType=INTEGER},
+      userscore = #{record.userscore,jdbcType=INTEGER},
+      userdesc = #{record.userdesc,jdbcType=VARCHAR},
+      commentgood = #{record.commentgood,jdbcType=VARCHAR},
+      commentbad = #{record.commentbad,jdbcType=VARCHAR},
+      characteristicgood = #{record.characteristicgood,jdbcType=VARCHAR},
+      characteristicbad = #{record.characteristicbad,jdbcType=VARCHAR},
+      mindscore = #{record.mindscore,jdbcType=INTEGER},
+      minddesc = #{record.minddesc,jdbcType=VARCHAR},
+      bodyscore = #{record.bodyscore,jdbcType=INTEGER},
+      bodydesc = #{record.bodydesc,jdbcType=VARCHAR},
+      characterscore = #{record.characterscore,jdbcType=INTEGER},
+      characterdesc = #{record.characterdesc,jdbcType=VARCHAR},
+      distance = #{record.distance,jdbcType=INTEGER},
+      spare = #{record.spare,jdbcType=VARCHAR},
+      spare1 = #{record.spare1,jdbcType=VARCHAR},
+      spare2 = #{record.spare2,jdbcType=VARCHAR},
+      commentdesc = #{record.commentdesc,jdbcType=LONGVARCHAR},
+      characteristicdesc = #{record.characteristicdesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dt_usermatch
+    set id = #{record.id,jdbcType=INTEGER},
+      zhuid = #{record.zhuid,jdbcType=INTEGER},
+      congid = #{record.congid,jdbcType=INTEGER},
+      userscore = #{record.userscore,jdbcType=INTEGER},
+      userdesc = #{record.userdesc,jdbcType=VARCHAR},
+      commentgood = #{record.commentgood,jdbcType=VARCHAR},
+      commentbad = #{record.commentbad,jdbcType=VARCHAR},
+      characteristicgood = #{record.characteristicgood,jdbcType=VARCHAR},
+      characteristicbad = #{record.characteristicbad,jdbcType=VARCHAR},
+      mindscore = #{record.mindscore,jdbcType=INTEGER},
+      minddesc = #{record.minddesc,jdbcType=VARCHAR},
+      bodyscore = #{record.bodyscore,jdbcType=INTEGER},
+      bodydesc = #{record.bodydesc,jdbcType=VARCHAR},
+      characterscore = #{record.characterscore,jdbcType=INTEGER},
+      characterdesc = #{record.characterdesc,jdbcType=VARCHAR},
+      distance = #{record.distance,jdbcType=INTEGER},
+      spare = #{record.spare,jdbcType=VARCHAR},
+      spare1 = #{record.spare1,jdbcType=VARCHAR},
+      spare2 = #{record.spare2,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+    update dt_usermatch
+    <set>
+      <if test="zhuid != null">
+        zhuid = #{zhuid,jdbcType=INTEGER},
+      </if>
+      <if test="congid != null">
+        congid = #{congid,jdbcType=INTEGER},
+      </if>
+      <if test="userscore != null">
+        userscore = #{userscore,jdbcType=INTEGER},
+      </if>
+      <if test="userdesc != null">
+        userdesc = #{userdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="commentgood != null">
+        commentgood = #{commentgood,jdbcType=VARCHAR},
+      </if>
+      <if test="commentbad != null">
+        commentbad = #{commentbad,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristicgood != null">
+        characteristicgood = #{characteristicgood,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristicbad != null">
+        characteristicbad = #{characteristicbad,jdbcType=VARCHAR},
+      </if>
+      <if test="mindscore != null">
+        mindscore = #{mindscore,jdbcType=INTEGER},
+      </if>
+      <if test="minddesc != null">
+        minddesc = #{minddesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyscore != null">
+        bodyscore = #{bodyscore,jdbcType=INTEGER},
+      </if>
+      <if test="bodydesc != null">
+        bodydesc = #{bodydesc,jdbcType=VARCHAR},
+      </if>
+      <if test="characterscore != null">
+        characterscore = #{characterscore,jdbcType=INTEGER},
+      </if>
+      <if test="characterdesc != null">
+        characterdesc = #{characterdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null">
+        distance = #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="spare != null">
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        spare1 = #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="spare2 != null">
+        spare2 = #{spare2,jdbcType=VARCHAR},
+      </if>
+      <if test="commentdesc != null">
+        commentdesc = #{commentdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="characteristicdesc != null">
+        characteristicdesc = #{characteristicdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+    update dt_usermatch
+    set zhuid = #{zhuid,jdbcType=INTEGER},
+      congid = #{congid,jdbcType=INTEGER},
+      userscore = #{userscore,jdbcType=INTEGER},
+      userdesc = #{userdesc,jdbcType=VARCHAR},
+      commentgood = #{commentgood,jdbcType=VARCHAR},
+      commentbad = #{commentbad,jdbcType=VARCHAR},
+      characteristicgood = #{characteristicgood,jdbcType=VARCHAR},
+      characteristicbad = #{characteristicbad,jdbcType=VARCHAR},
+      mindscore = #{mindscore,jdbcType=INTEGER},
+      minddesc = #{minddesc,jdbcType=VARCHAR},
+      bodyscore = #{bodyscore,jdbcType=INTEGER},
+      bodydesc = #{bodydesc,jdbcType=VARCHAR},
+      characterscore = #{characterscore,jdbcType=INTEGER},
+      characterdesc = #{characterdesc,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=INTEGER},
+      spare = #{spare,jdbcType=VARCHAR},
+      spare1 = #{spare1,jdbcType=VARCHAR},
+      spare2 = #{spare2,jdbcType=VARCHAR},
+      commentdesc = #{commentdesc,jdbcType=LONGVARCHAR},
+      characteristicdesc = #{characteristicdesc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Usermatch">
+    update dt_usermatch
+    set zhuid = #{zhuid,jdbcType=INTEGER},
+      congid = #{congid,jdbcType=INTEGER},
+      userscore = #{userscore,jdbcType=INTEGER},
+      userdesc = #{userdesc,jdbcType=VARCHAR},
+      commentgood = #{commentgood,jdbcType=VARCHAR},
+      commentbad = #{commentbad,jdbcType=VARCHAR},
+      characteristicgood = #{characteristicgood,jdbcType=VARCHAR},
+      characteristicbad = #{characteristicbad,jdbcType=VARCHAR},
+      mindscore = #{mindscore,jdbcType=INTEGER},
+      minddesc = #{minddesc,jdbcType=VARCHAR},
+      bodyscore = #{bodyscore,jdbcType=INTEGER},
+      bodydesc = #{bodydesc,jdbcType=VARCHAR},
+      characterscore = #{characterscore,jdbcType=INTEGER},
+      characterdesc = #{characterdesc,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=INTEGER},
+      spare = #{spare,jdbcType=VARCHAR},
+      spare1 = #{spare1,jdbcType=VARCHAR},
+      spare2 = #{spare2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -21,8 +21,12 @@ import com.example.demo.http.httptest;
 import com.example.demo.model.BusinessExpection;
 import com.example.demo.model.EmBussinsError;
 import com.example.demo.model.ResultType;
+import com.example.demo.model.ReturnUser;
 import com.example.demo.model.User;
+import com.example.demo.model.Usermatch;
+import com.example.demo.model.UsermatchWithBLOBs;
 import com.example.demo.service.UserService;
+import com.example.demo.service.UsermatchService;
 
 @Controller
 @RequestMapping("/match")
@@ -31,6 +35,8 @@ public class UserMatAction extends BaseAction{
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UsermatchService usermatchService;
 	
 	@RequestMapping("/matching")
 	public ResultType matching(HttpServletRequest request) throws BusinessExpection, ClientProtocolException, IOException {
@@ -84,11 +90,20 @@ public class UserMatAction extends BaseAction{
 	    userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
 	    
 	    User userinfo = userService.QueryUser(facebook);
-	    int accountId = userinfo.getId();
+	    int accountId = userinfo.getId();    
 	    Double userlat = userinfo.getLat();  //主用户的经纬度
 	    Double userlng = userinfo.getLng();
 		//根据位置信息查用户
 		List<Integer> idlist =   userService.QueryUserByCity(user);
+		List<User>  userlist = userService.selectUserlist(user);     //查询出所有附近的人
+		//排序
+		
+		for (int k = 0;k<idlist.size();k++) {    //调用接口前判断重复
+			Usermatch usermatch = usermatchService.usermatchQuery(accountId, k);
+			if(usermatch != null) {
+				idlist.remove(k);
+			}
+		}
 		System.out.println(idlist);
 		if(idlist.size() >0) {   //如果存在附近的人
 			//调用接口
@@ -106,6 +121,7 @@ public class UserMatAction extends BaseAction{
 				JSONArray result = jsn.getJSONArray("result");
 				for(int i = 0;i<result.size();i++) {					
 					//JSONObject resultjson = JSON.parseObject(result.get(i).toString());
+					//解析接口
 					JSONObject resultjson = JSON.parseObject(result.get(i).toString());
 					 user_id = resultjson.getInteger("user_id");
 					 score = resultjson.getInteger("score");
@@ -127,21 +143,43 @@ public class UserMatAction extends BaseAction{
 					JSONObject character = JSON.parseObject(resultjson.get("character").toString());
 					 characterscore = character.getInteger("score");
 					 characterdesc = character.get("desc").toString();
+					 //计算两用户之前的距离
+					 LocationUtils local = new LocationUtils();
+					 User touser = userService.selectByPrimaryKey(user_id);
+					 Double tolat = touser.getLat();
+					 Double tolan = touser.getLng();
+					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
+					 //将信息保存到数据库
+					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+					 usermatchWithBLOBs.setZhuid(accountId);
+					 usermatchWithBLOBs.setCongid(user_id);
+					 usermatchWithBLOBs.setUserscore(score);
+					 usermatchWithBLOBs.setUserdesc(desc);
+					 usermatchWithBLOBs.setCommentdesc(commentdesc);
+					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
+					 usermatchWithBLOBs.setMinddesc(minddesc);
+					 usermatchWithBLOBs.setMindscore(mindscore);
+					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
+					 usermatchWithBLOBs.setBodyscore(bodyscore);
+					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
+					 usermatchWithBLOBs.setCharacterscore(characterscore);
+					 usermatchWithBLOBs.setDistance(distance);
+					 usermatchService.insertSelective(usermatchWithBLOBs);   
 				}				
 			}
-			//计算这两个用户的距离
-			for(int toid = 0;toid<idlist.size();toid++) {
-				LocationUtils local = new LocationUtils();
-				User touser = userService.selectByPrimaryKey(toid);
-				Double tolat = touser.getLat();
-				Double tolan = touser.getLng();
-				distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
-			}
+//			//计算这两个用户的距离
+//			for(int toid = 0;toid<idlist.size();toid++) {				
+//				LocationUtils local = new LocationUtils();
+//				User touser = userService.selectByPrimaryKey(toid);
+//				Double tolat = touser.getLat();
+//				Double tolan = touser.getLng();
+//				distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
+//			}
 		}
 		
 
 		
-		return null;
+		return ResultType.creat(userlist);
 	}
 	
 	

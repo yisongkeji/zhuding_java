@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
+import com.example.demo.model.UserExample;
 import com.example.demo.service.UserService;
 
 @Service
@@ -46,6 +47,18 @@ public class UserServiceImpl implements UserService {
 	public User selectByPrimaryKey(Integer id) {
 		// TODO Auto-generated method stub
 		return userMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<User> selectUserlist(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserlistbyCountry(user);
+	}
+
+	@Override
+	public List<User> selectByExample(UserExample example) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByExample(example);
 	}
 
 }

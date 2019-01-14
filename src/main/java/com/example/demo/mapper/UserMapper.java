@@ -33,4 +33,6 @@ public interface UserMapper {
 	List<Integer> QueryUserByCity(User user);
 
 	int updateByFaceIDSelective(User record);
+
+	List<User> selectUserlistbyCountry(User user);
 }
