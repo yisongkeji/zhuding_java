@@ -180,11 +180,11 @@ public class httptest {
         
         String urld = "https://api2047.foreseers.com/Dating/matching";
         int i = 3;
-        int a[] = {2};
+        int a[] = {9,10,11,12,13,14};
         Map<String, Object> mapd = new HashMap<String, Object>();
         mapd.put("accountId", i);
         mapd.put("target",a);
-        mapd.put("debug", "false");
+      //  mapd.put("debug", "false");
       //  System.out.println(JSON.toJSONString(mapd));
         
         /*环信
@@ -198,6 +198,8 @@ public class httptest {
         String rebody = sendPostDataByJson(urld, JSON.toJSONString(mapd), "utf-8");
         JSONObject ojb = JSON.parseObject(rebody);
         System.out.println(ojb);
+        String errcode = ojb.getString("errCode");
+        System.out.println(errcode);
         JSONArray result =   ojb.getJSONArray("result");
 		for(int j = 0;j<result.size();j++) {					
 			JSONObject resultjson = JSON.parseObject(result.get(j).toString());

@@ -10,4 +10,8 @@ public interface UsermatchService {
 	UsermatchWithBLOBs selectByPrimaryKey(Integer id);
 	
 	UsermatchWithBLOBs usermatchQuery(Integer zhuid,Integer congid);
+	
+	int updateByzhuidKeySelective(UsermatchWithBLOBs record);
+	
+	//int updateByzhuidKeySelective(UsermatchWithBLOBs record);
 }

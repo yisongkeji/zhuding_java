@@ -1,8 +1,11 @@
 package com.example.demo.mapper;
 
+import com.example.demo.model.ReturnUser;
 import com.example.demo.model.User;
 import com.example.demo.model.UserExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -35,4 +38,8 @@ public interface UserMapper {
 	int updateByFaceIDSelective(User record);
 
 	List<User> selectUserlistbyCountry(User user);
+	
+	 List<Integer> QueryUserByNUM(Integer paihang,Integer getnum);
+
+	 List<Integer> QueryUserByqueNUM(Map map);
 }

@@ -32,4 +32,10 @@ public class UsermatchServiceImpl implements UsermatchService {
 		return usermatchMapper.insertSelective(record);
 	}
 
+	@Override
+	public int updateByzhuidKeySelective(UsermatchWithBLOBs record) {
+		// TODO Auto-generated method stub
+		return usermatchMapper.updateByzhuidKeySelective(record);
+	}
+
 }

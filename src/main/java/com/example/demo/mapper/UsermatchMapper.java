@@ -36,4 +36,6 @@ public interface UsermatchMapper {
     int updateByPrimaryKey(Usermatch record);
 
     UsermatchWithBLOBs usermatchQuery(Integer zhuid, Integer congid);
+
+	int updateByzhuidKeySelective(UsermatchWithBLOBs record);
 }

@@ -1,6 +1,8 @@
 package com.example.demo.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -80,28 +83,68 @@ public class UserMatAction extends BaseAction{
 		
 		User user = new User(); 
 		user.setArea(area);
-		user.setCity(city);
-		user.setCountry(country);
-		user.setFacebook(facebook);
+		user.setCity("天津");
+		user.setCountry("中国");
 		user.setSpare(spare);
 		user.setSpare1(spare1);
 		user.setLat(Double.parseDouble(lat));
 		user.setLng(Double.parseDouble(lng));
-	    userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
+	 //   userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
 	    
 	    User userinfo = userService.QueryUser(facebook);
 	    int accountId = userinfo.getId();    
-	    Double userlat = userinfo.getLat();  //主用户的经纬度
-	    Double userlng = userinfo.getLng();
+//	    Double userlat = userinfo.getLat();  //主用户的经纬度
+//	    Double userlng = userinfo.getLng();
 		//根据位置信息查用户
-		List<Integer> idlist =   userService.QueryUserByCity(user);
-		List<User>  userlist = userService.selectUserlist(user);     //查询出所有附近的人
-		//排序
+		List<Integer> idlist = userService.QueryUserByCity(userinfo);
+		
+		List<Integer> listuser = new ArrayList<Integer>();  //推送列表
+		
+		//判断周围人的个数，如果太少就添加，添加特殊用户
+		if(idlist.size()<50) {
+			//插入两个根据num排行的随机数
+			int paihang = 20;
+			int getnum = 2;
+			 listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
+			for(int j = 0;j<listuser.size();j++) {
+				idlist.add(listuser.get(j));			
+			}
+			int quenum = 50-idlist.size();
+			Map map = new HashMap<String, Object>();
+			map.put("country", country);
+			map.put("city", city);
+			map.put("quenum", quenum);
+			List<Integer> quelist = userService.QueryUserByqueNUM(map);  //不足50个补齐
+			for(int a=0;a<quelist.size();a++ ){
+				idlist.add(quelist.get(a));				
+			}
+		}else {
+			if(idlist.size()<100) {
+				int paihang = 40;
+				int getnum = 5;
+				listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
+				for(int j = 0;j<listuser.size();j++) {
+					idlist.add(listuser.get(j));			
+				}				
+			}else {
+				int paihang = 100;
+				int getnum = 10;
+				listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
+				for(int j = 0;j<listuser.size();j++) {
+					idlist.add(listuser.get(j));			
+				}
+				
+			}
+			
+		}
+
+		//判断周围人的个数，如果太少就添加，添加特殊用户		
+		List<Integer> idlistinfo = idlist;
 		
 		for (int k = 0;k<idlist.size();k++) {    //调用接口前判断重复
-			Usermatch usermatch = usermatchService.usermatchQuery(accountId, k);
+			Usermatch usermatch = usermatchService.usermatchQuery(accountId,idlist.get(k));
 			if(usermatch != null) {
-				idlist.remove(k);
+				idlist.remove(k--);
 			}
 		}
 		System.out.println(idlist);
@@ -115,7 +158,7 @@ public class UserMatAction extends BaseAction{
 			String rebody = httptest.sendPostDataByJson(url,JSON.toJSONString(map),"utf-8");
 			System.out.println(rebody);
 			JSONObject jsn = JSON.parseObject(rebody);
-			String errcode = jsn.getString("errcode");
+			String errcode = jsn.getString("errCode");
 			if(errcode.equals("200")) {
 				System.out.println("调用接口成功");
 				JSONArray result = jsn.getJSONArray("result");
@@ -144,11 +187,11 @@ public class UserMatAction extends BaseAction{
 					 characterscore = character.getInteger("score");
 					 characterdesc = character.get("desc").toString();
 					 //计算两用户之前的距离
-					 LocationUtils local = new LocationUtils();
-					 User touser = userService.selectByPrimaryKey(user_id);
-					 Double tolat = touser.getLat();
-					 Double tolan = touser.getLng();
-					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
+//					 LocationUtils local = new LocationUtils();
+//					 User touser = userService.selectByPrimaryKey(user_id);
+//					 Double tolat = touser.getLat();
+//					 Double tolan = touser.getLng();
+//					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
 					 //将信息保存到数据库
 					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
 					 usermatchWithBLOBs.setZhuid(accountId);
@@ -163,23 +206,49 @@ public class UserMatAction extends BaseAction{
 					 usermatchWithBLOBs.setBodyscore(bodyscore);
 					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
 					 usermatchWithBLOBs.setCharacterscore(characterscore);
-					 usermatchWithBLOBs.setDistance(distance);
+					// usermatchWithBLOBs.setDistance(distance);
 					 usermatchService.insertSelective(usermatchWithBLOBs);   
 				}				
 			}
-//			//计算这两个用户的距离
-//			for(int toid = 0;toid<idlist.size();toid++) {				
-//				LocationUtils local = new LocationUtils();
-//				User touser = userService.selectByPrimaryKey(toid);
-//				Double tolat = touser.getLat();
-//				Double tolan = touser.getLng();
-//				distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
-//			}
+						
+		}
+		//计算两个用户之间的距离,更新到表中
+		for(int z=0;z<idlistinfo.size();z++) {
+			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+			 LocationUtils local = new LocationUtils();
+			 User touser = userService.selectByPrimaryKey(idlistinfo.get(z));
+			 Double tolat = touser.getLat();
+			 Double tolan = touser.getLng();
+			 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
+			 usermatchWithBLOBs.setZhuid(accountId);
+			 usermatchWithBLOBs.setCongid(idlistinfo.get(z));
+			 usermatchWithBLOBs.setDistance(distance);
+			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
 		}
 		
-
-		
-		return ResultType.creat(userlist);
+		//得到给前端返回的list用户，需要修改，根据idlist，查询用户列表
+		//List<User> userlist = userService.selectUserlist(user);	
+		List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
+	    for(int i=0;i<idlistinfo.size();i++) {
+	    	ReturnUser returnUser = new ReturnUser();
+	    	int id = idlist.get(i);
+	    	User usertest = userService.selectByPrimaryKey(id);
+	    	Usermatch usermatch =	usermatchService.usermatchQuery(id,accountId);
+	    	if(usermatch != null) {
+	    	returnUser.setUserscore(usermatch.getUserscore());
+	    	returnUser.setDistance(usermatch.getDistance());
+	    	}
+	    	if(listuser.contains(id)) {
+	    		returnUser.setNumuser(1);
+	    	}else {
+	    		returnUser.setNumuser(0);
+	    	}
+	    	BeanUtils.copyProperties(usertest, returnUser);
+	    	returnUserlist.add(returnUser);
+	    }
+	    Collections.sort(returnUserlist);
+	    
+		return ResultType.creat(returnUserlist);
 	}
 	
 	

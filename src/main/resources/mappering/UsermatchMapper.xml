@@ -148,6 +148,70 @@
     from dt_usermatch
     where (zhuid = #{zhuid,jdbcType=INTEGER} and congid = #{congid,jdbcType=INTEGER})  or (zhuid = #{congid,jdbcType=INTEGER} and congid = #{zhuid,jdbcType=INTEGER}) 
   </select>
+  <!-- 根据zhuid和congid更新表 -->
+   <update id="updateByzhuidKeySelective" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+    update dt_usermatch
+    <set>
+      <if test="userscore != null">
+        userscore = #{userscore,jdbcType=INTEGER},
+      </if>
+      <if test="userdesc != null">
+        userdesc = #{userdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="commentgood != null">
+        commentgood = #{commentgood,jdbcType=VARCHAR},
+      </if>
+      <if test="commentbad != null">
+        commentbad = #{commentbad,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristicgood != null">
+        characteristicgood = #{characteristicgood,jdbcType=VARCHAR},
+      </if>
+      <if test="characteristicbad != null">
+        characteristicbad = #{characteristicbad,jdbcType=VARCHAR},
+      </if>
+      <if test="mindscore != null">
+        mindscore = #{mindscore,jdbcType=INTEGER},
+      </if>
+      <if test="minddesc != null">
+        minddesc = #{minddesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyscore != null">
+        bodyscore = #{bodyscore,jdbcType=INTEGER},
+      </if>
+      <if test="bodydesc != null">
+        bodydesc = #{bodydesc,jdbcType=VARCHAR},
+      </if>
+      <if test="characterscore != null">
+        characterscore = #{characterscore,jdbcType=INTEGER},
+      </if>
+      <if test="characterdesc != null">
+        characterdesc = #{characterdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null">
+        distance = #{distance,jdbcType=INTEGER},
+      </if>
+      <if test="spare != null">
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        spare1 = #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="spare2 != null">
+        spare2 = #{spare2,jdbcType=VARCHAR},
+      </if>
+      <if test="commentdesc != null">
+        commentdesc = #{commentdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="characteristicdesc != null">
+        characteristicdesc = #{characteristicdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+   where (zhuid = #{zhuid,jdbcType=INTEGER} and congid = #{congid,jdbcType=INTEGER})  or (zhuid = #{congid,jdbcType=INTEGER} and congid = #{zhuid,jdbcType=INTEGER}) 
+  </update>
+  
+  
+  
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from dt_usermatch
