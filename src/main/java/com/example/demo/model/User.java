@@ -55,7 +55,25 @@ public class User implements Serializable {
 
     private Date updatetime;
 
+    /**
+     * 个性签名
+     */
     private String obligate;
+
+    private Integer numerology;
+
+    private Integer userstar;
+
+    private Integer reservedint;
+
+    private String reservedvar;
+
+    private String reservedvar1;
+
+    /**
+     * 五行
+     */
+    private String cat1;
 
     private static final long serialVersionUID = 1L;
 
@@ -259,6 +277,54 @@ public class User implements Serializable {
         this.obligate = obligate;
     }
 
+    public Integer getNumerology() {
+        return numerology;
+    }
+
+    public void setNumerology(Integer numerology) {
+        this.numerology = numerology;
+    }
+
+    public Integer getUserstar() {
+        return userstar;
+    }
+
+    public void setUserstar(Integer userstar) {
+        this.userstar = userstar;
+    }
+
+    public Integer getReservedint() {
+        return reservedint;
+    }
+
+    public void setReservedint(Integer reservedint) {
+        this.reservedint = reservedint;
+    }
+
+    public String getReservedvar() {
+        return reservedvar;
+    }
+
+    public void setReservedvar(String reservedvar) {
+        this.reservedvar = reservedvar;
+    }
+
+    public String getReservedvar1() {
+        return reservedvar1;
+    }
+
+    public void setReservedvar1(String reservedvar1) {
+        this.reservedvar1 = reservedvar1;
+    }
+
+    public String getCat1() {
+        return cat1;
+    }
+
+    public void setCat1(String cat1) {
+        this.cat1 = cat1;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -295,7 +361,13 @@ public class User implements Serializable {
             && (this.getSpare() == null ? other.getSpare() == null : this.getSpare().equals(other.getSpare()))
             && (this.getSpare1() == null ? other.getSpare1() == null : this.getSpare1().equals(other.getSpare1()))
             && (this.getUpdatetime() == null ? other.getUpdatetime() == null : this.getUpdatetime().equals(other.getUpdatetime()))
-            && (this.getObligate() == null ? other.getObligate() == null : this.getObligate().equals(other.getObligate()));
+            && (this.getObligate() == null ? other.getObligate() == null : this.getObligate().equals(other.getObligate()))
+            && (this.getNumerology() == null ? other.getNumerology() == null : this.getNumerology().equals(other.getNumerology()))
+            && (this.getUserstar() == null ? other.getUserstar() == null : this.getUserstar().equals(other.getUserstar()))
+            && (this.getReservedint() == null ? other.getReservedint() == null : this.getReservedint().equals(other.getReservedint()))
+            && (this.getReservedvar() == null ? other.getReservedvar() == null : this.getReservedvar().equals(other.getReservedvar()))
+            && (this.getReservedvar1() == null ? other.getReservedvar1() == null : this.getReservedvar1().equals(other.getReservedvar1()))
+            && (this.getCat1() == null ? other.getCat1() == null : this.getCat1().equals(other.getCat1()));
     }
 
     @Override
@@ -327,6 +399,12 @@ public class User implements Serializable {
         result = prime * result + ((getSpare1() == null) ? 0 : getSpare1().hashCode());
         result = prime * result + ((getUpdatetime() == null) ? 0 : getUpdatetime().hashCode());
         result = prime * result + ((getObligate() == null) ? 0 : getObligate().hashCode());
+        result = prime * result + ((getNumerology() == null) ? 0 : getNumerology().hashCode());
+        result = prime * result + ((getUserstar() == null) ? 0 : getUserstar().hashCode());
+        result = prime * result + ((getReservedint() == null) ? 0 : getReservedint().hashCode());
+        result = prime * result + ((getReservedvar() == null) ? 0 : getReservedvar().hashCode());
+        result = prime * result + ((getReservedvar1() == null) ? 0 : getReservedvar1().hashCode());
+        result = prime * result + ((getCat1() == null) ? 0 : getCat1().hashCode());
         return result;
     }
 
@@ -361,6 +439,12 @@ public class User implements Serializable {
         sb.append(", spare1=").append(spare1);
         sb.append(", updatetime=").append(updatetime);
         sb.append(", obligate=").append(obligate);
+        sb.append(", numerology=").append(numerology);
+        sb.append(", userstar=").append(userstar);
+        sb.append(", reservedint=").append(reservedint);
+        sb.append(", reservedvar=").append(reservedvar);
+        sb.append(", reservedvar1=").append(reservedvar1);
+        sb.append(", cat1=").append(cat1);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

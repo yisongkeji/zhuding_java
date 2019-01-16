@@ -88,6 +88,8 @@ public class UserAction extends BaseAction{
 		String horoscope = "";  //星座
 		String zodiac = "";    //生肖		
 		String bazi = "";     //八字
+		String cat1 = "";
+		String star = "";
 //		log.info("用户名:"+username);
 //		log.info("日期:"+date);
 //		log.info("时间:"+time);
@@ -131,7 +133,8 @@ public class UserAction extends BaseAction{
 		if(errcode.equals("200") ) {
 		//	log.info("调用接口成功");
 			numerology = jsn.getString("numerology");  
-			//String cat1 = jsn.getString("cat1");  //五行
+		    cat1 = jsn.getString("cat1");  //五行
+		    star = jsn.getString("star");  //五行
 			horoscope = jsn.getString("horoscope");  //星座
 			zodiac = jsn.getString("zodiac");   //生肖
 			//ziwei
@@ -164,11 +167,14 @@ public class UserAction extends BaseAction{
 		user.setDate(date);
 		user.setTime(time);
 		user.setFacebook(facebookid);
-		user.setNum(Integer.parseInt(numerology));
+		user.setCat1(cat1);
+		//user.setNum(Integer.parseInt(numerology));
+		user.setNumerology(Integer.parseInt(numerology));
 		user.setXingzuo(horoscope);
 		user.setZiwei(ziwei);
 		user.setZone(zone);
 		user.setZodiac(zodiac);
+		user.setUserstar(Integer.parseInt(star));
 		
 //		log.info("user:"+user);
 		userService.updateByPrimaryKeySelective(user);
