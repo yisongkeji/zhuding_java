@@ -75,5 +75,11 @@ public class UserServiceImpl implements UserService {
 		return userMapper.QueryUserByqueNUM(map);
 	}
 
+	@Override
+	public int updateByPrimaryKeySelective(User record) {
+		// TODO Auto-generated method stub
+		return userMapper.updateByPrimaryKeySelective(record);
+	}
+
 
 }

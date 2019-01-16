@@ -24,4 +24,6 @@ public interface UserService {
 	 List<Integer> QueryUserByNUM(Integer paihang,Integer getnum);
 	 
 	 List<Integer> QueryUserByqueNUM(Map map);
+	 
+	 int updateByPrimaryKeySelective(User record);
 }

@@ -80,6 +80,7 @@ public class UserAction extends BaseAction{
 		String gender = request.getParameter("gender");
 		String facebookid = request.getParameter("facebookid");
 		String  zoneString = request.getParameter("zone");
+		System.out.println(zoneString);
 		int zone = 0;
 	//	String  zoneString = "UTC-12:00";
 		String ziwei = "";        //ziwei
@@ -108,8 +109,8 @@ public class UserAction extends BaseAction{
 		userinfo.setDate(date);
 		userinfo.setTime(time);
 		userinfo.setZone(zone);
-		int accountId =  userService.insertSelective(userinfo);
-		
+		int insertid =  userService.insertSelective(userinfo);  
+		int accountId = userinfo.getId();
 	//	User user1= userService.QueryUser(facebookid);
 //		int accountId = user1.getId();
 		
@@ -156,6 +157,7 @@ public class UserAction extends BaseAction{
 		}
 
 		User user = new User();
+		user.setId(accountId);
 		user.setSex(gender);
 		user.setBazi(bazi);
 		user.setUsername(username);
@@ -169,7 +171,7 @@ public class UserAction extends BaseAction{
 		user.setZodiac(zodiac);
 		
 //		log.info("user:"+user);
-		userService.insertSelective(user);
+		userService.updateByPrimaryKeySelective(user);
 		
 		return ResultType.creat(user);
 	}
