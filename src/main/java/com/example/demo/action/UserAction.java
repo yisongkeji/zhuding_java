@@ -80,7 +80,14 @@ public class UserAction extends BaseAction{
 		String gender = request.getParameter("gender");
 		String facebookid = request.getParameter("facebookid");
 		String  zoneString = request.getParameter("zone");
-		System.out.println(zoneString);
+		String country = request.getParameter("country");
+		String city = request.getParameter("city");
+		String area = request.getParameter("area");
+		String spare = request.getParameter("addr");
+		String spare1 = request.getParameter("addrs");
+		String lat = request.getParameter("lat");   //经度
+		String lng = request.getParameter("lng");   //纬度	
+	//	System.out.println(zoneString);
 		int zone = 0;
 	//	String  zoneString = "UTC-12:00";
 		String ziwei = "";        //ziwei
@@ -111,6 +118,13 @@ public class UserAction extends BaseAction{
 		userinfo.setDate(date);
 		userinfo.setTime(time);
 		userinfo.setZone(zone);
+		userinfo.setCountry(country);
+		userinfo.setCity(city);
+		userinfo.setArea(area);
+		userinfo.setSpare(spare);
+		userinfo.setSpare1(spare1);
+		userinfo.setLat(Double.parseDouble(lat));
+		userinfo.setLng(Double.parseDouble(lng));
 		int insertid =  userService.insertSelective(userinfo);  
 		int accountId = userinfo.getId();
 	//	User user1= userService.QueryUser(facebookid);
@@ -134,7 +148,7 @@ public class UserAction extends BaseAction{
 		//	log.info("调用接口成功");
 			numerology = jsn.getString("numerology");  
 		    cat1 = jsn.getString("cat1");  //五行
-		    star = jsn.getString("star");  //五行
+		    star = jsn.getString("star");  
 			horoscope = jsn.getString("horoscope");  //星座
 			zodiac = jsn.getString("zodiac");   //生肖
 			//ziwei

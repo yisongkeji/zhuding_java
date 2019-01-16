@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -42,6 +43,7 @@ public class UserMatAction extends BaseAction{
 	private UsermatchService usermatchService;
 	
 	@RequestMapping("/matching")
+	@ResponseBody
 	public ResultType matching(HttpServletRequest request) throws BusinessExpection, ClientProtocolException, IOException {
 		String facebook = request.getParameter("facebookid");
 		String country = request.getParameter("country");
@@ -81,15 +83,16 @@ public class UserMatAction extends BaseAction{
 //		String lat = request.getParameter("lat");   //经度
 //		String lng = request.getParameter("lng");   //纬度
 		
-		User user = new User(); 
+		User user = new User();
+		user.setFacebook(facebook);
 		user.setArea(area);
-		user.setCity("天津");
-		user.setCountry("中国");
+		user.setCity(city);
+		user.setCountry(country);
 		user.setSpare(spare);
 		user.setSpare1(spare1);
 		user.setLat(Double.parseDouble(lat));
 		user.setLng(Double.parseDouble(lng));
-	    userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
+	  //  userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
 	    
 	    User userinfo = userService.QueryUser(facebook);
 	    int accountId = userinfo.getId();    
@@ -99,25 +102,31 @@ public class UserMatAction extends BaseAction{
 		List<Integer> idlist = userService.QueryUserByCity(userinfo);
 		
 		List<Integer> listuser = new ArrayList<Integer>();  //推送列表
-		
+		List<Integer> idlistinfo = new ArrayList<Integer>();
 		//判断周围人的个数，如果太少就添加，添加特殊用户
 		if(idlist.size()<50) {
 			//插入两个根据num排行的随机数
-			int paihang = 20;
-			int getnum = 2;
+			int paihang = 2;
+			int getnum = 1;
 			 listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
 			for(int j = 0;j<listuser.size();j++) {
-				idlist.add(listuser.get(j));			
+				if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {
+					idlist.add(listuser.get(j));
+				}							
 			}
-			int quenum = 50-idlist.size();
+			if(idlist.size()<10) {
+			int quenum = 10-idlist.size();			
 			Map map = new HashMap<String, Object>();
 			map.put("country", country);
 			map.put("city", city);
 			map.put("quenum", quenum);
 			List<Integer> quelist = userService.QueryUserByqueNUM(map);  //不足50个补齐
 			for(int a=0;a<quelist.size();a++ ){
-				idlist.add(quelist.get(a));				
-			}
+				if(!idlist.contains(quelist.get(a))) {
+				idlist.add(quelist.get(a));	
+				}
+				}
+			}	
 		}else {
 			if(idlist.size()<100) {
 				int paihang = 40;
@@ -137,9 +146,12 @@ public class UserMatAction extends BaseAction{
 			}
 			
 		}
-
+		// idlistinfo = idlist;
+		 for(int q=0;q<idlist.size();q++) {
+			 idlistinfo.add(idlist.get(q));
+		 }
 		//判断周围人的个数，如果太少就添加，添加特殊用户		
-		List<Integer> idlistinfo = idlist;
+		
 		
 		for (int k = 0;k<idlist.size();k++) {    //调用接口前判断重复
 			Usermatch usermatch = usermatchService.usermatchQuery(accountId,idlist.get(k));
@@ -147,7 +159,7 @@ public class UserMatAction extends BaseAction{
 				idlist.remove(k--);
 			}
 		}
-		System.out.println(idlist);
+	//	System.out.println(idlist);
 		if(idlist.size() >0) {   //如果存在附近的人
 			//调用接口
 			String url = "https://api2047.foreseers.com/Dating/matching";
@@ -156,11 +168,11 @@ public class UserMatAction extends BaseAction{
 			map.put("accountId", accountId);
 			map.put("target", idlist);
 			String rebody = httptest.sendPostDataByJson(url,JSON.toJSONString(map),"utf-8");
-			System.out.println(rebody);
+		//	System.out.println(rebody);
 			JSONObject jsn = JSON.parseObject(rebody);
 			String errcode = jsn.getString("errCode");
 			if(errcode.equals("200")) {
-				System.out.println("调用接口成功");
+				//System.out.println("调用接口成功");
 				JSONArray result = jsn.getJSONArray("result");
 				for(int i = 0;i<result.size();i++) {					
 					//JSONObject resultjson = JSON.parseObject(result.get(i).toString());
@@ -231,7 +243,7 @@ public class UserMatAction extends BaseAction{
 		List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
 	    for(int i=0;i<idlistinfo.size();i++) {
 	    	ReturnUser returnUser = new ReturnUser();
-	    	int id = idlist.get(i);
+	    	int id = idlistinfo.get(i);
 	    	User usertest = userService.selectByPrimaryKey(id);
 	    	Usermatch usermatch =	usermatchService.usermatchQuery(id,accountId);
 	    	if(usermatch != null) {

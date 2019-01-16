@@ -247,6 +247,7 @@
     </set>
     where facebook = #{facebook,jdbcType=VARCHAR}
   </update>
+  
    <!-- selectUserlist -->    
    <select id="selectUserlistbyCountry" parameterType="com.example.demo.model.User" resultMap="BaseResultMap">
     select 
@@ -271,14 +272,13 @@
  <select id="QueryUserByNUM" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select id
  <!--   <include refid="Base_Column_List" /> --> 
-    from (select * from dt_user ORDER BY num desc LIMIT #{paihang,jdbcType=INTEGER} ) t 
+    from (select * from dt_user   ORDER BY num desc LIMIT #{paihang,jdbcType=INTEGER} ) t 
    ORDER BY RAND() LIMIT #{getnum,jdbcType=INTEGER};   
   </select>
   
    <select id="QueryUserByqueNUM" parameterType="java.util.Map" resultType="java.lang.Integer">
     select id
- <!--   <include refid="Base_Column_List" /> --> 
-    from (select * from dt_user where country = #{country,jdbcType=VARCHAR} and city!= #{city,jdbcType=VARCHAR}) t 
+    from (select * from dt_user where country = #{country,jdbcType=VARCHAR} and city != #{city,jdbcType=VARCHAR}) t 
    ORDER BY RAND() LIMIT #{quenum,jdbcType=INTEGER};
   </select>
   

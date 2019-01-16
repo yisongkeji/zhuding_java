@@ -179,8 +179,8 @@ public class httptest {
         map.put("accountId",1);
         
         String urld = "https://api2047.foreseers.com/Dating/matching";
-        int i = 3;
-        int a[] = {14};
+        int i = 62;
+        int a[] = {60};
         Map<String, Object> mapd = new HashMap<String, Object>();
         mapd.put("accountId", i);
         mapd.put("target",a);
