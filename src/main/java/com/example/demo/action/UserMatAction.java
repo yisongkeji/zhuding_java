@@ -92,7 +92,7 @@ public class UserMatAction extends BaseAction{
 		user.setSpare1(spare1);
 		user.setLat(Double.parseDouble(lat));
 		user.setLng(Double.parseDouble(lng));
-	  //  userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
+	    userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
 	    
 	    User userinfo = userService.QueryUser(facebook);
 	    int accountId = userinfo.getId();    
