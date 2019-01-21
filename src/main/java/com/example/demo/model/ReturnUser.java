@@ -10,6 +10,7 @@ public class ReturnUser extends User implements Serializable,Comparable<ReturnUs
 
 	Integer  numuser;
 	
+	int age;
 	public Integer getUserscore() {
 		return userscore;
 	}
@@ -34,23 +35,17 @@ public class ReturnUser extends User implements Serializable,Comparable<ReturnUs
 	public void setNumuser(Integer numuser) {
 		this.numuser = numuser;
 	}
-
 	
-	@Override
-	public String toString() {
-		return "ReturnUser [userscore=" + userscore + ", distance=" + distance + ", numuser=" + numuser
-				+ ", getUserscore()=" + getUserscore() + ", getDistance()=" + getDistance() + ", getNumuser()="
-				+ getNumuser() + ", hashCode()=" + hashCode() + ", getId()=" + getId() + ", getUsername()="
-				+ getUsername() + ", getSex()=" + getSex() + ", getDate()=" + getDate() + ", getTime()=" + getTime()
-				+ ", getZone()=" + getZone() + ", getFacebook()=" + getFacebook() + ", getNum()=" + getNum()
-				+ ", getHead()=" + getHead() + ", getPicture()=" + getPicture() + ", getVip()=" + getVip()
-				+ ", getViptime()=" + getViptime() + ", getCity()=" + getCity() + ", getBazi()=" + getBazi()
-				+ ", getZodiac()=" + getZodiac() + ", getXingzuo()=" + getXingzuo() + ", getZiwei()=" + getZiwei()
-				+ ", getArea()=" + getArea() + ", getCountry()=" + getCountry() + ", getLat()=" + getLat()
-				+ ", getLng()=" + getLng() + ", getSpare()=" + getSpare() + ", getSpare1()=" + getSpare1()
-				+ ", getUpdatetime()=" + getUpdatetime() + ", getObligate()=" + getObligate() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + "]";
+	
+	public int getAge() {
+		return age;
 	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+
 /*
 	@Override
 	public int compareTo(ReturnUser o) {
@@ -58,6 +53,24 @@ public class ReturnUser extends User implements Serializable,Comparable<ReturnUs
 		 return this.userscore.compareTo(o.getUserscore());
 	}
 */
+
+	@Override
+	public String toString() {
+		return "ReturnUser [userscore=" + userscore + ", distance=" + distance + ", numuser=" + numuser + ", age=" + age
+				+ ", getUserscore()=" + getUserscore() + ", getDistance()=" + getDistance() + ", getNumuser()="
+				+ getNumuser() + ", getAge()=" + getAge() + ", getId()=" + getId() + ", getUsername()=" + getUsername()
+				+ ", getSex()=" + getSex() + ", getDate()=" + getDate() + ", getTime()=" + getTime() + ", getZone()="
+				+ getZone() + ", getFacebook()=" + getFacebook() + ", getNum()=" + getNum() + ", getHead()=" + getHead()
+				+ ", getPicture()=" + getPicture() + ", getVip()=" + getVip() + ", getViptime()=" + getViptime()
+				+ ", getCity()=" + getCity() + ", getBazi()=" + getBazi() + ", getZodiac()=" + getZodiac()
+				+ ", getXingzuo()=" + getXingzuo() + ", getZiwei()=" + getZiwei() + ", getArea()=" + getArea()
+				+ ", getCountry()=" + getCountry() + ", getLat()=" + getLat() + ", getLng()=" + getLng()
+				+ ", getSpare()=" + getSpare() + ", getSpare1()=" + getSpare1() + ", getUpdatetime()=" + getUpdatetime()
+				+ ", getObligate()=" + getObligate() + ", getNumerology()=" + getNumerology() + ", getUserstar()="
+				+ getUserstar() + ", getReservedint()=" + getReservedint() + ", getReservedvar()=" + getReservedvar()
+				+ ", getReservedvar1()=" + getReservedvar1() + ", getCat1()=" + getCat1() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+	}
 
 	@Override
 	public int compareTo(ReturnUser o) {

@@ -3,6 +3,7 @@ package com.example.demo.action;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.example.demo.model.BusinessExpection;
 import com.example.demo.model.EmBussinsError;
 import com.example.demo.model.ResultType;
 import com.example.demo.model.ReturnUser;
+import com.example.demo.model.ReturnUsermatch;
 import com.example.demo.model.User;
 import com.example.demo.model.Usermatch;
 import com.example.demo.model.UsermatchWithBLOBs;
@@ -74,14 +76,6 @@ public class UserMatAction extends BaseAction{
 		String characterdesc = "";
 		int distance = 1; //距离
 		
-//		String facebook = "1231";
-//		String country = "中国";
-//		String city = "天津";
-//		String area = "南开";
-//		String spare = "宝能";
-//		String spare1 = "1111号";
-//		String lat = request.getParameter("lat");   //经度
-//		String lng = request.getParameter("lng");   //纬度
 		
 		User user = new User();
 		user.setFacebook(facebook);
@@ -101,7 +95,7 @@ public class UserMatAction extends BaseAction{
 		//根据位置信息查用户
 		List<Integer> idlist = userService.QueryUserByCity(userinfo);
 		
-		List<Integer> listuser = new ArrayList<Integer>();  //推送列表
+		List<Integer> listuser = new ArrayList<Integer>();  //附近的人列表，根据用户位置查询
 		List<Integer> idlistinfo = new ArrayList<Integer>();
 		//判断周围人的个数，如果太少就添加，添加特殊用户
 		if(idlist.size()<50) {
@@ -109,6 +103,7 @@ public class UserMatAction extends BaseAction{
 			int paihang = 2;
 			int getnum = 1;
 			 listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
+			// System.out.println(listuser);
 			for(int j = 0;j<listuser.size();j++) {
 				if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {
 					idlist.add(listuser.get(j));
@@ -151,7 +146,7 @@ public class UserMatAction extends BaseAction{
 			 idlistinfo.add(idlist.get(q));
 		 }
 		//判断周围人的个数，如果太少就添加，添加特殊用户		
-		
+	//	System.out.println(idlistinfo);
 		
 		for (int k = 0;k<idlist.size();k++) {    //调用接口前判断重复
 			Usermatch usermatch = usermatchService.usermatchQuery(accountId,idlist.get(k));
@@ -211,10 +206,10 @@ public class UserMatAction extends BaseAction{
 					 usermatchWithBLOBs.setUserscore(score);
 					 usermatchWithBLOBs.setUserdesc(desc);
 					 usermatchWithBLOBs.setCommentdesc(commentdesc);
-					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
+					 usermatchWithBLOBs.setCharacteristicdesc(characteristicdesc);
 					 usermatchWithBLOBs.setMinddesc(minddesc);
 					 usermatchWithBLOBs.setMindscore(mindscore);
-					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
+					 usermatchWithBLOBs.setBodydesc(bodydesc);
 					 usermatchWithBLOBs.setBodyscore(bodyscore);
 					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
 					 usermatchWithBLOBs.setCharacterscore(characterscore);
@@ -238,17 +233,22 @@ public class UserMatAction extends BaseAction{
 			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
 		}
 		
-		//得到给前端返回的list用户，需要修改，根据idlist，查询用户列表
-		//List<User> userlist = userService.selectUserlist(user);	
+		//得到给前端返回的list用户，需要修改，根据idlist，查询用户列表	
 		List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
 	    for(int i=0;i<idlistinfo.size();i++) {
 	    	ReturnUser returnUser = new ReturnUser();
-	    	int id = idlistinfo.get(i);
+	    	int id = idlistinfo.get(i);	    	
 	    	User usertest = userService.selectByPrimaryKey(id);
+        	String  dateyear = usertest.getDate(); //用户的出生日期
+        	int useryear = Integer.parseInt(dateyear.substring(0, 4));
+	    	Date date = new Date();
+	    	int year = date.getYear()+1900;
+	    	int age = year-useryear;
+	    	returnUser.setAge(age);
 	    	Usermatch usermatch =	usermatchService.usermatchQuery(id,accountId);
 	    	if(usermatch != null) {
 	    	returnUser.setUserscore(usermatch.getUserscore());
-	    	returnUser.setDistance(usermatch.getDistance());
+	    	returnUser.setDistance(usermatch.getDistance());	    	
 	    	}
 	    	if(listuser.contains(id)) {
 	    		returnUser.setNumuser(1);
@@ -261,6 +261,30 @@ public class UserMatAction extends BaseAction{
 	    Collections.sort(returnUserlist);
 	    
 		return ResultType.creat(returnUserlist);
+	}
+	
+	//用户详细信息
+	@RequestMapping("/showUser")
+	@ResponseBody
+	public ResultType showUser(HttpServletRequest request) throws BusinessExpection {
+		String facebook = request.getParameter("facebookid");
+		int userid = Integer.parseInt(request.getParameter("userid"));
+		User userinfo = userService.QueryUser(facebook);  
+		int userinfoid = userinfo.getId();		
+		UsermatchWithBLOBs usermatchWithBLOBs = usermatchService.usermatchQuery(userinfoid, userid);
+		if(usermatchWithBLOBs == null) {
+			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
+		}
+	    User user = userService.selectByPrimaryKey(userid);
+	    String useryear =  user.getDate();
+		int year = Integer.parseInt(useryear.substring(0,4));
+	    Date date = new Date();
+	    int age = date.getYear()+1900-year;	    
+	    ReturnUsermatch returnUsermatch = new ReturnUsermatch();
+	    returnUsermatch.setAge(age);	
+	    
+	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);
+		return ResultType.creat(returnUsermatch);
 	}
 	
 	

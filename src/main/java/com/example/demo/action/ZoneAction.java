@@ -3,6 +3,7 @@ package com.example.demo.action;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,13 +57,20 @@ public class ZoneAction{
 	
 	@RequestMapping("/testUsermatch")
 	@ResponseBody
-	public String testusermatch(HttpServletRequest re) {
-		Integer zhuid = Integer.parseInt(re.getParameter("zhuid")); 
-		Integer congid = Integer.parseInt(re.getParameter("congid"));
-		UsermatchWithBLOBs usermatch = usermatchService.usermatchQuery(zhuid, congid);
-	//	UsermatchWithBLOBs usermatch = usermatchService.selectByPrimaryKey(zhuid);
-	    System.out.println(usermatch.getUserscore());
-		return usermatch.toString();
+	public int testusermatch(HttpServletRequest re) {
+//		Integer zhuid = Integer.parseInt(re.getParameter("zhuid")); 
+//		Integer congid = Integer.parseInt(re.getParameter("congid"));
+	//	UsermatchWithBLOBs usermatch = usermatchService.usermatchQuery(zhuid, congid);
+	//	UsermatchWithBLOBs usermatch = usermatchService.selectByPrimaryKey(zhuid);		
+		String userdate = "2019-01-16";
+		int useryear = Integer.parseInt(userdate.substring(0, 4));
+		Date date = new Date();
+		int datetime = date.getYear();
+		
+	    System.out.println(datetime+1900);
+	    System.out.println(useryear);
+	    System.out.println(datetime+1900-useryear);
+		return datetime;
 	}
 	
 	@RequestMapping("/testUserList")
@@ -78,9 +87,12 @@ public class ZoneAction{
 		user.setCity(city);
 //		user.setArea(area);
 //		user.setSpare(spare);
-    	List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
+    //	List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
 	    List<User> userlist = userService.selectUserlist(user);	
 	    List<Integer> idlist =   userService.QueryUserByCity(user);
+	    List<ReturnUser> returnUserlist = zoneService.usermatchQuery(userlist);
+	    
+	    /*
 	    for(int i=0;i<userlist.size();i++) {
 	    	ReturnUser returnUser = new ReturnUser();
 	    	User userinfo = userlist.get(i);
@@ -96,7 +108,7 @@ public class ZoneAction{
 	  //  Collections.reverse(returnUserlist);
 	    
 	    Collections.sort(returnUserlist);
-		
+	*/	
 		return ResultType.creat(returnUserlist);
 	}
 	

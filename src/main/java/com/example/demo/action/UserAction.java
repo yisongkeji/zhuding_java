@@ -39,13 +39,7 @@ public class UserAction extends BaseAction{
 	
 	@Autowired
 	private UserService userService;
-	
-//	@Autowired
-//	private UserMapper userMapper;
-	
-//	@Autowired
-//	private ZoneMapper zoneMapper;
-	
+		
 	@Autowired
 	private ZoneService zoneService;
 	
@@ -140,7 +134,6 @@ public class UserAction extends BaseAction{
 		httptest httptest = new httptest();
 		                     //sendPostDataByJson
 		String body = httptest.sendPostDataByJson(url,JSON.toJSONString(map),"utf-8");
-
 		
 		JSONObject jsn = JSON.parseObject(body);
 		 String errcode = jsn.getString("errCode");
@@ -195,5 +188,16 @@ public class UserAction extends BaseAction{
 		
 		return ResultType.creat(user);
 	}
+	
+	/*
+	 * 头像上传
+	 */
+	@RequestMapping("/uploadtou")
+	@ResponseBody
+	public String uploadtou(HttpServletRequest request) {
+		
+		return null;
+	}
+	
 	
 }
