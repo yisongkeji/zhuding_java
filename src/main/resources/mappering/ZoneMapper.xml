@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.ZoneMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.model.Timezone">
+<mapper namespace="com.foreseers.tj.mapper.ZoneMapper">
+  <resultMap id="BaseResultMap" type="com.foreseers.tj.model.Timezone">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="timezone" jdbcType="DOUBLE" property="timezone" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List">
     id, timezone, name
   </sql>
-  <select id="selectByExample" parameterType="com.example.demo.model.TimezoneExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.foreseers.tj.model.TimezoneExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -99,20 +99,20 @@
     delete from timezone
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.example.demo.model.TimezoneExample">
+  <delete id="deleteByExample" parameterType="com.foreseers.tj.model.TimezoneExample">
     delete from timezone
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.Timezone">
+  <insert id="insert" parameterType="com.foreseers.tj.model.Timezone">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into timezone (timezone, name)
     values (#{timezone,jdbcType=DOUBLE}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.Timezone">
+  <insert id="insertSelective" parameterType="com.foreseers.tj.model.Timezone">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -134,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.example.demo.model.TimezoneExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.foreseers.tj.model.TimezoneExample" resultType="java.lang.Long">
     select count(*) from timezone
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -166,7 +166,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Timezone">
+  <update id="updateByPrimaryKeySelective" parameterType="com.foreseers.tj.model.Timezone">
     update timezone
     <set>
       <if test="timezone != null">
@@ -178,7 +178,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Timezone">
+  <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.Timezone">
     update timezone
     set timezone = #{timezone,jdbcType=DOUBLE},
       name = #{name,jdbcType=VARCHAR}

@@ -1,5 +1,5 @@
-2019-01-09 09:13:51.504  INFO 7800 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 7800 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 09:13:51.657  INFO 7800 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 09:13:51.504  INFO 7800 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 7800 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 09:13:51.657  INFO 7800 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 09:14:03.009  INFO 7800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 09:14:03.206  INFO 7800 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 09:14:03.207  INFO 7800 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -8,7 +8,7 @@
 2019-01-09 09:14:04.343  INFO 7800 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 12114 ms
 2019-01-09 09:14:09.016  INFO 7800 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:14:11.494  INFO 7800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 09:14:11.496  INFO 7800 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 22.22 seconds (JVM running for 24.025)
+2019-01-09 09:14:11.496  INFO 7800 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 22.22 seconds (JVM running for 24.025)
 2019-01-09 09:14:25.677  INFO 7800 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 09:14:25.677  INFO 7800 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 09:14:25.682  INFO 7800 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
@@ -18,8 +18,8 @@
 2019-01-09 09:17:18.898  INFO 7800 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:17:18.899  INFO 7800 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 09:17:18.906  INFO 7800 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 09:17:38.065  INFO 7520 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 7520 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 09:17:38.070  INFO 7520 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 09:17:38.065  INFO 7520 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 7520 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 09:17:38.070  INFO 7520 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 09:17:38.826  INFO 7520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 09:17:38.840  INFO 7520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 09:17:38.840  INFO 7520 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -28,14 +28,14 @@
 2019-01-09 09:17:38.904  INFO 7520 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 802 ms
 2019-01-09 09:17:39.302  INFO 7520 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:17:39.525  INFO 7520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 09:17:39.528  INFO 7520 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.722 seconds (JVM running for 2.692)
+2019-01-09 09:17:39.528  INFO 7520 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.722 seconds (JVM running for 2.692)
 2019-01-09 09:17:42.746  INFO 7520 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 09:17:42.746  INFO 7520 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 09:17:42.751  INFO 7520 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
 2019-01-09 09:17:59.142  INFO 7520 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Starting...
 2019-01-09 09:18:00.824  INFO 7520 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Start completed.
-2019-01-09 09:28:54.037  INFO 8728 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 8728 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 09:28:54.038  INFO 8728 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 09:28:54.037  INFO 8728 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 8728 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 09:28:54.038  INFO 8728 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 09:28:54.692  INFO 8728 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 09:28:54.704  INFO 8728 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 09:28:54.705  INFO 8728 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -44,7 +44,7 @@
 2019-01-09 09:28:54.762  INFO 8728 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 701 ms
 2019-01-09 09:28:55.123  INFO 8728 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:28:55.323  INFO 8728 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 09:28:55.325  INFO 8728 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.501 seconds (JVM running for 1.909)
+2019-01-09 09:28:55.325  INFO 8728 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.501 seconds (JVM running for 1.909)
 2019-01-09 09:29:00.174  INFO 8728 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 09:29:00.174  INFO 8728 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 09:29:00.180  INFO 8728 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
@@ -54,8 +54,8 @@
 2019-01-09 09:29:22.599  INFO 8728 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:29:22.599  INFO 8728 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 09:29:22.607  INFO 8728 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 09:29:27.534  INFO 6780 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 6780 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 09:29:27.536  INFO 6780 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 09:29:27.534  INFO 6780 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 6780 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 09:29:27.536  INFO 6780 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 09:29:28.190  INFO 6780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 09:29:28.203  INFO 6780 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 09:29:28.204  INFO 6780 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -64,7 +64,7 @@
 2019-01-09 09:29:28.261  INFO 6780 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 703 ms
 2019-01-09 09:29:28.563  INFO 6780 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:29:28.766  INFO 6780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 09:29:28.769  INFO 6780 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.447 seconds (JVM running for 1.858)
+2019-01-09 09:29:28.769  INFO 6780 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.447 seconds (JVM running for 1.858)
 2019-01-09 09:29:32.393  INFO 6780 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 09:29:32.393  INFO 6780 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 09:29:32.398  INFO 6780 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
@@ -74,8 +74,8 @@
 2019-01-09 09:42:08.931  INFO 6780 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:42:08.932  INFO 6780 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 09:42:08.938  INFO 6780 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 09:59:12.843  INFO 8800 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 8800 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 09:59:12.845  INFO 8800 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 09:59:12.843  INFO 8800 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 8800 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 09:59:12.845  INFO 8800 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 09:59:13.496  INFO 8800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 09:59:13.509  INFO 8800 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 09:59:13.509  INFO 8800 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -84,26 +84,26 @@
 2019-01-09 09:59:13.564  INFO 8800 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 697 ms
 2019-01-09 09:59:13.855  INFO 8800 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 09:59:14.054  INFO 8800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 09:59:14.057  INFO 8800 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.423 seconds (JVM running for 1.836)
+2019-01-09 09:59:14.057  INFO 8800 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.423 seconds (JVM running for 1.836)
 2019-01-09 10:39:01.817  INFO 8800 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 10:39:01.817  INFO 8800 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 10:39:01.821  INFO 8800 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:16
-2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 10:39:01.850  INFO 8800 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:467979503606542
-2019-01-09 10:39:13.117  INFO 8800 --- [http-nio-8080-exec-3] com.example.demo.action.UserAction       : 进入查询用户方法
-2019-01-09 10:39:13.118  INFO 8800 --- [http-nio-8080-exec-3] com.example.demo.action.UserAction       : facebookid：467979503606542
+2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:16
+2019-01-09 10:39:01.849  INFO 8800 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 10:39:01.850  INFO 8800 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:467979503606542
+2019-01-09 10:39:13.117  INFO 8800 --- [http-nio-8080-exec-3] com.foreseers.tj.action.UserAction       : 进入查询用户方法
+2019-01-09 10:39:13.118  INFO 8800 --- [http-nio-8080-exec-3] com.foreseers.tj.action.UserAction       : facebookid：467979503606542
 2019-01-09 10:39:13.161  INFO 8800 --- [http-nio-8080-exec-3] com.zaxxer.hikari.HikariDataSource       : localhost - Starting...
 2019-01-09 10:39:13.375  INFO 8800 --- [http-nio-8080-exec-3] com.zaxxer.hikari.HikariDataSource       : localhost - Start completed.
 2019-01-09 11:32:44.915  INFO 8800 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 11:32:44.916  INFO 8800 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 11:32:44.917  INFO 8800 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 11:32:44.922  INFO 8800 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 14:21:15.609  INFO 11472 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11472 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 14:21:15.624  INFO 11472 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 14:21:15.609  INFO 11472 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11472 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 14:21:15.624  INFO 11472 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 14:21:16.418  INFO 11472 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 14:21:16.432  INFO 11472 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 14:21:16.432  INFO 11472 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -112,16 +112,16 @@
 2019-01-09 14:21:16.498  INFO 11472 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 846 ms
 2019-01-09 14:21:16.888  INFO 11472 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 14:21:17.126  INFO 11472 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 14:21:17.129  INFO 11472 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.79 seconds (JVM running for 2.338)
+2019-01-09 14:21:17.129  INFO 11472 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.79 seconds (JVM running for 2.338)
 2019-01-09 14:21:32.351  INFO 11472 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 14:21:32.351  INFO 11472 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 14:21:32.357  INFO 11472 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2019-01-09 14:21:32.377  INFO 11472 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入查询用户方法
-2019-01-09 14:21:47.491  INFO 11472 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid：467979503606542
+2019-01-09 14:21:32.377  INFO 11472 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入查询用户方法
+2019-01-09 14:21:47.491  INFO 11472 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid：467979503606542
 2019-01-09 14:21:51.252  INFO 11472 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Starting...
 2019-01-09 14:21:53.060  INFO 11472 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Start completed.
-2019-01-09 15:47:05.840  INFO 9836 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 9836 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 15:47:05.853  INFO 9836 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 15:47:05.840  INFO 9836 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 9836 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 15:47:05.853  INFO 9836 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 15:47:06.735  INFO 9836 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 15:47:06.751  INFO 9836 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 15:47:06.752  INFO 9836 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -130,15 +130,15 @@
 2019-01-09 15:47:06.855  INFO 9836 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 978 ms
 2019-01-09 15:47:07.293  INFO 9836 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:47:07.540  INFO 9836 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 15:47:07.542  INFO 9836 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.95 seconds (JVM running for 2.629)
+2019-01-09 15:47:07.542  INFO 9836 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.95 seconds (JVM running for 2.629)
 2019-01-09 15:47:25.175  INFO 9836 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 15:47:25.176  INFO 9836 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 15:47:25.180  INFO 9836 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
 2019-01-09 15:47:25.218  INFO 9836 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Starting...
 2019-01-09 15:47:25.298  INFO 9836 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Start completed.
-2019-01-09 15:47:25.427 ERROR 9836 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.example.demo.model.User'] with root cause
+2019-01-09 15:47:25.427 ERROR 9836 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.foreseers.tj.model.User'] with root cause
 
-org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.example.demo.model.User'
+org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.foreseers.tj.model.User'
 	at org.apache.ibatis.reflection.Reflector.getGetInvoker(Reflector.java:419) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.reflection.MetaClass.getGetInvoker(MetaClass.java:164) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.reflection.wrapper.BeanWrapper.getBeanProperty(BeanWrapper.java:162) ~[mybatis-3.4.6.jar:3.4.6]
@@ -178,8 +178,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:76) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59) ~[mybatis-3.4.6.jar:3.4.6]
 	at com.sun.proxy.$Proxy58.QueryUserByCity(Unknown Source) ~[na:na]
-	at com.example.demo.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
-	at com.example.demo.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
@@ -187,8 +187,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.example.demo.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$d7dc59c4.QueryUserByCity(<generated>) ~[classes/:na]
-	at com.example.demo.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$d7dc59c4.QueryUserByCity(<generated>) ~[classes/:na]
+	at com.foreseers.tj.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -248,8 +248,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 2019-01-09 15:51:29.193  INFO 9836 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:51:29.194  INFO 9836 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 15:51:29.200  INFO 9836 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 15:52:01.687  INFO 10680 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10680 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 15:52:01.689  INFO 10680 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 15:52:01.687  INFO 10680 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10680 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 15:52:01.689  INFO 10680 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 15:52:02.367  INFO 10680 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 15:52:02.380  INFO 10680 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 15:52:02.380  INFO 10680 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -258,7 +258,7 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 2019-01-09 15:52:02.441  INFO 10680 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 729 ms
 2019-01-09 15:52:02.757  INFO 10680 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:52:02.966  INFO 10680 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 15:52:02.969  INFO 10680 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.499 seconds (JVM running for 1.985)
+2019-01-09 15:52:02.969  INFO 10680 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.499 seconds (JVM running for 1.985)
 2019-01-09 15:52:18.576  INFO 10680 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 15:52:18.576  INFO 10680 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 15:52:18.581  INFO 10680 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
@@ -281,8 +281,8 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 	at org.apache.ibatis.binding.MapperProxy.cachedMapperMethod(MapperProxy.java:65) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58) ~[mybatis-3.4.6.jar:3.4.6]
 	at com.sun.proxy.$Proxy58.QueryUserByCity(Unknown Source) ~[na:na]
-	at com.example.demo.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
-	at com.example.demo.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
@@ -290,8 +290,8 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.example.demo.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$12879a7e.QueryUserByCity(<generated>) ~[classes/:na]
-	at com.example.demo.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$12879a7e.QueryUserByCity(<generated>) ~[classes/:na]
+	at com.foreseers.tj.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -352,8 +352,8 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 2019-01-09 15:53:18.461  INFO 10680 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 15:53:18.467  INFO 10680 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
 2019-01-09 15:53:33.066 DEBUG 2720 --- [background-preinit] .h.v.m.ResourceBundleMessageInterpolator : Loaded expression factory via original TCCL
-2019-01-09 15:53:33.116  INFO 2720 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 2720 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 15:53:33.117  INFO 2720 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 15:53:33.116  INFO 2720 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 2720 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 15:53:33.117  INFO 2720 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 15:53:33.786  INFO 2720 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 15:53:33.798  INFO 2720 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 15:53:33.798  INFO 2720 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -362,7 +362,7 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 2019-01-09 15:53:33.856  INFO 2720 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 716 ms
 2019-01-09 15:53:34.171  INFO 2720 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:53:34.392  INFO 2720 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 15:53:34.394  INFO 2720 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.49 seconds (JVM running for 1.972)
+2019-01-09 15:53:34.394  INFO 2720 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.49 seconds (JVM running for 1.972)
 2019-01-09 15:53:41.459  INFO 2720 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 15:53:41.459  INFO 2720 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 15:53:41.465  INFO 2720 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
@@ -385,8 +385,8 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 	at org.apache.ibatis.binding.MapperProxy.cachedMapperMethod(MapperProxy.java:65) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58) ~[mybatis-3.4.6.jar:3.4.6]
 	at com.sun.proxy.$Proxy58.QueryUserByCity(Unknown Source) ~[na:na]
-	at com.example.demo.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
-	at com.example.demo.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
@@ -394,8 +394,8 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.example.demo.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$be03fd1e.QueryUserByCity(<generated>) ~[classes/:na]
-	at com.example.demo.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$be03fd1e.QueryUserByCity(<generated>) ~[classes/:na]
+	at com.foreseers.tj.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -456,8 +456,8 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 2019-01-09 15:56:24.160  INFO 2720 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 15:56:24.166  INFO 2720 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
 2019-01-09 15:56:30.176 DEBUG 8500 --- [background-preinit] .h.v.m.ResourceBundleMessageInterpolator : Loaded expression factory via original TCCL
-2019-01-09 15:56:30.227  INFO 8500 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 8500 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 15:56:30.228  INFO 8500 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 15:56:30.227  INFO 8500 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 8500 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 15:56:30.228  INFO 8500 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 15:56:30.900  INFO 8500 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 15:56:30.913  INFO 8500 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 15:56:30.913  INFO 8500 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -466,15 +466,15 @@ java.lang.IllegalArgumentException: Result Maps collection does not contain valu
 2019-01-09 15:56:30.972  INFO 8500 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 720 ms
 2019-01-09 15:56:31.285  INFO 8500 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:56:31.497  INFO 8500 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 15:56:31.499  INFO 8500 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.489 seconds (JVM running for 1.99)
+2019-01-09 15:56:31.499  INFO 8500 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.489 seconds (JVM running for 1.99)
 2019-01-09 15:56:37.110  INFO 8500 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 15:56:37.111  INFO 8500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 15:56:37.115  INFO 8500 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
 2019-01-09 15:56:37.132  INFO 8500 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Starting...
 2019-01-09 15:56:37.203  INFO 8500 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Start completed.
-2019-01-09 15:56:37.235 ERROR 8500 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.example.demo.model.User'] with root cause
+2019-01-09 15:56:37.235 ERROR 8500 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.foreseers.tj.model.User'] with root cause
 
-org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.example.demo.model.User'
+org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'userinfo' in 'class com.foreseers.tj.model.User'
 	at org.apache.ibatis.reflection.Reflector.getGetInvoker(Reflector.java:419) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.reflection.MetaClass.getGetInvoker(MetaClass.java:164) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.reflection.wrapper.BeanWrapper.getBeanProperty(BeanWrapper.java:162) ~[mybatis-3.4.6.jar:3.4.6]
@@ -514,8 +514,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:76) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59) ~[mybatis-3.4.6.jar:3.4.6]
 	at com.sun.proxy.$Proxy58.QueryUserByCity(Unknown Source) ~[na:na]
-	at com.example.demo.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
-	at com.example.demo.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
@@ -523,8 +523,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.example.demo.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$2ef73ebd.QueryUserByCity(<generated>) ~[classes/:na]
-	at com.example.demo.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$2ef73ebd.QueryUserByCity(<generated>) ~[classes/:na]
+	at com.foreseers.tj.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -584,8 +584,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 2019-01-09 15:57:55.518  INFO 8500 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:57:55.518  INFO 8500 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 15:57:55.524  INFO 8500 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 15:58:00.375  INFO 6164 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 6164 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 15:58:00.377  INFO 6164 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 15:58:00.375  INFO 6164 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 6164 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 15:58:00.377  INFO 6164 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 15:58:01.056  INFO 6164 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 15:58:01.070  INFO 6164 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 15:58:01.070  INFO 6164 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -594,15 +594,15 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 2019-01-09 15:58:01.127  INFO 6164 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 727 ms
 2019-01-09 15:58:01.441  INFO 6164 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:58:01.650  INFO 6164 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 15:58:01.652  INFO 6164 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.491 seconds (JVM running for 1.983)
+2019-01-09 15:58:01.652  INFO 6164 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.491 seconds (JVM running for 1.983)
 2019-01-09 15:58:06.462  INFO 6164 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 15:58:06.462  INFO 6164 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 15:58:06.467  INFO 6164 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
 2019-01-09 15:58:06.485  INFO 6164 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Starting...
 2019-01-09 15:58:06.552  INFO 6164 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : localhost - Start completed.
-2019-01-09 15:58:06.580 ERROR 6164 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'bull' in 'class com.example.demo.model.User'] with root cause
+2019-01-09 15:58:06.580 ERROR 6164 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'bull' in 'class com.foreseers.tj.model.User'] with root cause
 
-org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'bull' in 'class com.example.demo.model.User'
+org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'bull' in 'class com.foreseers.tj.model.User'
 	at org.apache.ibatis.reflection.Reflector.getGetInvoker(Reflector.java:419) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.reflection.MetaClass.getGetInvoker(MetaClass.java:164) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.reflection.wrapper.BeanWrapper.getBeanProperty(BeanWrapper.java:162) ~[mybatis-3.4.6.jar:3.4.6]
@@ -639,8 +639,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:76) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59) ~[mybatis-3.4.6.jar:3.4.6]
 	at com.sun.proxy.$Proxy58.QueryUserByCity(Unknown Source) ~[na:na]
-	at com.example.demo.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
-	at com.example.demo.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
@@ -648,8 +648,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.example.demo.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$86622a7f.QueryUserByCity(<generated>) ~[classes/:na]
-	at com.example.demo.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$86622a7f.QueryUserByCity(<generated>) ~[classes/:na]
+	at com.foreseers.tj.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -709,8 +709,8 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 2019-01-09 15:58:37.949  INFO 6164 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:58:37.949  INFO 6164 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 15:58:37.954  INFO 6164 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 15:58:42.911  INFO 7660 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 7660 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 15:58:42.912  INFO 7660 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 15:58:42.911  INFO 7660 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 7660 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 15:58:42.912  INFO 7660 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 15:58:43.596  INFO 7660 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 15:58:43.610  INFO 7660 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 15:58:43.610  INFO 7660 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -719,7 +719,7 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
 2019-01-09 15:58:43.673  INFO 7660 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 738 ms
 2019-01-09 15:58:43.998  INFO 7660 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 15:58:44.210  INFO 7660 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 15:58:44.212  INFO 7660 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.51 seconds (JVM running for 2.021)
+2019-01-09 15:58:44.212  INFO 7660 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.51 seconds (JVM running for 2.021)
 2019-01-09 15:58:46.802  INFO 7660 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 15:58:46.802  INFO 7660 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 15:58:46.806  INFO 7660 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
@@ -734,7 +734,7 @@ org.apache.ibatis.reflection.ReflectionException: There is no getter for propert
      
     area = '红桥'' at line 5
 ### The error may exist in file [E:\workspace\dating\target\classes\mappering\UserMapper.xml]
-### The error may involve com.example.demo.mapper.UserMapper.QueryUserByCity-Inline
+### The error may involve com.foreseers.tj.mapper.UserMapper.QueryUserByCity-Inline
 ### The error occurred while setting parameters
 ### SQL: select id        from dt_user            country = ?                 city = ?                 area = ?
 ### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= '中国'
@@ -786,8 +786,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:76) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59) ~[mybatis-3.4.6.jar:3.4.6]
 	at com.sun.proxy.$Proxy58.QueryUserByCity(Unknown Source) ~[na:na]
-	at com.example.demo.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
-	at com.example.demo.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
@@ -795,8 +795,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.example.demo.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$acc9fb1f.QueryUserByCity(<generated>) ~[classes/:na]
-	at com.example.demo.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$acc9fb1f.QueryUserByCity(<generated>) ~[classes/:na]
+	at com.foreseers.tj.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -856,8 +856,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:00:15.192  INFO 7660 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:00:15.192  INFO 7660 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 16:00:15.198  INFO 7660 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 16:00:21.106  INFO 12012 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12012 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:00:21.108  INFO 12012 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:00:21.106  INFO 12012 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12012 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:00:21.108  INFO 12012 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:00:21.786  INFO 12012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:00:21.800  INFO 12012 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:00:21.800  INFO 12012 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -866,7 +866,7 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:00:21.858  INFO 12012 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 726 ms
 2019-01-09 16:00:22.179  INFO 12012 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:00:22.386  INFO 12012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:00:22.388  INFO 12012 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.494 seconds (JVM running for 1.98)
+2019-01-09 16:00:22.388  INFO 12012 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.494 seconds (JVM running for 1.98)
 2019-01-09 16:00:25.317  INFO 12012 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:00:25.318  INFO 12012 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:00:25.323  INFO 12012 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
@@ -881,7 +881,7 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
      
     and area = '红' at line 5
 ### The error may exist in file [E:\workspace\dating\target\classes\mappering\UserMapper.xml]
-### The error may involve com.example.demo.mapper.UserMapper.QueryUserByCity-Inline
+### The error may involve com.foreseers.tj.mapper.UserMapper.QueryUserByCity-Inline
 ### The error occurred while setting parameters
 ### SQL: select id        from dt_user            country = ?                  and city = ?                 and area = ?
 ### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= '中国'
@@ -933,8 +933,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:76) ~[mybatis-3.4.6.jar:3.4.6]
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59) ~[mybatis-3.4.6.jar:3.4.6]
 	at com.sun.proxy.$Proxy58.QueryUserByCity(Unknown Source) ~[na:na]
-	at com.example.demo.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
-	at com.example.demo.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl.QueryUserByCity(UserServiceImpl.java:36) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$FastClassBySpringCGLIB$$b7cc6bcf.invoke(<generated>) ~[classes/:na]
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
@@ -942,8 +942,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.example.demo.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$f6bb31ec.QueryUserByCity(<generated>) ~[classes/:na]
-	at com.example.demo.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
+	at com.foreseers.tj.service.impl.UserServiceImpl$$EnhancerBySpringCGLIB$$f6bb31ec.QueryUserByCity(<generated>) ~[classes/:na]
+	at com.foreseers.tj.action.UserMatchong.matching(UserMatchong.java:41) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -1003,8 +1003,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:01:20.791  INFO 12012 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:01:20.791  INFO 12012 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 16:01:20.798  INFO 12012 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 16:01:27.167  INFO 11780 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11780 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:01:27.169  INFO 11780 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:01:27.167  INFO 11780 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11780 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:01:27.169  INFO 11780 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:01:27.840  INFO 11780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:01:27.854  INFO 11780 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:01:27.854  INFO 11780 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1013,7 +1013,7 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:01:27.915  INFO 11780 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 723 ms
 2019-01-09 16:01:28.228  INFO 11780 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:01:28.435  INFO 11780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:01:28.437  INFO 11780 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.481 seconds (JVM running for 1.974)
+2019-01-09 16:01:28.437  INFO 11780 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.481 seconds (JVM running for 1.974)
 2019-01-09 16:03:31.069  INFO 11780 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:03:31.070  INFO 11780 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:03:31.074  INFO 11780 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
@@ -1023,8 +1023,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:07:25.744  INFO 11780 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:07:25.745  INFO 11780 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 16:07:25.752  INFO 11780 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 16:17:30.959  INFO 9796 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 9796 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:17:30.961  INFO 9796 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:17:30.959  INFO 9796 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 9796 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:17:30.961  INFO 9796 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:17:31.937  INFO 9796 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:17:31.953  INFO 9796 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:17:31.954  INFO 9796 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1033,7 +1033,7 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:17:32.061  INFO 9796 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1075 ms
 2019-01-09 16:17:32.439  INFO 9796 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:17:32.660  INFO 9796 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:17:32.662  INFO 9796 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.952 seconds (JVM running for 2.665)
+2019-01-09 16:17:32.662  INFO 9796 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.952 seconds (JVM running for 2.665)
 2019-01-09 16:17:38.615  INFO 9796 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:17:38.615  INFO 9796 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:17:38.620  INFO 9796 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
@@ -1043,8 +1043,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:17:51.847  INFO 9796 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:17:51.847  INFO 9796 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 16:17:51.854  INFO 9796 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 16:17:59.596  INFO 12220 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12220 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:17:59.598  INFO 12220 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:17:59.596  INFO 12220 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12220 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:17:59.598  INFO 12220 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:18:00.264  INFO 12220 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:18:00.277  INFO 12220 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:18:00.277  INFO 12220 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1053,7 +1053,7 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:18:00.337  INFO 12220 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 716 ms
 2019-01-09 16:18:00.662  INFO 12220 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:18:00.873  INFO 12220 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:18:00.875  INFO 12220 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.5 seconds (JVM running for 1.98)
+2019-01-09 16:18:00.875  INFO 12220 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.5 seconds (JVM running for 1.98)
 2019-01-09 16:18:05.825  INFO 12220 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:18:05.826  INFO 12220 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:18:05.830  INFO 12220 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
@@ -1063,8 +1063,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:18:24.543  INFO 12220 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:18:24.543  INFO 12220 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 16:18:24.550  INFO 12220 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 16:20:14.035  INFO 10244 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10244 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:20:14.037  INFO 10244 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:20:14.035  INFO 10244 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10244 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:20:14.037  INFO 10244 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:20:14.719  INFO 10244 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:20:14.732  INFO 10244 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:20:14.733  INFO 10244 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1073,7 +1073,7 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:20:14.792  INFO 10244 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 732 ms
 2019-01-09 16:20:15.113  INFO 10244 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:20:15.320  INFO 10244 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:20:15.322  INFO 10244 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.507 seconds (JVM running for 1.995)
+2019-01-09 16:20:15.322  INFO 10244 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.507 seconds (JVM running for 1.995)
 2019-01-09 16:20:22.238  INFO 10244 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:20:22.239  INFO 10244 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:20:22.244  INFO 10244 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
@@ -1083,8 +1083,8 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:20:27.583  INFO 10244 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:20:27.583  INFO 10244 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown initiated...
 2019-01-09 16:20:27.589  INFO 10244 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : localhost - Shutdown completed.
-2019-01-09 16:27:14.046  INFO 5004 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 5004 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:27:14.049  INFO 5004 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:27:14.046  INFO 5004 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 5004 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:27:14.049  INFO 5004 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:27:14.852  INFO 5004 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:27:14.866  INFO 5004 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:27:14.866  INFO 5004 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1093,30 +1093,30 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:27:14.931  INFO 5004 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 853 ms
 2019-01-09 16:27:15.317  INFO 5004 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:27:15.556  INFO 5004 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:27:15.560  INFO 5004 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.785 seconds (JVM running for 2.473)
+2019-01-09 16:27:15.560  INFO 5004 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.785 seconds (JVM running for 2.473)
 2019-01-09 16:27:36.127  INFO 5004 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:27:36.127  INFO 5004 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:27:36.132  INFO 5004 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2019-01-09 16:27:36.152  INFO 5004 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
-2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:29:01.712  INFO 5004 --- [http-nio-8080-exec-4] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:29:01.712  INFO 5004 --- [http-nio-8080-exec-4] com.example.demo.action.UserAction       : facebookid:123456
-2019-01-09 16:29:20.482  INFO 5004 --- [http-nio-8080-exec-6] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:29:37.623  INFO 5004 --- [http-nio-8080-exec-6] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:29:37.885  INFO 5004 --- [http-nio-8080-exec-6] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:29:38.115  INFO 5004 --- [http-nio-8080-exec-6] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:29:38.583  INFO 5004 --- [http-nio-8080-exec-6] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:29:41.886  INFO 5004 --- [http-nio-8080-exec-6] com.example.demo.action.UserAction       : facebookid:123456
-2019-01-09 16:32:26.394  INFO 11548 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11548 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:32:26.398  INFO 11548 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:27:36.152  INFO 5004 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:27:36.153  INFO 5004 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
+2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:29:01.711  INFO 5004 --- [http-nio-8080-exec-4] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:29:01.712  INFO 5004 --- [http-nio-8080-exec-4] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:29:01.712  INFO 5004 --- [http-nio-8080-exec-4] com.foreseers.tj.action.UserAction       : facebookid:123456
+2019-01-09 16:29:20.482  INFO 5004 --- [http-nio-8080-exec-6] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:29:37.623  INFO 5004 --- [http-nio-8080-exec-6] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:29:37.885  INFO 5004 --- [http-nio-8080-exec-6] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:29:38.115  INFO 5004 --- [http-nio-8080-exec-6] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:29:38.583  INFO 5004 --- [http-nio-8080-exec-6] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:29:41.886  INFO 5004 --- [http-nio-8080-exec-6] com.foreseers.tj.action.UserAction       : facebookid:123456
+2019-01-09 16:32:26.394  INFO 11548 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11548 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:32:26.398  INFO 11548 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:32:27.199  INFO 11548 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:32:27.214  INFO 11548 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:32:27.214  INFO 11548 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1125,20 +1125,20 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:32:27.281  INFO 11548 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 855 ms
 2019-01-09 16:32:27.675  INFO 11548 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:32:27.916  INFO 11548 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:32:27.919  INFO 11548 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.798 seconds (JVM running for 2.431)
+2019-01-09 16:32:27.919  INFO 11548 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.798 seconds (JVM running for 2.431)
 2019-01-09 16:32:34.282  INFO 11548 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:32:34.282  INFO 11548 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:32:34.288  INFO 11548 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2019-01-09 16:32:34.306  INFO 11548 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
+2019-01-09 16:32:34.306  INFO 11548 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:32:34.307  INFO 11548 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
 2019-01-09 16:35:59.579  INFO 11548 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 16:35:59.581  INFO 11548 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-01-09 16:36:13.258  INFO 11544 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11544 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:36:13.261  INFO 11544 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:36:13.258  INFO 11544 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11544 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:36:13.261  INFO 11544 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:36:14.041  INFO 11544 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:36:14.056  INFO 11544 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:36:14.056  INFO 11544 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1147,19 +1147,19 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:36:14.127  INFO 11544 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 838 ms
 2019-01-09 16:36:14.524  INFO 11544 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:36:14.766  INFO 11544 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:36:14.770  INFO 11544 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.779 seconds (JVM running for 2.416)
+2019-01-09 16:36:14.770  INFO 11544 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.779 seconds (JVM running for 2.416)
 2019-01-09 16:36:19.265  INFO 11544 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:36:19.265  INFO 11544 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:36:19.269  INFO 11544 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2019-01-09 16:36:19.289  INFO 11544 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
+2019-01-09 16:36:19.289  INFO 11544 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:36:19.290  INFO 11544 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
 2019-01-09 16:36:50.804 DEBUG 11760 --- [background-preinit] .h.v.m.ResourceBundleMessageInterpolator : Loaded expression factory via original TCCL
-2019-01-09 16:36:50.852  INFO 11760 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11760 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:36:50.853  INFO 11760 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:36:50.852  INFO 11760 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11760 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:36:50.853  INFO 11760 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:36:51.524  INFO 11760 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:36:51.537  INFO 11760 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:36:51.538  INFO 11760 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1168,21 +1168,21 @@ java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check th
 2019-01-09 16:36:51.598  INFO 11760 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 721 ms
 2019-01-09 16:36:51.916  INFO 11760 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:36:52.123  INFO 11760 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:36:52.126  INFO 11760 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.489 seconds (JVM running for 1.972)
+2019-01-09 16:36:52.126  INFO 11760 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.489 seconds (JVM running for 1.972)
 2019-01-09 16:36:55.937  INFO 11760 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:36:55.938  INFO 11760 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:36:55.943  INFO 11760 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2019-01-09 16:36:55.958  INFO 11760 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
+2019-01-09 16:36:55.958  INFO 11760 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:36:55.959  INFO 11760 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
 2019-01-09 16:36:55.966 ERROR 11760 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
 java.lang.NullPointerException: null
-	at com.example.demo.action.ZoneAction.getTimezone(ZoneAction.java:18) ~[classes/:na]
-	at com.example.demo.action.UserAction.insertUser(UserAction.java:92) ~[classes/:na]
+	at com.foreseers.tj.action.ZoneAction.getTimezone(ZoneAction.java:18) ~[classes/:na]
+	at com.foreseers.tj.action.UserAction.insertUser(UserAction.java:92) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -1240,8 +1240,8 @@ java.lang.NullPointerException: null
 
 2019-01-09 16:41:01.774  INFO 11760 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 16:41:01.776  INFO 11760 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-01-09 16:41:07.762  INFO 4368 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 4368 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:41:07.766  INFO 4368 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:41:07.762  INFO 4368 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 4368 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:41:07.766  INFO 4368 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:41:08.557  INFO 4368 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:41:08.572  INFO 4368 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:41:08.572  INFO 4368 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1250,21 +1250,21 @@ java.lang.NullPointerException: null
 2019-01-09 16:41:08.649  INFO 4368 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 852 ms
 2019-01-09 16:41:09.052  INFO 4368 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:41:09.286  INFO 4368 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:41:09.291  INFO 4368 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.795 seconds (JVM running for 2.452)
+2019-01-09 16:41:09.291  INFO 4368 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.795 seconds (JVM running for 2.452)
 2019-01-09 16:41:15.717  INFO 4368 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:41:15.717  INFO 4368 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:41:15.721  INFO 4368 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
+2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:41:15.739  INFO 4368 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
 2019-01-09 16:42:34.841 ERROR 4368 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
 java.lang.NullPointerException: null
-	at com.example.demo.action.ZoneAction.getTimezone(ZoneAction.java:18) ~[classes/:na]
-	at com.example.demo.action.UserAction.insertUser(UserAction.java:92) ~[classes/:na]
+	at com.foreseers.tj.action.ZoneAction.getTimezone(ZoneAction.java:18) ~[classes/:na]
+	at com.foreseers.tj.action.UserAction.insertUser(UserAction.java:92) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -1322,15 +1322,15 @@ java.lang.NullPointerException: null
 
 2019-01-09 16:44:02.443  INFO 4368 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 16:44:02.445  INFO 4368 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-01-09 16:49:19.604  INFO 12060 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12060 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:49:19.609  INFO 12060 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:49:19.604  INFO 12060 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12060 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:49:19.609  INFO 12060 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:49:20.547  INFO 12060 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:49:20.567  INFO 12060 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:49:20.568  INFO 12060 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
 2019-01-09 16:49:20.574  INFO 12060 --- [main] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/bin/server;C:/Program Files/Java/bin;C:/Program Files/Java/lib/amd64;C:\Program Files (x86)\Common Files\NetSarang;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files (x86)\Autodesk\Backburner\;C:\Program Files (x86)\GtkSharp\2.12\bin;D:\Program Files\TortoiseSVN\bin;C:\Program Files\Java8\jdk1.8.0_191\bin;C:\Program Files\Java8\jdk1.8.0_191\jre\bin;C:\Program Files\MySQL\MySQL Server 5.5\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;D:\maven\apache-maven-3.6.0\bin;;D:\eclipse\eclipse;;.]
 2019-01-09 16:49:20.690  INFO 12060 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
 2019-01-09 16:49:20.690  INFO 12060 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1051 ms
-2019-01-09 16:49:20.970  WARN 12060 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAction': Unsatisfied dependency expressed through field 'zoneService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.example.demo.service.ZoneService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2019-01-09 16:49:20.970  WARN 12060 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAction': Unsatisfied dependency expressed through field 'zoneService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.foreseers.tj.service.ZoneService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
 2019-01-09 16:49:20.972  INFO 12060 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
 2019-01-09 16:49:20.982  INFO 12060 --- [main] ConditionEvaluationReportLoggingListener : 
 
@@ -1343,7 +1343,7 @@ APPLICATION FAILED TO START
 
 Description:
 
-Field zoneService in com.example.demo.action.UserAction required a bean of type 'com.example.demo.service.ZoneService' that could not be found.
+Field zoneService in com.foreseers.tj.action.UserAction required a bean of type 'com.foreseers.tj.service.ZoneService' that could not be found.
 
 The injection point has the following annotations:
 	- @org.springframework.beans.factory.annotation.Autowired(required=true)
@@ -1351,10 +1351,10 @@ The injection point has the following annotations:
 
 Action:
 
-Consider defining a bean of type 'com.example.demo.service.ZoneService' in your configuration.
+Consider defining a bean of type 'com.foreseers.tj.service.ZoneService' in your configuration.
 
-2019-01-09 16:49:55.882  INFO 11444 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11444 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:49:55.885  INFO 11444 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:49:55.882  INFO 11444 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11444 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:49:55.885  INFO 11444 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:49:56.676  INFO 11444 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:49:56.691  INFO 11444 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:49:56.692  INFO 11444 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1363,21 +1363,21 @@ Consider defining a bean of type 'com.example.demo.service.ZoneService' in your 
 2019-01-09 16:49:56.756  INFO 11444 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 842 ms
 2019-01-09 16:49:57.148  INFO 11444 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:49:57.413  INFO 11444 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:49:57.417  INFO 11444 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.805 seconds (JVM running for 2.429)
+2019-01-09 16:49:57.417  INFO 11444 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.805 seconds (JVM running for 2.429)
 2019-01-09 16:50:02.758  INFO 11444 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:50:02.758  INFO 11444 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:50:02.762  INFO 11444 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
+2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:50:02.782  INFO 11444 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
 2019-01-09 16:50:11.233 ERROR 11444 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
 java.lang.NullPointerException: null
-	at com.example.demo.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
-	at com.example.demo.action.UserAction.insertUser(UserAction.java:96) ~[classes/:na]
+	at com.foreseers.tj.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
+	at com.foreseers.tj.action.UserAction.insertUser(UserAction.java:96) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -1433,8 +1433,8 @@ java.lang.NullPointerException: null
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
 	at java.lang.Thread.run(Unknown Source) [na:1.8.0_191]
 
-2019-01-09 16:54:11.986  INFO 10604 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10604 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:54:11.988  INFO 10604 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:54:11.986  INFO 10604 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10604 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:54:11.988  INFO 10604 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:54:12.655  INFO 10604 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:54:12.668  INFO 10604 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:54:12.669  INFO 10604 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1443,21 +1443,21 @@ java.lang.NullPointerException: null
 2019-01-09 16:54:12.729  INFO 10604 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 719 ms
 2019-01-09 16:54:13.055  INFO 10604 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:54:13.266  INFO 10604 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:54:13.268  INFO 10604 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.499 seconds (JVM running for 1.984)
+2019-01-09 16:54:13.268  INFO 10604 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.499 seconds (JVM running for 1.984)
 2019-01-09 16:54:21.293  INFO 10604 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:54:21.294  INFO 10604 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:54:21.299  INFO 10604 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:54:21.315  INFO 10604 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:54:21.315  INFO 10604 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
+2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:54:21.314  INFO 10604 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:54:21.315  INFO 10604 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:54:21.315  INFO 10604 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
 2019-01-09 16:54:21.320 ERROR 10604 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
 java.lang.NullPointerException: null
-	at com.example.demo.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
-	at com.example.demo.action.UserAction.insertUser(UserAction.java:96) ~[classes/:na]
+	at com.foreseers.tj.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
+	at com.foreseers.tj.action.UserAction.insertUser(UserAction.java:96) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -1515,8 +1515,8 @@ java.lang.NullPointerException: null
 
 2019-01-09 16:55:26.668  INFO 10604 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 16:55:26.669  INFO 10604 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-01-09 16:55:49.396  INFO 12072 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12072 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 16:55:49.398  INFO 12072 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 16:55:49.396  INFO 12072 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12072 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 16:55:49.398  INFO 12072 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 16:55:50.070  INFO 12072 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 16:55:50.083  INFO 12072 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 16:55:50.083  INFO 12072 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1525,21 +1525,21 @@ java.lang.NullPointerException: null
 2019-01-09 16:55:50.143  INFO 12072 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 722 ms
 2019-01-09 16:55:50.465  INFO 12072 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 16:55:50.671  INFO 12072 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 16:55:50.673  INFO 12072 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.491 seconds (JVM running for 1.967)
+2019-01-09 16:55:50.673  INFO 12072 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.491 seconds (JVM running for 1.967)
 2019-01-09 16:55:59.374  INFO 12072 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 16:55:59.374  INFO 12072 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 16:55:59.379  INFO 12072 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2019-01-09 16:55:59.391  INFO 12072 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 进入用户注册方法
-2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 用户名:郑皓
-2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 日期:2019-01-08
-2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 时间:14:00:00
-2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : 性别:M
-2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.example.demo.action.UserAction       : facebookid:123456
+2019-01-09 16:55:59.391  INFO 12072 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 进入用户注册方法
+2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 用户名:郑皓
+2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 日期:2019-01-08
+2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 时间:14:00:00
+2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : 性别:M
+2019-01-09 16:55:59.392  INFO 12072 --- [http-nio-8080-exec-1] com.foreseers.tj.action.UserAction       : facebookid:123456
 2019-01-09 16:55:59.398 ERROR 12072 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
 java.lang.NullPointerException: null
-	at com.example.demo.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
-	at com.example.demo.action.UserAction.insertUser(UserAction.java:96) ~[classes/:na]
+	at com.foreseers.tj.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
+	at com.foreseers.tj.action.UserAction.insertUser(UserAction.java:96) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -1597,8 +1597,8 @@ java.lang.NullPointerException: null
 
 2019-01-09 16:59:20.526  INFO 12072 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 16:59:20.527  INFO 12072 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-01-09 17:01:15.841  INFO 10880 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10880 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 17:01:15.843  INFO 10880 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 17:01:15.841  INFO 10880 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10880 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 17:01:15.843  INFO 10880 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 17:01:16.518  INFO 10880 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 17:01:16.532  INFO 10880 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 17:01:16.532  INFO 10880 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1607,14 +1607,14 @@ java.lang.NullPointerException: null
 2019-01-09 17:01:16.590  INFO 10880 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 724 ms
 2019-01-09 17:01:16.920  INFO 10880 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 17:01:17.134  INFO 10880 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 17:01:17.137  INFO 10880 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.518 seconds (JVM running for 2.009)
+2019-01-09 17:01:17.137  INFO 10880 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.518 seconds (JVM running for 2.009)
 2019-01-09 17:01:50.004  INFO 10880 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 17:01:50.004  INFO 10880 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 17:01:50.009  INFO 10880 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
 2019-01-09 17:02:32.317  INFO 10880 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 17:02:32.319  INFO 10880 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-01-09 17:02:39.307  INFO 10860 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10860 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 17:02:39.311  INFO 10860 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 17:02:39.307  INFO 10860 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 10860 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 17:02:39.311  INFO 10860 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 17:02:40.117  INFO 10860 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 17:02:40.131  INFO 10860 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 17:02:40.131  INFO 10860 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1623,14 +1623,14 @@ java.lang.NullPointerException: null
 2019-01-09 17:02:40.197  INFO 10860 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 858 ms
 2019-01-09 17:02:40.629  INFO 10860 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 17:02:40.880  INFO 10860 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 17:02:40.883  INFO 10860 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.847 seconds (JVM running for 2.5)
+2019-01-09 17:02:40.883  INFO 10860 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.847 seconds (JVM running for 2.5)
 2019-01-09 17:02:43.858  INFO 10860 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 17:02:43.858  INFO 10860 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 17:02:43.863  INFO 10860 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
 2019-01-09 17:03:01.779  INFO 10860 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 2019-01-09 17:03:01.781  INFO 10860 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-01-09 17:03:27.585  INFO 11624 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11624 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 17:03:27.588  INFO 11624 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 17:03:27.585  INFO 11624 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 11624 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 17:03:27.588  INFO 11624 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 17:03:28.380  INFO 11624 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 17:03:28.394  INFO 11624 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 17:03:28.394  INFO 11624 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1639,15 +1639,15 @@ java.lang.NullPointerException: null
 2019-01-09 17:03:28.461  INFO 11624 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 844 ms
 2019-01-09 17:03:28.852  INFO 11624 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 17:03:29.105  INFO 11624 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 17:03:29.109  INFO 11624 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.806 seconds (JVM running for 2.47)
+2019-01-09 17:03:29.109  INFO 11624 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.806 seconds (JVM running for 2.47)
 2019-01-09 17:03:32.857  INFO 11624 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 17:03:32.857  INFO 11624 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 17:03:32.862  INFO 11624 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
 2019-01-09 17:03:45.781 ERROR 11624 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
 java.lang.NullPointerException: null
-	at com.example.demo.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
-	at com.example.demo.action.ZoneAction.getTimezone(ZoneAction.java:22) ~[classes/:na]
+	at com.foreseers.tj.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
+	at com.foreseers.tj.action.ZoneAction.getTimezone(ZoneAction.java:22) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
@@ -1703,8 +1703,8 @@ java.lang.NullPointerException: null
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.13.jar:9.0.13]
 	at java.lang.Thread.run(Unknown Source) [na:1.8.0_191]
 
-2019-01-09 17:07:09.254  INFO 12264 --- [main] com.example.demo.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12264 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
-2019-01-09 17:07:09.256  INFO 12264 --- [main] com.example.demo.DatingApplication       : No active profile set, falling back to default profiles: default
+2019-01-09 17:07:09.254  INFO 12264 --- [main] com.foreseers.tj.DatingApplication       : Starting DatingApplication on SC-201807131407 with PID 12264 (E:\workspace\dating\target\classes started by Administrator in E:\workspace\dating)
+2019-01-09 17:07:09.256  INFO 12264 --- [main] com.foreseers.tj.DatingApplication       : No active profile set, falling back to default profiles: default
 2019-01-09 17:07:09.923  INFO 12264 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
 2019-01-09 17:07:09.937  INFO 12264 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
 2019-01-09 17:07:09.937  INFO 12264 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
@@ -1713,15 +1713,15 @@ java.lang.NullPointerException: null
 2019-01-09 17:07:09.995  INFO 12264 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 712 ms
 2019-01-09 17:07:10.302  INFO 12264 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2019-01-09 17:07:10.510  INFO 12264 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-01-09 17:07:10.513  INFO 12264 --- [main] com.example.demo.DatingApplication       : Started DatingApplication in 1.49 seconds (JVM running for 1.958)
+2019-01-09 17:07:10.513  INFO 12264 --- [main] com.foreseers.tj.DatingApplication       : Started DatingApplication in 1.49 seconds (JVM running for 1.958)
 2019-01-09 17:07:15.651  INFO 12264 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-01-09 17:07:15.652  INFO 12264 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-01-09 17:07:15.656  INFO 12264 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
 2019-01-09 17:07:15.678 ERROR 12264 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
 
 java.lang.NullPointerException: null
-	at com.example.demo.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
-	at com.example.demo.action.ZoneAction.getTimezone(ZoneAction.java:22) ~[classes/:na]
+	at com.foreseers.tj.service.impl.ZoneServiceImpl.selectByName(ZoneServiceImpl.java:17) ~[classes/:na]
+	at com.foreseers.tj.action.ZoneAction.getTimezone(ZoneAction.java:22) ~[classes/:na]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:1.8.0_191]

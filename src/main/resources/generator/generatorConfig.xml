@@ -27,7 +27,7 @@
         </javaTypeResolver>
  
         <!--生成Model.java文件 -->
-        <javaModelGenerator targetPackage="com.example.demo.model"
+        <javaModelGenerator targetPackage="com.foreseers.tj.model"
             targetProject="dating/src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
@@ -44,7 +44,7 @@
  
         <!-- 生成Mapper.java文件，即dao层 -->
         <javaClientGenerator type="XMLMAPPER"
-            targetPackage="com.example.demo.mapper" targetProject="dating/src/main/java">
+            targetPackage="com.foreseers.tj.mapper" targetProject="dating/src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         

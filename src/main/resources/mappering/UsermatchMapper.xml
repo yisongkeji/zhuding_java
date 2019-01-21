@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.UsermatchMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.model.Usermatch">
+<mapper namespace="com.foreseers.tj.mapper.UsermatchMapper">
+  <resultMap id="BaseResultMap" type="com.foreseers.tj.model.Usermatch">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="zhuid" jdbcType="INTEGER" property="zhuid" />
     <result column="congid" jdbcType="INTEGER" property="congid" />
@@ -22,7 +22,7 @@
     <result column="spare1" jdbcType="VARCHAR" property="spare1" />
     <result column="spare2" jdbcType="VARCHAR" property="spare2" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.UsermatchWithBLOBs">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.foreseers.tj.model.UsermatchWithBLOBs">
     <result column="commentdesc" jdbcType="LONGVARCHAR" property="commentdesc" />
     <result column="characteristicdesc" jdbcType="LONGVARCHAR" property="characteristicdesc" />
   </resultMap>
@@ -92,7 +92,7 @@
   <sql id="Blob_Column_List">
     commentdesc, characteristicdesc
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.model.UsermatchExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.foreseers.tj.model.UsermatchExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -108,7 +108,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.example.demo.model.UsermatchExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.foreseers.tj.model.UsermatchExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -149,7 +149,7 @@
     where (zhuid = #{zhuid,jdbcType=INTEGER} and congid = #{congid,jdbcType=INTEGER})  or (zhuid = #{congid,jdbcType=INTEGER} and congid = #{zhuid,jdbcType=INTEGER}) 
   </select>
   <!-- 根据zhuid和congid更新表 -->
-   <update id="updateByzhuidKeySelective" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+   <update id="updateByzhuidKeySelective" parameterType="com.foreseers.tj.model.UsermatchWithBLOBs">
     update dt_usermatch
     <set>
       <if test="userscore != null">
@@ -217,13 +217,13 @@
     delete from dt_usermatch
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.example.demo.model.UsermatchExample">
+  <delete id="deleteByExample" parameterType="com.foreseers.tj.model.UsermatchExample">
     delete from dt_usermatch
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+  <insert id="insert" parameterType="com.foreseers.tj.model.UsermatchWithBLOBs">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -244,7 +244,7 @@
       #{spare2,jdbcType=VARCHAR}, #{commentdesc,jdbcType=LONGVARCHAR}, #{characteristicdesc,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+  <insert id="insertSelective" parameterType="com.foreseers.tj.model.UsermatchWithBLOBs">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -374,7 +374,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.example.demo.model.UsermatchExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.foreseers.tj.model.UsermatchExample" resultType="java.lang.Long">
     select count(*) from dt_usermatch
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -503,7 +503,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+  <update id="updateByPrimaryKeySelective" parameterType="com.foreseers.tj.model.UsermatchWithBLOBs">
     update dt_usermatch
     <set>
       <if test="zhuid != null">
@@ -569,7 +569,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.UsermatchWithBLOBs">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.foreseers.tj.model.UsermatchWithBLOBs">
     update dt_usermatch
     set zhuid = #{zhuid,jdbcType=INTEGER},
       congid = #{congid,jdbcType=INTEGER},
@@ -593,7 +593,7 @@
       characteristicdesc = #{characteristicdesc,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Usermatch">
+  <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.Usermatch">
     update dt_usermatch
     set zhuid = #{zhuid,jdbcType=INTEGER},
       congid = #{congid,jdbcType=INTEGER},

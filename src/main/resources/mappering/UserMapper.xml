@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.model.User">
+<mapper namespace="com.foreseers.tj.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.foreseers.tj.model.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
@@ -97,7 +97,7 @@
     city, bazi, zodiac, xingzuo, ziwei, area, country, lat, lng, spare, spare1, updatetime, 
     obligate, numerology, userstar, reservedint, reservedvar, reservedvar1, cat1
   </sql>
-  <select id="selectByExample" parameterType="com.example.demo.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.foreseers.tj.model.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -132,7 +132,7 @@
     from dt_user
     where facebook = #{facebook}
   </select>
-  <select id="QueryUserByCity" parameterType="com.example.demo.model.User" resultType="java.lang.Integer">
+  <select id="QueryUserByCity" parameterType="com.foreseers.tj.model.User" resultType="java.lang.Integer">
     select id
  <!--   <include refid="Base_Column_List" /> --> 
     from dt_user 
@@ -151,7 +151,7 @@
     </if>
     and id != #{id,jdbcType=INTEGER}
   </select> 
-  <update id="updateByFaceIDSelective" parameterType="com.example.demo.model.User">
+  <update id="updateByFaceIDSelective" parameterType="com.foreseers.tj.model.User">
     update dt_user
     <set>
       <if test="username != null">
@@ -249,7 +249,7 @@
   </update>
   
    <!-- selectUserlist -->    
-   <select id="selectUserlistbyCountry" parameterType="com.example.demo.model.User" resultMap="BaseResultMap">
+   <select id="selectUserlistbyCountry" parameterType="com.foreseers.tj.model.User" resultMap="BaseResultMap">
     select 
    <include refid="Base_Column_List" />
     from dt_user 
@@ -288,13 +288,13 @@
     delete from dt_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.example.demo.model.UserExample">
+  <delete id="deleteByExample" parameterType="com.foreseers.tj.model.UserExample">
     delete from dt_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.User">
+  <insert id="insert" parameterType="com.foreseers.tj.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -319,7 +319,7 @@
       #{userstar,jdbcType=INTEGER}, #{reservedint,jdbcType=INTEGER}, #{reservedvar,jdbcType=VARCHAR}, 
       #{reservedvar1,jdbcType=VARCHAR}, #{cat1,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.User">
+  <insert id="insertSelective" parameterType="com.foreseers.tj.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -509,7 +509,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.example.demo.model.UserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.foreseers.tj.model.UserExample" resultType="java.lang.Long">
     select count(*) from dt_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -653,7 +653,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.foreseers.tj.model.User">
     update dt_user
     <set>
       <if test="username != null">
@@ -749,7 +749,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.User">
+  <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.User">
     update dt_user
     set username = #{username,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
