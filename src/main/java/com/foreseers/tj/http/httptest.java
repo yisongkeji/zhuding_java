@@ -179,23 +179,25 @@ public class httptest {
         map.put("accountId",1);
         
         String urld = "https://api2047.foreseers.com/Dating/matching";
-        int i = 62;
-        int a[] = {60};
+        int i = 84;
+        int a[] = {62};
         Map<String, Object> mapd = new HashMap<String, Object>();
         mapd.put("accountId", i);
         mapd.put("target",a);
-      //  mapd.put("debug", "false");
-      //  System.out.println(JSON.toJSONString(mapd));
+        mapd.put("debug", "false");
+       System.out.println(JSON.toJSONString(mapd));
         
-        /*环信
-       String hstr=  "http://a1.easemob.com/1122161011178276/testapp/token";
+       
+       String hstr=  "http://a1.easemob.com/1106190114019314/foreseers/users";
        Map<String, String> maph = new HashMap<String, String>();
-        maph.put("grant_type", "client_credentials");
-        maph.put("grant_type", "YXA6Irz_oI-GEead-FFvbfaMbQ");
-        maph.put("grant_type", "YXA6VsR5JypETS3iPFvNNxYklmho0Vw");
-       */  
+        maph.put("username", "1");
+        maph.put("password", "123");
+      //  maph.put("client_secret", "YXA6GloiOfyJ83aGrpEkFlIaQ3X1dsc");
+       
         
-        String rebody = sendPostDataByJson(urld, JSON.toJSONString(mapd), "utf-8");
+        String rebody = sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8");
+       System.out.println(rebody);
+       /*
         JSONObject ojb = JSON.parseObject(rebody);
         System.out.println(ojb);
         String errcode = ojb.getString("errCode");
@@ -205,7 +207,6 @@ public class httptest {
 			JSONObject resultjson = JSON.parseObject(result.get(j).toString());
 			int user_id = resultjson.getInteger("user_id");
 			
-		//	System.out.println(user_id);
 			String score = resultjson.get("score").toString();
 			String desc = resultjson.get("desc").toString();
 			JSONObject comment = JSON.parseObject(resultjson.get("comment").toString());
@@ -228,16 +229,19 @@ public class httptest {
 			
 			System.out.println(score);
 		System.out.println(commentdesc);
+		
+		
 //			System.out.println(characterscore);
 //			System.out.println(characterdesc);
 		}
+		
 //        for(int z = 0;z<result.size();z++) {
 //        	JSONObject test = result.getJSONObject(z);
 //        	String  comment = test.getString("comment");
 //        	JSONObject commentjs = JSON.parseObject(comment);
 //        	//System.out.println(commentjs.get("desc"));
 //        }
-
+   */
   /*
                 接收ziwei的方法
         JSONArray  jsonArray  =   ojb.getJSONArray("ziwei");

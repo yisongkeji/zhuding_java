@@ -4,7 +4,9 @@ public enum EmBussinsError implements CommonError{
 	
 	
 	USER_NOT_EXIT(1001,"用户不存在"),
-	UNKNOWN_ERROR(1000,"未知错误")
+	UNKNOWN_ERROR(1000,"未知错误"),
+	HUANXIN_ERROR(1002,"环信注册失败"),
+	MINGSHU_ERROR(1003,"命书注册失败")
 	;
 	
 	private EmBussinsError(int errCode,String errMsg ) {

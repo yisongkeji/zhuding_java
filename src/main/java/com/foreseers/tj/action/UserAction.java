@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.foreseers.tj.http.httptest;
+import com.foreseers.tj.huanxin.HttpHuanxin;
 import com.foreseers.tj.mapper.UserMapper;
 import com.foreseers.tj.mapper.ZoneMapper;
 import com.foreseers.tj.model.BusinessExpection;
@@ -163,9 +165,27 @@ public class UserAction extends BaseAction{
 			bazi = strbazi.substring(0,strbazi.length()-1);
 					
 		}else {			
-			throw new BusinessExpection(EmBussinsError.UNKNOWN_ERROR);
+			//userService.
+			throw new BusinessExpection(EmBussinsError.MINGSHU_ERROR);
 		}
-
+		/*
+		 *环信注册 
+		 */
+		HttpHuanxin httpHuanxin = new HttpHuanxin();
+	       String hstr=  "http://a1.easemob.com/1106190114019314/foreseers/users";
+	       Map<String,Object> maph = new HashMap<String, Object>();
+	        maph.put("username", userinfo.getId());
+	        maph.put("password", "123");	
+	        CloseableHttpResponse reponse =  httpHuanxin.sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8");
+	        int status = reponse.getStatusLine().getStatusCode();
+	        if(status != 200) {
+	        	
+	        	throw new BusinessExpection(EmBussinsError.HUANXIN_ERROR);
+	        }
+	        
+			/*
+			 *环信注册 
+			 */		
 		User user = new User();
 		user.setId(accountId);
 		user.setSex(gender);
