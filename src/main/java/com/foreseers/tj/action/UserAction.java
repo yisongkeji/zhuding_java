@@ -53,6 +53,7 @@ public class UserAction extends BaseAction{
 	public ResultType queryUser(HttpServletRequest request) throws BusinessExpection {
 	//	log.info("进入查询用户方法");
 		String facebookid = request.getParameter("facebookid");
+		//request.getSession();
 	//	log.info("facebookid："+facebookid);
 		User user =  userService.QueryUser(facebookid);
 
@@ -60,7 +61,7 @@ public class UserAction extends BaseAction{
 	//		log.info("用户不存在，为新用户");
 		 throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
 		}
-		return ResultType.creat("用户已存在");
+		return ResultType.creat(user);
 	}
 	
 	/*
@@ -176,7 +177,7 @@ public class UserAction extends BaseAction{
 	       Map<String,Object> maph = new HashMap<String, Object>();
 	        maph.put("username", userinfo.getId());
 	        maph.put("password", "123");	
-	        CloseableHttpResponse reponse =  httpHuanxin.sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8");
+	        CloseableHttpResponse reponse =  httpHuanxin.sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8",null);
 	        int status = reponse.getStatusLine().getStatusCode();
 	        if(status != 200) {
 	        	
@@ -214,9 +215,18 @@ public class UserAction extends BaseAction{
 	 */
 	@RequestMapping("/uploadtou")
 	@ResponseBody
-	public String uploadtou(HttpServletRequest request) {
+	public ResultType uploadtou(HttpServletRequest request) throws BusinessExpection {
 		
-		return null;
+		String head = request.getParameter("userimage");
+		String facebook = request.getParameter("facebookid");
+		if(head == null || head == "" || facebook == null || facebook == "") {
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);			
+		}
+		User user = new User();
+		user.setFacebook(facebook);
+		user.setHead(head);
+		userService.updateByFaceIDSelective(user);
+		return ResultType.creat(user);
 	}
 	
 	
