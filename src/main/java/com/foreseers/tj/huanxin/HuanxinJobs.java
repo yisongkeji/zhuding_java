@@ -16,8 +16,8 @@ public class HuanxinJobs {
 	 private static Logger log = LoggerFactory.getLogger(HuanxinJobs.class);
 	
 	//@Scheduled(cron="0 0,55 0,17 ? * ? ")
-	//@Scheduled(cron="0 0 1 * * ?")  //每天一点的执行
-	@Scheduled(cron="0 0,14 0,11 ? * ? ")
+	//@Scheduled(cron="0 0,14 0,11 ? * ? ")
+	@Scheduled(cron="0 0 1 * * ?")
 	public void getMessages() throws ClientProtocolException, IOException {
 		
 		//System.out.println("现在的时间是："+new Date());

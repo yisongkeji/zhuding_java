@@ -54,10 +54,18 @@ public class UserMatAction extends BaseAction{
 		String spare = request.getParameter("addr");
 		String spare1 = request.getParameter("addrs");
 		String lat = request.getParameter("lat");   //经度
-		String lng = request.getParameter("lng");   //纬度		
+		String lng = request.getParameter("lng");   //纬度
+		String sex = request.getParameter("sex");         //筛选条件性别
+		int userageli = Integer.parseInt(request.getParameter("ageLittle"));         //筛选条件年龄
+		int useragebig = Integer.parseInt(request.getParameter("agebig"));         //筛选条件年龄
+		int userdistance = Integer.parseInt(request.getParameter("distance"));         //筛选条件距离
 		if(facebook == null || lat == null || lng == null  ) {			
-			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT); 
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS); 
 		}	
+		if(sex == "null" || sex == "") {
+			sex = null;
+		}
+		
 		//接口返回字段需要保存都数据库中
 		int user_id ;
 		int score ;
@@ -90,12 +98,38 @@ public class UserMatAction extends BaseAction{
 	    
 	    User userinfo = userService.QueryUser(facebook);
 	    int accountId = userinfo.getId();    
-//	    Double userlat = userinfo.getLat();  //主用户的经纬度
-//	    Double userlng = userinfo.getLng();
 		//根据位置信息查用户
-		List<Integer> idlist = userService.QueryUserByCity(userinfo);
-		
-		List<Integer> listuser = new ArrayList<Integer>();  //附近的人列表，根据用户位置查询
+	    Map mapuser = new HashMap<String,Object>();
+	    mapuser.put("id", accountId);
+	    mapuser.put("sex",sex);
+	    mapuser.put("country", country);
+	    mapuser.put("city", city);
+	    mapuser.put("area", area);
+	    mapuser.put("spare", spare);
+	    mapuser.put("ageli",userageli);
+	    mapuser.put("agebig",useragebig);
+		List<Integer> idlist = userService.QueryUserByCity(mapuser);
+//增加筛选条件
+		//计算两个用户之间的距离,更新到表中
+		for(int z=0;z<idlist.size();z++) {
+			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+			 LocationUtils local = new LocationUtils();
+			 User touser = userService.selectByPrimaryKey(idlist.get(z));
+			 Double tolat = touser.getLat();
+			 Double tolan = touser.getLng();
+			 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
+			 usermatchWithBLOBs.setZhuid(accountId);
+			 usermatchWithBLOBs.setCongid(idlist.get(z));
+			 usermatchWithBLOBs.setDistance(distance);
+			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+			 if(distance >userdistance) {
+				 idlist.remove(z--);
+			 }
+		}
+
+//增加筛选条件
+		List<Integer> listuser = new ArrayList<Integer>();  //推送的用户列表		                                              
+
 		List<Integer> idlistinfo = new ArrayList<Integer>();
 		//判断周围人的个数，如果太少就添加，添加特殊用户
 		if(idlist.size()<50) {
@@ -103,12 +137,12 @@ public class UserMatAction extends BaseAction{
 			int paihang = 2;
 			int getnum = 1;
 			 listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
-			// System.out.println(listuser);
 			for(int j = 0;j<listuser.size();j++) {
 				if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {
 					idlist.add(listuser.get(j));
 				}							
 			}
+			/*
 			if(idlist.size()<10) {
 			int quenum = 10-idlist.size();			
 			Map map = new HashMap<String, Object>();
@@ -122,6 +156,7 @@ public class UserMatAction extends BaseAction{
 				}
 				}
 			}	
+			*/
 		}else {
 			if(idlist.size()<100) {
 				int paihang = 40;
@@ -220,6 +255,7 @@ public class UserMatAction extends BaseAction{
 						
 		}
 		//计算两个用户之间的距离,更新到表中
+		/*
 		for(int z=0;z<idlistinfo.size();z++) {
 			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
 			 LocationUtils local = new LocationUtils();
@@ -232,7 +268,7 @@ public class UserMatAction extends BaseAction{
 			 usermatchWithBLOBs.setDistance(distance);
 			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
 		}
-		
+		*/
 		//得到给前端返回的list用户，需要修改，根据idlist，查询用户列表	
 		List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
 	    for(int i=0;i<idlistinfo.size();i++) {

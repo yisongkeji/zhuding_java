@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Integer> QueryUserByCity(User user) {
+	public List<Integer> QueryUserByCity(Map Map) {
 		// TODO Auto-generated method stub
-		return userMapper.QueryUserByCity(user);
+		return userMapper.QueryUserByCity(Map);
 	}
 
 	@Override

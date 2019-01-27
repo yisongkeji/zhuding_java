@@ -12,7 +12,7 @@ public interface UserService {
 	 int insertSelective(User record);
 	 User QueryUser(String facebookid);
 	 
-	 List<Integer> QueryUserByCity(User user);
+	 List<Integer> QueryUserByCity(Map map);
 	 
 	 int updateByFaceIDSelective(User record);
 	 User selectByPrimaryKey(Integer id);

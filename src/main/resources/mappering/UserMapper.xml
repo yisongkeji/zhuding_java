@@ -132,7 +132,7 @@
     from dt_user
     where facebook = #{facebook}
   </select>
-  <select id="QueryUserByCity" parameterType="com.foreseers.tj.model.User" resultType="java.lang.Integer">
+  <select id="QueryUserByCity" parameterType="java.util.Map" resultType="java.lang.Integer">
     select id
  <!--   <include refid="Base_Column_List" /> --> 
     from dt_user 
@@ -148,6 +148,15 @@
     </if>
     <if test="spare != null">
     and spare = #{spare,jdbcType=VARCHAR}
+    </if>
+     <if test="sex != null">
+    and sex = #{sex,jdbcType=VARCHAR}
+    </if>   
+    <if test="ageli != null">
+    and reservedint &gt;= #{ageli,jdbcType=INTEGER}
+    </if>
+    <if test="agebig != null">
+    and reservedint &lt;= #{agebig,jdbcType=INTEGER}
     </if>
     and id != #{id,jdbcType=INTEGER}
   </select> 
