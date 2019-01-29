@@ -95,7 +95,7 @@ public class HttpHuanxin {
 		    
 	       String hstr=  "http://a1.easemob.com/1106190114019314/foreseers/users";
 	       Map<String, String> maph = new HashMap<String, String>();
-	        maph.put("username", "2");
+	        maph.put("username", "85");
 	        maph.put("password", "123");	
 	        
 	        String url=  "http://a1.easemob.com/1106190114019314/foreseers/token";
@@ -105,23 +105,23 @@ public class HttpHuanxin {
 	        map.put("client_secret","YXA6GloiOfyJ83aGrpEkFlIaQ3X1dsc");
 	        
 	        
-	        CloseableHttpResponse rebody = sendPostDataByJson(url, JSON.toJSONString(map), "utf-8",null);
+	        CloseableHttpResponse rebody = sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8",null);
 	          System.out.println(rebody.getStatusLine().getStatusCode());
 	          String result =  EntityUtils.toString(rebody.getEntity(),"utf-8");
 	          JSONObject job = JSON.parseObject(result);
-	          String token = job.getString("access_token");
-	       //   String token = "qkwjbejq";
-	          System.out.println(token);
-	          rebody.close();
-	          String urll =  "http://a1.easemob.com/1106190114019314/foreseers/chatmessages/2019012310"; 
-//	          Map<String, String> mapd = new HashMap<String, String>();
-//	          mapd.put("Authorization","Bearer ${"+token+"}");
-//	          System.out.println("Bearer ${"+token+"}");
-	          CloseableHttpResponse rebodyd = sendGetData(urll,"utf-8",token);
-	          System.out.println(rebodyd.getStatusLine().getStatusCode());
-	          System.out.println(EntityUtils.toString(rebodyd.getEntity(), "utf-8"));
-	          
-	          rebodyd.close();
+//	          String token = job.getString("access_token");
+//	       //   String token = "qkwjbejq";
+//	          System.out.println(token);
+//	          rebody.close();
+//	          String urll =  "http://a1.easemob.com/1106190114019314/foreseers/chatmessages/2019012310"; 
+////	          Map<String, String> mapd = new HashMap<String, String>();
+////	          mapd.put("Authorization","Bearer ${"+token+"}");
+////	          System.out.println("Bearer ${"+token+"}");
+//	          CloseableHttpResponse rebodyd = sendGetData(urll,"utf-8",token);
+//	          System.out.println(rebodyd.getStatusLine().getStatusCode());
+//	          System.out.println(EntityUtils.toString(rebodyd.getEntity(), "utf-8"));
+//	          
+//	          rebodyd.close();
 	       //   System.out.println(rebody.getStatusLine().getStatusCode());
 	       //   System.out.println(EntityUtils.toString(rebody.getEntity(),"utf-8"));
 	        

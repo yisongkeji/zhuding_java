@@ -1,7 +1,7 @@
 server:
   port: 8080
 web:
-  upload-path: e:/dt/head
+  upload-path: e:/dt/head/
   front-path: e:/dt/image  
 spring:
 

@@ -2,8 +2,10 @@ package com.foreseers.tj.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
@@ -31,8 +34,11 @@ import com.foreseers.tj.mapper.ZoneMapper;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
+import com.foreseers.tj.model.ReturnImage;
 import com.foreseers.tj.model.Timezone;
 import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserImage;
+import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.ZoneService;
 
@@ -49,6 +55,8 @@ public class UserAction extends BaseAction{
 	@Autowired
 	private ZoneService zoneService;
 	
+	@Autowired
+	private UserImageService userImageService;
 	/*
 	 * 查询用户方法
 	 */
@@ -224,8 +232,8 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/uploadhead")
 	@ResponseBody
 	public ResultType uploadtou(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
-		
-	//	String head = request.getParameter("userid");
+		String imagepath = "E:/dt/head"; 
+	
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
@@ -233,26 +241,116 @@ public class UserAction extends BaseAction{
 		if( facebook == null || facebook == "") {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);			
 		}
+		User userinfo = userService.QueryUser(facebook);
+		if(userinfo != null) {
+		String userhead = userinfo.getHead();
+			if(userhead != null || userhead != "") {
+				String headold = userhead.substring(25);
+				new File(imagepath+"/"+headold).delete(); 
+			}
+		}
 		String name = file.getOriginalFilename();
-		String prefix = name.substring(name.lastIndexOf(".")+1);
-		String headname = facebook+"."+prefix;
 		
-		String imagepath = "E:/dt/head"; 
 	//	String imagepath = "/var/zhuding/head";   服务器上的存放图片的地址（记得修改application.yml配置文件）
 		File savefile = new File(imagepath);
 		if(!savefile.exists()) {
 			savefile.mkdirs();
 		}
-		String save = imagepath+"/"+headname;
-		String saveurl = "http://192.168.1.73:8080/"+headname;
+		
+		String save = imagepath+"/"+name;
+		String saveurl = "http://192.168.1.73:8080/"+name;
 	//	String saveurl = "http://chat.foreseers.com/"+headname;    服务器上的保存图片的路径
-		System.out.println(save);
+		//System.out.println(save);
 		file.transferTo(new File(save));
 		User user = new User();
 		user.setFacebook(facebook);
 		user.setHead(saveurl);
 		userService.updateByFaceIDSelective(user);
 		return ResultType.creat(user);
+	}
+	
+	/*
+	 * 个人信息
+	 */
+	@RequestMapping("/userpersonal")
+	@ResponseBody
+	public ResultType userpersonal(HttpServletRequest request) throws BusinessExpection {
+		String id =  request.getParameter("userid");
+		List<String> listimage = new ArrayList<String>();   //图片地址的list
+		Map<String,String> map = new HashMap<String,String>();
+		ReturnImage returnImage = new ReturnImage();
+		int countimage = 0;
+ 		if(id != null) {
+			int userid = Integer.parseInt(id);
+			User user =	userService.selectByPrimaryKey(userid);
+			List<UserImage> list = userImageService.queryByUseridlist(userid);
+			if(list != null) {
+			 countimage = list.size();
+				for(UserImage userImage :list ) {
+					//	userImage.getImage();
+					String image = userImage.getImage();
+					String imagename = userImage.getImagename();
+					listimage.add(userImage.getImage());
+					map.put(imagename, image);
+				//	listimage.add(map);
+				}
+			
+			}
+			returnImage.setCountnum(countimage);
+			returnImage.setListimage(listimage);
+			
+			BeanUtils.copyProperties(user, returnImage);
+		}else {
+			//参数不合法
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
+		}
+
+		return ResultType.creat(returnImage);
+	}
+	
+	/*
+	 * 更新会员基本信息
+	 */
+	@RequestMapping("/updateuser")
+	@ResponseBody
+	public ResultType updateuser(HttpServletRequest request) throws BusinessExpection {
+		
+		String facebook = request.getParameter("facebookid"); //
+		String name = request.getParameter("name"); //昵称
+		String sex = request.getParameter("sex");   //性别
+		String date = request.getParameter("date");
+		String time = request.getParameter("time");
+		String age = request.getParameter("age");
+		String xingshu = request.getParameter("xingsu");
+		User user = new User();
+		if(facebook == null) {
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
+		}else {
+			user.setFacebook(facebook);
+		}
+		if(name != null) {
+			user.setUsername(name);
+		}
+		if(age != null) {
+			user.setReservedint(Integer.parseInt(age));
+		}
+		if(sex != null) {
+			user.setSex(sex);
+		}
+		if(xingshu != null) {
+			user.setZiwei(xingshu);
+		}
+		if(date != null) {  //日期
+			user.setDate(date);
+		}
+		if(time != null) {
+			user.setTime(time);
+		}		
+		//System.out.println(user);
+		userService.updateByFaceIDSelective(user);
+		User userinfo =  userService.QueryUser(facebook);
+		
+		return ResultType.creat(userinfo);
 	}
 	
 	
