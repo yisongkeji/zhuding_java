@@ -84,18 +84,26 @@ public class UserFriendAction extends BaseAction{
 
 		 Map<String, Object> map = new HashMap<String, Object>();
 		String facebook = request.getParameter("facebookid");
+		String friid = request.getParameter("friendid");
 		User user = userService.QueryUser(facebook);
+		User userfriend = userService.selectByPrimaryKey(Integer.parseInt(friid));
 		int userfriendnum =  Integer.parseInt(user.getReservedvar()); //获取用户的好友的用户数量上线
+		int userfri =  Integer.parseInt(userfriend.getReservedvar());
 		int userid = user.getId();
 		//System.out.println(userid+"");
 		int usercount = userFriendService.selectcountnum(userid+"");
+		int userfir = userFriendService.selectcountnum(friid);
 		if(usercount >= userfriendnum) {  //达到好友上线
 			status = 1;
+		}
+		if(userfir >= userfri ) {
+			status = 2;
 		}
 		
 		map.put("status", status);
 		return ResultType.creat(map);
 	}
+	
 	
 	/*
 	 * 添加好友成功

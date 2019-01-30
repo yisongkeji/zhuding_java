@@ -238,7 +238,7 @@ public class UserAction extends BaseAction{
 	@ResponseBody
 	public ResultType uploadtou(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
 		String imagepath = "E:/dt/head"; 
-	
+	log.info("请求信息："+request);
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
