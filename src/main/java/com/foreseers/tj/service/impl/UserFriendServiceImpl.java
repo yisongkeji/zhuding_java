@@ -19,4 +19,10 @@ public class UserFriendServiceImpl implements UserFriendService {
 		return userFriendMapper.insertSelective(record);
 	}
 
+	@Override
+	public int selectcountnum(String userid) {
+		// TODO Auto-generated method stub
+		return userFriendMapper.selectcountnum(userid);
+	}
+
 }

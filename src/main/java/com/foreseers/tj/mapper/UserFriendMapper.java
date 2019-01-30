@@ -27,4 +27,6 @@ public interface UserFriendMapper {
     int updateByPrimaryKeySelective(UserFriend record);
 
     int updateByPrimaryKey(UserFriend record);
+    
+    int selectcountnum(String userid);
 }

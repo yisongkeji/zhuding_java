@@ -77,13 +77,26 @@ public class UserFriendAction extends BaseAction{
 	/*
 	 * 判断用户 的好友数量是否到达上线
 	 */
-	@RequestMapping("isfull")
-	public String isfull(HttpServletRequest request) {
+	@RequestMapping("/isfull")
+	@ResponseBody
+	public ResultType isfull(HttpServletRequest request) {
+		int status = 0;
+
+		 Map<String, Object> map = new HashMap<String, Object>();
 		String facebook = request.getParameter("facebookid");
 		User user = userService.QueryUser(facebook);
+		int userfriendnum =  Integer.parseInt(user.getReservedvar()); //获取用户的好友的用户数量上线
+		int userid = user.getId();
+		//System.out.println(userid+"");
+		int usercount = userFriendService.selectcountnum(userid+"");
+		if(usercount >= userfriendnum) {  //达到好友上线
+			status = 1;
+		}
 		
-		return null;
+		map.put("status", status);
+		return ResultType.creat(map);
 	}
+	
 	/*
 	 * 添加好友成功
 	 */

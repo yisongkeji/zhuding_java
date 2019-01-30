@@ -32,6 +32,8 @@ spring:
 mybatis:
   mapper-locations: classpath:mappering/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.foreseers.tj.model  # 注意：对应实体类的路径com.example.demo.model
+ # configuration:
+  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImp
 
   
 #返回的前缀   目录对应src/main/webapp下
@@ -45,10 +47,10 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
-logging:
+#logging:
  # file: zhuding.log    
-  level:
-    com.foreseers.tj.mapper.ZoneMapper : debug
+  #level:
+   # com.foreseers.tj.mapper : debug
     
 
 

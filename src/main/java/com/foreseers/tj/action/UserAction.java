@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
@@ -47,7 +48,7 @@ import com.foreseers.tj.service.ZoneService;
 @CrossOrigin
 public class UserAction extends BaseAction{
 	
-//	private static final Logger log = LoggerFactory.getLogger(UserAction.class);
+	private static final Logger log = LoggerFactory.getLogger(UserAction.class);
 	
 	@Autowired
 	private UserService userService;
@@ -63,14 +64,14 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/queryUser")
 	@ResponseBody
 	public ResultType queryUser(HttpServletRequest request) throws BusinessExpection {
-	//	log.info("进入查询用户方法");
+		log.info("进入查询用户方法");
 		String facebookid = request.getParameter("facebookid");
 		//request.getSession();
-	//	log.info("facebookid："+facebookid);
+		log.info("facebookid："+facebookid);
 		User user =  userService.QueryUser(facebookid);
 
 		if(user == null) {
-	//		log.info("用户不存在，为新用户");
+			log.info("用户不存在，为新用户");
 		 throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
 		}
 		return ResultType.creat(user);
@@ -82,7 +83,7 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/insertUser")
 	@ResponseBody
 	public ResultType insertUser(HttpServletRequest request) throws BusinessExpection, ClientProtocolException, IOException {
-	//	log.info("进入用户注册方法");
+		log.info("进入用户注册方法");
 		String username = request.getParameter("username");
 		String date = request.getParameter("date");
 		String time = request.getParameter("time");
@@ -106,11 +107,12 @@ public class UserAction extends BaseAction{
 		String bazi = "";     //八字
 		String cat1 = "";
 		String star = "";
-//		log.info("用户名:"+username);
-//		log.info("日期:"+date);
-//		log.info("时间:"+time);
-//		log.info("性别:"+gender);
-//		log.info("facebookid:"+facebookid);
+		log.info("用户名:"+username);
+		log.info("日期:"+date);
+		log.info("时间:"+time);
+		log.info("性别:"+gender);
+		log.info("facebookid:"+facebookid);
+		log.info("时区："+zoneString);
 	//	ZoneAction zoneAction = new ZoneAction();
 		Timezone timezone = zoneService.selectByName(zoneString);
 		if(timezone != null) {
@@ -121,7 +123,9 @@ public class UserAction extends BaseAction{
 		}
 		//计算年龄
 		 Date datetime = new Date();
-		 int age = datetime.getYear()+1900-Integer.parseInt(date);	    
+		 String dateyear[] =  date.split("-");
+		 
+		 int age = datetime.getYear()+1900-Integer.parseInt(dateyear[0]);	    
 		
 		//现将用户信息插入表中
 		User userinfo = new User();
@@ -138,6 +142,7 @@ public class UserAction extends BaseAction{
 		userinfo.setLat(Double.parseDouble(lat));
 		userinfo.setLng(Double.parseDouble(lng));
 		userinfo.setReservedint(age);
+		userinfo.setReservedvar(20+"");
 		int insertid =  userService.insertSelective(userinfo);  
 		int accountId = userinfo.getId();
 	//	User user1= userService.QueryUser(facebookid);
@@ -157,7 +162,7 @@ public class UserAction extends BaseAction{
 		JSONObject jsn = JSON.parseObject(body);
 		 String errcode = jsn.getString("errCode");
 		if(errcode.equals("200") ) {
-		//	log.info("调用接口成功");
+			log.info("调用接口成功");
 			numerology = jsn.getString("numerology");  
 		    cat1 = jsn.getString("cat1");  //五行
 		    star = jsn.getString("star");  
@@ -220,7 +225,7 @@ public class UserAction extends BaseAction{
 		user.setZodiac(zodiac);
 		user.setUserstar(Integer.parseInt(star));
 		
-//		log.info("user:"+user);
+		log.info("user:"+user);
 		userService.updateByPrimaryKeySelective(user);
 		
 		return ResultType.creat(user);
@@ -313,45 +318,124 @@ public class UserAction extends BaseAction{
 	 */
 	@RequestMapping("/updateuser")
 	@ResponseBody
-	public ResultType updateuser(HttpServletRequest request) throws BusinessExpection {
+	public ResultType updateuser(HttpServletRequest request) throws BusinessExpection, NumberFormatException, ClientProtocolException, IOException {
 		
-		String facebook = request.getParameter("facebookid"); //
+		String userid = request.getParameter("userid"); //
 		String name = request.getParameter("name"); //昵称
 		String sex = request.getParameter("sex");   //性别
 		String date = request.getParameter("date");
 		String time = request.getParameter("time");
-		String age = request.getParameter("age");
-		String xingshu = request.getParameter("xingsu");
+	//	String age = request.getParameter("age");
+	//	String xingshu = request.getParameter("xingsu");
+		User userfirst = userService.selectByPrimaryKey(Integer.parseInt(userid));
 		User user = new User();
-		if(facebook == null) {
+		if(userid == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}else {
-			user.setFacebook(facebook);
+			//user.setFacebook(facebook);
+			user.setId(Integer.parseInt(userid));
 		}
 		if(name != null) {
 			user.setUsername(name);
+			userService.updateByPrimaryKeySelective(user);
 		}
-		if(age != null) {
-			user.setReservedint(Integer.parseInt(age));
-		}
+
 		if(sex != null) {
-			user.setSex(sex);
+		//	user.setSex(sex);
+			String datesex = userfirst.getDate();
+			String timesex = userfirst.getTime();
+			//String gender = userfirst.getSex();
+			dating(datesex,timesex,sex,Integer.parseInt(userid));			
 		}
-		if(xingshu != null) {
-			user.setZiwei(xingshu);
+		
+		if(date != null && time != null) {  //日期
+			
+			String gender = userfirst.getSex();
+			 Date datetime = new Date();
+			 String dateyear[] =  date.split("-");
+			 int age = datetime.getYear()+1900-Integer.parseInt(dateyear[0]);	
+			 user.setReservedint(age);
+			 userService.updateByPrimaryKeySelective(user);
+			dating(date,time,gender,Integer.parseInt(userid));
+   
 		}
-		if(date != null) {  //日期
-			user.setDate(date);
-		}
-		if(time != null) {
-			user.setTime(time);
-		}		
+		
 		//System.out.println(user);
-		userService.updateByFaceIDSelective(user);
-		User userinfo =  userService.QueryUser(facebook);
+	//	userService.updateByFaceIDSelective(user);
+		User userinfo =  userService.selectByPrimaryKey(Integer.parseInt(userid));
 		
 		return ResultType.creat(userinfo);
 	}
 	
+	public void  dating(String date,String time,String gender,int accountId) throws ClientProtocolException, IOException, BusinessExpection {
+		String url = "https://api2047.foreseers.com/Dating/personalAnalysis";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("date", date);
+		map.put("time", time);
+		map.put("gender", gender);
+		map.put("accountId",accountId);
+		String numerology = "";
+		String cat1 = "";
+		String star = "";
+		String horoscope = "";
+		String zodiac = "";
+		String ziwei = "";
+		String bazi = "";
+		
+		httptest httptest = new httptest();                     //sendPostDataByJson
+		String body = httptest.sendPostDataByJson(url,JSON.toJSONString(map),"utf-8");
+		
+		JSONObject jsn = JSON.parseObject(body);
+		 String errcode = jsn.getString("errCode");
+		if(errcode.equals("200") ) {
+		//	log.info("调用接口成功");
+			numerology = jsn.getString("numerology");  
+		    cat1 = jsn.getString("cat1");  //五行
+		    star = jsn.getString("star");  
+			horoscope = jsn.getString("horoscope");  //星座
+			zodiac = jsn.getString("zodiac");   //生肖
+			//ziwei
+			JSONArray ziweiArry = jsn.getJSONArray("ziwei");  
+			StringBuffer str = new StringBuffer();
+			String str1 = "";
+			 for(int j= 0;j<ziweiArry.size();j++) {
+				  String ziwei1 = ziweiArry.get(j).toString();
+				  str1 =  str.append(ziwei1+",").toString();
+			 } 
+			ziwei =  str1.substring(0,str1.length()-1);    //得到ziwei
+			 //八字
+			JSONArray baziarry = jsn.getJSONArray("bazi");    
+			StringBuffer strba = new StringBuffer();
+			String  strbazi = "";
+			for(int i = 0;i<baziarry.size();i++) {
+				strbazi = strba.append(baziarry.get(i)+",").toString();
+			}
+			bazi = strbazi.substring(0,strbazi.length()-1);
+					
+		}else {			
+			//userService.
+			throw new BusinessExpection(EmBussinsError.MINGSHU_ERROR);
+		}
+		 	
+		User user = new User();
+		user.setId(accountId);
+		user.setSex(gender);
+		user.setBazi(bazi);
+	//	user.setUsername(username);
+		user.setDate(date);
+		user.setTime(time);
+	//	user.setFacebook(facebookid);
+		user.setCat1(cat1);
+		//user.setNum(Integer.parseInt(numerology));
+		user.setNumerology(Integer.parseInt(numerology));
+		user.setXingzuo(horoscope);
+		user.setZiwei(ziwei);
+	//	user.setZone(zone);
+		user.setZodiac(zodiac);
+		user.setUserstar(Integer.parseInt(star));
+		
+//		log.info("user:"+user);
+		userService.updateByPrimaryKeySelective(user);
+	}
 	
 }

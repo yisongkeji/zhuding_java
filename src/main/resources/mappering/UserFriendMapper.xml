@@ -149,6 +149,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <!-- 得到好友的数量 -->
+  <select id="selectcountnum" parameterType="String" resultType="java.lang.Integer">
+    select COUNT(*) from (
+	select friend_id from user_friend  WHERE user_id = #{userid}
+	UNION ALL
+	SELECT user_id from user_friend WHERE friend_id = #{userid} ) u;
+  </select>
+  
   <update id="updateByExampleSelective" parameterType="map">
     update user_friend
     <set>

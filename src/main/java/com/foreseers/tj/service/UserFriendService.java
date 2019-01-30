@@ -6,4 +6,8 @@ public interface UserFriendService {
 	
 	 int insertSelective(UserFriend record);
 
+	int selectcountnum(String userid);
+
+	
+
 }
