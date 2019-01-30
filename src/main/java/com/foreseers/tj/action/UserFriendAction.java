@@ -81,8 +81,8 @@ public class UserFriendAction extends BaseAction{
 	@ResponseBody
 	public ResultType isfull(HttpServletRequest request) {
 		int status = 0;
-
-		 Map<String, Object> map = new HashMap<String, Object>();
+		int userint = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
 		String facebook = request.getParameter("facebookid");
 		String friid = request.getParameter("friendid");
 		User user = userService.QueryUser(facebook);
@@ -95,12 +95,15 @@ public class UserFriendAction extends BaseAction{
 		int userfir = userFriendService.selectcountnum(friid);
 		if(usercount >= userfriendnum) {  //达到好友上线
 			status = 1;
+			if(userfir >= userfri ) {
+				status = 2;
+			}
+		}else {
+			userint = userfriendnum - usercount;
 		}
-		if(userfir >= userfri ) {
-			status = 2;
-		}
-		
+
 		map.put("status", status);
+		map.put("userint", userint);
 		return ResultType.creat(map);
 	}
 	
