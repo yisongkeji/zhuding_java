@@ -36,12 +36,14 @@ import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.ReturnImage;
+import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.Timezone;
 import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.ZoneService;
+import com.foreseers.tj.util.getAge;
 
 @Controller
 @RequestMapping("/user")
@@ -75,6 +77,22 @@ public class UserAction extends BaseAction{
 		 throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
 		}
 		return ResultType.creat(user);
+	}
+	
+	@RequestMapping("/countage")
+	@ResponseBody
+	public void  countAge(HttpServletRequest request) {
+	    String userid = request.getParameter("userid");
+		User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
+		String date = user.getDate();
+		int userage = user.getReservedint();
+		getAge getage = new getAge();
+		int age = getage.jiuanAge(date);
+		if(age != userage) {
+			user.setReservedint(age);
+			userService.updateByPrimaryKeySelective(user);
+		}
+		//return "success";
 	}
 	
 	/*
@@ -118,14 +136,16 @@ public class UserAction extends BaseAction{
 		if(timezone != null) {
 			 zone = timezone.getId();
 		}else {
+			log.error("时区参数不合法");
 			throw new BusinessExpection(EmBussinsError.UNKNOWN_ERROR);
 			
 		}
 		//计算年龄
-		 Date datetime = new Date();
-		 String dateyear[] =  date.split("-");
-		 
-		 int age = datetime.getYear()+1900-Integer.parseInt(dateyear[0]);	    
+//		 Date datetime = new Date();
+//		 String dateyear[] =  date.split("-");		 
+//		 int age = datetime.getYear()+1900-Integer.parseInt(dateyear[0]);	    
+		getAge getage = new getAge();
+		int age = getage.jiuanAge(date);
 		
 		//现将用户信息插入表中
 		User userinfo = new User();
@@ -143,7 +163,9 @@ public class UserAction extends BaseAction{
 		userinfo.setLng(Double.parseDouble(lng));
 		userinfo.setReservedint(age);
 		userinfo.setReservedvar(20+"");
-		int insertid =  userService.insertSelective(userinfo);  
+		log.info("user:"+userinfo);
+		int insertid =  userService.insertSelective(userinfo); 
+		log.info("保存到数据库成功");
 		int accountId = userinfo.getId();
 	//	User user1= userService.QueryUser(facebookid);
 //		int accountId = user1.getId();
@@ -157,6 +179,7 @@ public class UserAction extends BaseAction{
 		
 		httptest httptest = new httptest();
 		                     //sendPostDataByJson
+		log.info("调用命书接口");
 		String body = httptest.sendPostDataByJson(url,JSON.toJSONString(map),"utf-8");
 		
 		JSONObject jsn = JSON.parseObject(body);
@@ -188,20 +211,25 @@ public class UserAction extends BaseAction{
 					
 		}else {			
 			//userService.
+			log.error("调用接口失败");
+			log.error("errcode:"+errcode);
 			throw new BusinessExpection(EmBussinsError.MINGSHU_ERROR);
 		}
 		/*
 		 *环信注册 
 		 */
 		HttpHuanxin httpHuanxin = new HttpHuanxin();
+		log.info("用户注册环信");
 	       String hstr=  "http://a1.easemob.com/1106190114019314/foreseers/users";
 	       Map<String,Object> maph = new HashMap<String, Object>();
 	        maph.put("username", userinfo.getId());
-	        maph.put("password", "123");	
+	        maph.put("password", "123");
+	        maph.put("nickname", username);
 	        CloseableHttpResponse reponse =  httpHuanxin.sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8",null);
 	        int status = reponse.getStatusLine().getStatusCode();
 	        if(status != 200) {
-	        	
+	        	log.error("环信接口注册失败");
+	        	log.error("状态码："+status);
 	        	throw new BusinessExpection(EmBussinsError.HUANXIN_ERROR);
 	        }
 	        
@@ -225,7 +253,7 @@ public class UserAction extends BaseAction{
 		user.setZodiac(zodiac);
 		user.setUserstar(Integer.parseInt(star));
 		
-		log.info("user:"+user);
+		log.info("返回值:"+user);
 		userService.updateByPrimaryKeySelective(user);
 		
 		return ResultType.creat(user);
@@ -237,13 +265,16 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/uploadhead")
 	@ResponseBody
 	public ResultType uploadtou(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
+		log.info("用户头像上传方法");
 		String imagepath = "E:/dt/head"; 
-	log.info("请求信息："+request);
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
 	    String facebook = request.getParameter("facebookid");
+	    log.info("请求信息：facebook"+facebook);
 		if( facebook == null || facebook == "") {
+			log.error("参数不正确");
+			log.error("facebook:"+facebook);
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);			
 		}
 		User userinfo = userService.QueryUser(facebook);
@@ -271,6 +302,7 @@ public class UserAction extends BaseAction{
 		user.setFacebook(facebook);
 		user.setHead(saveurl);
 		userService.updateByFaceIDSelective(user);
+		log.info("返回值："+user);
 		return ResultType.creat(user);
 	}
 	
@@ -280,7 +312,9 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/userpersonal")
 	@ResponseBody
 	public ResultType userpersonal(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入个人中心");
 		String id =  request.getParameter("userid");
+		log.info("请求参数：userid"+id);
 		List<String> listimage = new ArrayList<String>();   //图片地址的list
 		Map<String,String> map = new HashMap<String,String>();
 		ReturnImage returnImage = new ReturnImage();
@@ -288,6 +322,8 @@ public class UserAction extends BaseAction{
  		if(id != null) {
 			int userid = Integer.parseInt(id);
 			User user =	userService.selectByPrimaryKey(userid);
+			String date = user.getDate();
+			int userage = user.getReservedint();
 			List<UserImage> list = userImageService.queryByUseridlist(userid);
 			if(list != null) {
 			 countimage = list.size();
@@ -301,15 +337,18 @@ public class UserAction extends BaseAction{
 				}
 			
 			}
+		
+			//returnImage.setAge(age);
 			returnImage.setCountnum(countimage);
 			returnImage.setListimage(listimage);
 			
 			BeanUtils.copyProperties(user, returnImage);
 		}else {
 			//参数不合法
+			log.error("参数不合法");
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
-
+ 		log.info("返回的参数："+returnImage);
 		return ResultType.creat(returnImage);
 	}
 	
@@ -319,53 +358,66 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/updateuser")
 	@ResponseBody
 	public ResultType updateuser(HttpServletRequest request) throws BusinessExpection, NumberFormatException, ClientProtocolException, IOException {
-		
+		log.info("进入更新会员基本信息方法");
 		String userid = request.getParameter("userid"); //
 		String name = request.getParameter("name"); //昵称
 		String sex = request.getParameter("sex");   //性别
 		String date = request.getParameter("date");
 		String time = request.getParameter("time");
-	//	String age = request.getParameter("age");
-	//	String xingshu = request.getParameter("xingsu");
+		int age = 0;
+		log.info("请求的参数：userid"+userid);
+		log.info("请求的参数：name"+name);
+		log.info("请求的参数：sex"+sex);
+		log.info("请求的参数：date"+date);
+		log.info("请求的参数：time"+time);
+
 		User userfirst = userService.selectByPrimaryKey(Integer.parseInt(userid));
+//		String suzu[] = userfirst.getDate().split("-");
+//		Date datetimefirst = new Date();
+//		age = datetimefirst.getYear()+1900-Integer.parseInt(suzu[0]);
 		User user = new User();
 		if(userid == null) {
+			log.error("参数不正确");
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}else {
 			//user.setFacebook(facebook);
 			user.setId(Integer.parseInt(userid));
 		}
 		if(name != null) {
+			log.info("修改名称");
 			user.setUsername(name);
 			userService.updateByPrimaryKeySelective(user);
 		}
 
 		if(sex != null) {
 		//	user.setSex(sex);
+			log.info("修改性别，调用命书接口");
 			String datesex = userfirst.getDate();
 			String timesex = userfirst.getTime();
 			//String gender = userfirst.getSex();
-			dating(datesex,timesex,sex,Integer.parseInt(userid));			
+			dating(datesex,timesex,sex,Integer.parseInt(userid));		
+			log.info("调用接口成功");
 		}
 		
 		if(date != null && time != null) {  //日期
-			
+			log.info("修改出生日期，调用命书接口");
 			String gender = userfirst.getSex();
-			 Date datetime = new Date();
-			 String dateyear[] =  date.split("-");
-			 int age = datetime.getYear()+1900-Integer.parseInt(dateyear[0]);	
+			getAge getage = new getAge();			
+			 age = getage.jiuanAge(date);	 //计算得到年龄
 			 user.setReservedint(age);
 			 userService.updateByPrimaryKeySelective(user);
 			dating(date,time,gender,Integer.parseInt(userid));
+			log.info("调用接口成功");
    
 		}
-		
-		//System.out.println(user);
-	//	userService.updateByFaceIDSelective(user);
+		ReturnUser returnUser = new ReturnUser();
+		//returnUser.setAge(age);
 		User userinfo =  userService.selectByPrimaryKey(Integer.parseInt(userid));
+		 BeanUtils.copyProperties(userinfo, returnUser);
+		log.info("接口返回值："+returnUser);
+		return ResultType.creat(returnUser);
 		
-		return ResultType.creat(userinfo);
-	}
+	} 
 	
 	public void  dating(String date,String time,String gender,int accountId) throws ClientProtocolException, IOException, BusinessExpection {
 		String url = "https://api2047.foreseers.com/Dating/personalAnalysis";
@@ -434,8 +486,8 @@ public class UserAction extends BaseAction{
 		user.setZodiac(zodiac);
 		user.setUserstar(Integer.parseInt(star));
 		
-//		log.info("user:"+user);
 		userService.updateByPrimaryKeySelective(user);
+		//return user;
 	}
 	
 }

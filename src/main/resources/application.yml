@@ -47,10 +47,10 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
-#logging:
- # file: zhuding.log    
-  #level:
-   # com.foreseers.tj.mapper : debug
+logging:
+  file: zhuding.log    
+  level:
+    com.foreseers.tj.mapper : debug
     
 
 

@@ -29,4 +29,8 @@ public interface UserFriendMapper {
     int updateByPrimaryKey(UserFriend record);
     
     int selectcountnum(String userid);
+    
+    List<String> selectlist(String userid);
+    
+    UserFriend selectUserFriend(String user_id ,String friend_id);
 }

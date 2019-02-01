@@ -96,6 +96,14 @@
     from user_friend
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+    <select id="selectUserFriend" parameterType="String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_friend where
+   (user_id = #{user_id} and friend_id = #{friend_id}) or (friend_id = #{user_id} AND user_id = #{friend_id})
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_friend
     where id = #{id,jdbcType=INTEGER}
@@ -152,9 +160,16 @@
   <!-- 得到好友的数量 -->
   <select id="selectcountnum" parameterType="String" resultType="java.lang.Integer">
     select COUNT(*) from (
-	select friend_id from user_friend  WHERE user_id = #{userid}
+	select friend_id from user_friend  WHERE user_id = #{userid} and user_reation = 0
 	UNION ALL
-	SELECT user_id from user_friend WHERE friend_id = #{userid} ) u;
+	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0) u;
+  </select>
+  
+    <select id="selectlist" parameterType="String" resultType="String">
+    
+	select friend_id from user_friend  WHERE user_id = #{userid} and user_reation = 0
+	UNION ALL
+	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0 ;
   </select>
   
   <update id="updateByExampleSelective" parameterType="map">

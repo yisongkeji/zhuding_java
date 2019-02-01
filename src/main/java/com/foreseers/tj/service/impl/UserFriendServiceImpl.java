@@ -1,5 +1,7 @@
 package com.foreseers.tj.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,18 @@ public class UserFriendServiceImpl implements UserFriendService {
 	public int selectcountnum(String userid) {
 		// TODO Auto-generated method stub
 		return userFriendMapper.selectcountnum(userid);
+	}
+
+	@Override
+	public List<String> selectlist(String userid) {
+		// TODO Auto-generated method stub
+		return userFriendMapper.selectlist(userid);
+	}
+
+	@Override
+	public UserFriend selectUserFriend(String user_id, String friend_id) {
+		// TODO Auto-generated method stub
+		return userFriendMapper.selectUserFriend(user_id, friend_id);
 	}
 
 }

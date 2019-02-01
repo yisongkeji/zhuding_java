@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.client.ClientProtocolException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,24 +31,31 @@ import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.ReturnUsermatch;
 import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.model.Usermatch;
 import com.foreseers.tj.model.UsermatchWithBLOBs;
+import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.UsermatchService;
+import com.foreseers.tj.util.getAge;
 
 @Controller
 @RequestMapping("/match")
 @CrossOrigin
 public class UserMatAction extends BaseAction{
 
+	private static final Logger log = LoggerFactory.getLogger(UserMatAction.class);
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private UsermatchService usermatchService;
+	@Autowired
+	private UserFriendService userFriendService;
 	
 	@RequestMapping("/matching")
 	@ResponseBody
 	public ResultType matching(HttpServletRequest request) throws BusinessExpection, ClientProtocolException, IOException {
+		log.info("进入推荐附近的人的方法");
 		String facebook = request.getParameter("facebookid");
 		String country = request.getParameter("country");
 		String city = request.getParameter("city");
@@ -59,7 +68,16 @@ public class UserMatAction extends BaseAction{
 		int userageli = Integer.parseInt(request.getParameter("ageLittle"));         //筛选条件年龄
 		int useragebig = Integer.parseInt(request.getParameter("agebig"));         //筛选条件年龄
 		int userdistance = Integer.parseInt(request.getParameter("distance"));         //筛选条件距离
-		if(facebook == null || lat == null || lng == null  ) {			
+		log.info("请求参数：facebook:"+facebook);
+		log.info("请求参数：经度:"+lat);
+		log.info("请求参数：纬度:"+lng);
+		log.info("请求参数：sex:"+sex);
+		log.info("请求参数：筛选条件年龄:"+userageli);
+		log.info("请求参数：筛选条件年龄:"+useragebig);
+		log.info("请求参数：筛选条件距离:"+userdistance);
+		
+		if(facebook == null || lat == null || lng == null  ) {	
+			log.error("参数不正确");
 			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS); 
 		}	
 		if(sex == "null" || sex == "") {
@@ -95,7 +113,7 @@ public class UserMatAction extends BaseAction{
 		user.setLat(Double.parseDouble(lat));
 		user.setLng(Double.parseDouble(lng));
 	    userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
-	    
+	    log.info("将个人信息更新到数据库");
 	    User userinfo = userService.QueryUser(facebook);
 	    int accountId = userinfo.getId();    
 		//根据位置信息查用户
@@ -112,6 +130,7 @@ public class UserMatAction extends BaseAction{
 //增加筛选条件
 		//计算两个用户之间的距离,更新到表中
 		for(int z=0;z<idlist.size();z++) {
+			log.info("通过筛选条件筛选用户");
 			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
 			 LocationUtils local = new LocationUtils();
 			 User touser = userService.selectByPrimaryKey(idlist.get(z));
@@ -192,6 +211,7 @@ public class UserMatAction extends BaseAction{
 	//	System.out.println(idlist);
 		if(idlist.size() >0) {   //如果存在附近的人
 			//调用接口
+			log.info("调用命书接口");
 			String url = "https://api2047.foreseers.com/Dating/matching";
 			httptest httptest = new httptest();
 			Map<String,Object> map = new HashMap<String,Object>();
@@ -202,6 +222,7 @@ public class UserMatAction extends BaseAction{
 			JSONObject jsn = JSON.parseObject(rebody);
 			String errcode = jsn.getString("errCode");
 			if(errcode.equals("200")) {
+				log.info("调用命书接口成功");
 				//System.out.println("调用接口成功");
 				JSONArray result = jsn.getJSONArray("result");
 				for(int i = 0;i<result.size();i++) {					
@@ -276,10 +297,13 @@ public class UserMatAction extends BaseAction{
 	    	int id = idlistinfo.get(i);	    	
 	    	User usertest = userService.selectByPrimaryKey(id);
         	String  dateyear = usertest.getDate(); //用户的出生日期
-        	int useryear = Integer.parseInt(dateyear.substring(0, 4));
-	    	Date date = new Date();
-	    	int year = date.getYear()+1900;
-	    	int age = year-useryear;
+        	
+//        	int useryear = Integer.parseInt(dateyear.substring(0, 4));
+//	    	Date date = new Date();
+//	    	int year = date.getYear()+1900;
+//	    	int age = year-useryear;
+        	getAge getage = new getAge();			
+			int age = getage.jiuanAge(dateyear);	 //计算得到年		
 	    	returnUser.setAge(age);
 	    	Usermatch usermatch =	usermatchService.usermatchQuery(id,accountId);
 	    	if(usermatch != null) {
@@ -295,7 +319,7 @@ public class UserMatAction extends BaseAction{
 	    	returnUserlist.add(returnUser);
 	    }
 	    Collections.sort(returnUserlist);
-	    
+	    log.info("返回的参数："+returnUserlist);
 		return ResultType.creat(returnUserlist);
 	}
 	
@@ -303,23 +327,40 @@ public class UserMatAction extends BaseAction{
 	@RequestMapping("/showUser")
 	@ResponseBody
 	public ResultType showUser(HttpServletRequest request) throws BusinessExpection {
-		String facebook = request.getParameter("facebookid");
+		log.info("进入好友详情页方法");
+		String uid = request.getParameter("uid");
 		int userid = Integer.parseInt(request.getParameter("userid"));
-		User userinfo = userService.QueryUser(facebook);  
-		int userinfoid = userinfo.getId();		
+		int userinfoid = Integer.parseInt(uid);	
+		log.info("请求参数：userinfoid"+userinfoid);
+		log.info("请求参数：userid"+userid);
 		UsermatchWithBLOBs usermatchWithBLOBs = usermatchService.usermatchQuery(userinfoid, userid);
 		if(usermatchWithBLOBs == null) {
+			log.error("两人之间没有关系");
 			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
+		}
+		UserFriend userFriend = userFriendService.selectUserFriend(userinfoid+"", userid+"");
+		int friend = 0;
+		if(userFriend == null) {
+			friend = 1;
 		}
 	    User user = userService.selectByPrimaryKey(userid);
 	    String useryear =  user.getDate();
-		int year = Integer.parseInt(useryear.substring(0,4));
-	    Date date = new Date();
-	    int age = date.getYear()+1900-year;	    
+	    int num = user.getNum();   //擦过的次数
+	    String sex = user.getSex();  //性别
+	    String obligate = user.getObligate();  //签名
+		//getAge getage = new getAge();
+	    int age = user.getReservedint();   //年龄  
+	    String name = user.getUsername();   //名称
+
 	    ReturnUsermatch returnUsermatch = new ReturnUsermatch();
 	    returnUsermatch.setAge(age);	
-	    
+	    returnUsermatch.setNum(num);
+	    returnUsermatch.setSex(sex);
+	    returnUsermatch.setObligate(obligate);
+	    returnUsermatch.setFriend(friend);
+	    returnUsermatch.setName(name);
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);
+	    log.info("返回值："+returnUsermatch);
 		return ResultType.creat(returnUsermatch);
 	}
 	
