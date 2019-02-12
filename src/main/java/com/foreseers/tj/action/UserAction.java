@@ -2,7 +2,10 @@ package com.foreseers.tj.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +84,7 @@ public class UserAction extends BaseAction{
 	
 	@RequestMapping("/countage")
 	@ResponseBody
-	public void  countAge(HttpServletRequest request) {
+	public void  countAge(HttpServletRequest request) throws ParseException {
 	    String userid = request.getParameter("userid");
 		User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
 		String date = user.getDate();
@@ -93,6 +96,22 @@ public class UserAction extends BaseAction{
 			userService.updateByPrimaryKeySelective(user);
 		}
 		//return "success";
+		//新增vip计算方法
+		int vip = user.getVip();
+		if(vip == 1) {
+		String viptime = user.getViptime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date vipdate = format.parse(viptime);   //vip到期时间
+		Date datenow = new Date();
+		if(vipdate.before(datenow)) {
+			//表示vipdate小于datenow，表明已经到期
+			User record = new User();
+			record.setVip(0);
+			record.setViptime("");
+			record.setId(Integer.parseInt(userid));
+			userService.updateByPrimaryKeySelective(record);
+		}
+	  }
 	}
 	
 	/*
@@ -311,7 +330,7 @@ public class UserAction extends BaseAction{
 	 */
 	@RequestMapping("/userpersonal")
 	@ResponseBody
-	public ResultType userpersonal(HttpServletRequest request) throws BusinessExpection {
+	public ResultType userpersonal(HttpServletRequest request) throws BusinessExpection, ParseException {
 		log.info("进入个人中心");
 		String id =  request.getParameter("userid");
 		log.info("请求参数：userid"+id);
@@ -324,6 +343,7 @@ public class UserAction extends BaseAction{
 			User user =	userService.selectByPrimaryKey(userid);
 			String date = user.getDate();
 			int userage = user.getReservedint();
+			int vip = user.getVip();   //vip标识
 			List<UserImage> list = userImageService.queryByUseridlist(userid);
 			if(list != null) {
 			 countimage = list.size();
@@ -337,8 +357,59 @@ public class UserAction extends BaseAction{
 				}
 			
 			}
-		
+			long vipday = 0;
+			if(vip == 1) {  //是vip
+			  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			  String viptime = user.getViptime();
+			  Date userdate = format.parse(viptime);
+			  Date datenow = new Date();
+			  long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
+				long nh = 1000 * 60 * 60;//一小时的毫秒数
+			    long nm = 1000 * 60;//一分钟的毫秒数
+				long diff = userdate.getTime()-datenow.getTime();
+				vipday = diff / nd ;
+				long hour = diff % nd / nh;//计算差多少小时
+				long min = diff % nd % nh / nm;//计算差多少分钟
+				
+				if(vipday ==0 ) {
+					if(hour == 0) {
+						if(min > 0) {
+							vipday = 1;
+						}else {
+							vipday = 0;  //现在该用户会员已到期，更新表中数据
+							User userinfo = new User();
+							userinfo.setVip(0);
+							userinfo.setViptime("");
+							userinfo.setId(Integer.parseInt(id));
+							userService.updateByPrimaryKeySelective(userinfo);
+						}
+					}if(hour >0) {
+						vipday = 1;
+					}
+					if(hour <0) {
+						vipday = 0;
+						User userinfo = new User();
+						userinfo.setVip(0);
+						userinfo.setViptime("");
+						userinfo.setId(Integer.parseInt(id));
+						userService.updateByPrimaryKeySelective(userinfo);
+					}
+				}else {
+					if(vipday >0) {
+						vipday++;
+					}else {
+						vipday = 0; //
+						User userinfo = new User();
+						userinfo.setVip(0);
+						userinfo.setViptime("");
+						userinfo.setId(Integer.parseInt(id));
+						userService.updateByPrimaryKeySelective(userinfo);
+					}
+				}
+				
+			}			
 			//returnImage.setAge(age);
+			returnImage.setVipday((int)vipday);
 			returnImage.setCountnum(countimage);
 			returnImage.setListimage(listimage);
 			
@@ -488,6 +559,26 @@ public class UserAction extends BaseAction{
 		
 		userService.updateByPrimaryKeySelective(user);
 		//return user;
+	}
+	
+	/*
+	 * 计算vip到期时间
+	 */
+	@RequestMapping("/setvip")
+	@ResponseBody
+	public String setvip(HttpServletRequest request) {
+		int num = 25;
+		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date date = new Date();
+		 String datenow = format.format(date);
+		 System.out.println("现在的天数是"+datenow);
+		 Calendar ca = Calendar.getInstance();
+		 ca.add(Calendar.DATE, num);
+		 date = ca.getTime();
+		 String enddate = format.format(date);
+		 System.out.println("增加天数以后的日期：" + enddate);
+		 
+		 return enddate;
 	}
 	
 }

@@ -351,7 +351,7 @@ public class UserMatAction extends BaseAction{
 		//getAge getage = new getAge();
 	    int age = user.getReservedint();   //年龄  
 	    String name = user.getUsername();   //名称
-
+	    String head = user.getHead();      //touxiang
 	    ReturnUsermatch returnUsermatch = new ReturnUsermatch();
 	    returnUsermatch.setAge(age);	
 	    returnUsermatch.setNum(num);
@@ -359,6 +359,7 @@ public class UserMatAction extends BaseAction{
 	    returnUsermatch.setObligate(obligate);
 	    returnUsermatch.setFriend(friend);
 	    returnUsermatch.setName(name);
+	    returnUsermatch.setHead(head);
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);
 	    log.info("返回值："+returnUsermatch);
 		return ResultType.creat(returnUsermatch);

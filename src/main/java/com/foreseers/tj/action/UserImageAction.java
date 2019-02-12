@@ -2,6 +2,9 @@ package com.foreseers.tj.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,21 +37,34 @@ public class UserImageAction extends BaseAction{
 	@RequestMapping("/upload")
 	@ResponseBody
 	public ResultType uploadimage(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
-		
+		log.info("进入上传相册方法");
 		String userid =  request.getParameter("userid");
 		//System.out.println(userid);
+		log.info("参数：userid:"+userid);
 		String imagepath = "E:/dt/image/"+userid; 
+		log.info("保存路径"+imagepath);
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
-		// String userid =  request.getParameter("userid");
-		 String name = file.getOriginalFilename();   //得到图片的后缀名
+		 String imagename = file.getOriginalFilename();   //得到图片的后缀名
+		 log.info(imagename);
+		 String[] names = imagename.split("\\.");
+		 log.info(names[0]);
+		 String namesuffix = names[names.length-1];
+		 log.info(namesuffix);
+			DateFormat bf = new SimpleDateFormat("yyyyMMddHHmmss");//多态
+			Date date = new Date();
+			String name = bf.format(date)+"."+namesuffix;
+		//	log.info("name:"+name);
+		   log.info("图片名称："+name);
 			File savefile = new File(imagepath);
 			if(!savefile.exists()) {
 				savefile.mkdirs();
 			}			
 			String save = imagepath+"/"+name;
+		//	log.info("图片名称："+name);
 			String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+			log.info(saveurl);
 			file.transferTo(new File(save));   //保存图片
 //			System.out.println(Integer.parseInt(userid));
 //			System.out.println(saveurl);
@@ -58,7 +74,7 @@ public class UserImageAction extends BaseAction{
 			userImage.setImage(saveurl);
 			userImage.setImagename(name);
 			userImageService.insertSelective(userImage);
-			
+			 log.info("返回参数："+userImage);
 			return ResultType.creat(userImage);
 	}
 	/*

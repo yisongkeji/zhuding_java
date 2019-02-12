@@ -10,7 +10,17 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 	String obligate;
 	int friend;
 	String name;
+	String head;
 	
+	
+	public String getHead() {
+		return head;
+	}
+
+	public void setHead(String head) {
+		this.head = head;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -62,20 +72,39 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 	@Override
 	public String toString() {
 		return "ReturnUsermatch [age=" + age + ", num=" + num + ", sex=" + sex + ", obligate=" + obligate + ", friend="
-				+ friend + ", name=" + name + ", getName()=" + getName() + ", getAge()=" + getAge() + ", getNum()="
-				+ getNum() + ", getSex()=" + getSex() + ", getObligate()=" + getObligate() + ", getFriend()="
-				+ getFriend() + ", getCommentdesc()=" + getCommentdesc() + ", getCharacteristicdesc()="
-				+ getCharacteristicdesc() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ ", getId()=" + getId() + ", getZhuid()=" + getZhuid() + ", getCongid()=" + getCongid()
-				+ ", getUserscore()=" + getUserscore() + ", getUserdesc()=" + getUserdesc() + ", getCommentgood()="
-				+ getCommentgood() + ", getCommentbad()=" + getCommentbad() + ", getCharacteristicgood()="
-				+ getCharacteristicgood() + ", getCharacteristicbad()=" + getCharacteristicbad() + ", getMindscore()="
-				+ getMindscore() + ", getMinddesc()=" + getMinddesc() + ", getBodyscore()=" + getBodyscore()
-				+ ", getBodydesc()=" + getBodydesc() + ", getCharacterscore()=" + getCharacterscore()
-				+ ", getCharacterdesc()=" + getCharacterdesc() + ", getDistance()=" + getDistance() + ", getSpare()="
-				+ getSpare() + ", getSpare1()=" + getSpare1() + ", getSpare2()=" + getSpare2() + ", getClass()="
-				+ getClass() + "]";
+				+ friend + ", name=" + name + ", head=" + head + ", getHead()=" + getHead() + ", getName()=" + getName()
+				+ ", getAge()=" + getAge() + ", getNum()=" + getNum() + ", getSex()=" + getSex() + ", getObligate()="
+				+ getObligate() + ", getFriend()=" + getFriend() + ", getCommentdesc()=" + getCommentdesc()
+				+ ", getCharacteristicdesc()=" + getCharacteristicdesc() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + ", getId()=" + getId() + ", getZhuid()=" + getZhuid()
+				+ ", getCongid()=" + getCongid() + ", getUserscore()=" + getUserscore() + ", getUserdesc()="
+				+ getUserdesc() + ", getCommentgood()=" + getCommentgood() + ", getCommentbad()=" + getCommentbad()
+				+ ", getCharacteristicgood()=" + getCharacteristicgood() + ", getCharacteristicbad()="
+				+ getCharacteristicbad() + ", getMindscore()=" + getMindscore() + ", getMinddesc()=" + getMinddesc()
+				+ ", getBodyscore()=" + getBodyscore() + ", getBodydesc()=" + getBodydesc() + ", getCharacterscore()="
+				+ getCharacterscore() + ", getCharacterdesc()=" + getCharacterdesc() + ", getDistance()="
+				+ getDistance() + ", getSpare()=" + getSpare() + ", getSpare1()=" + getSpare1() + ", getSpare2()="
+				+ getSpare2() + ", getClass()=" + getClass() + "]";
 	}
+
+
+//	@Override
+//	public String toString() {
+//		return "ReturnUsermatch [age=" + age + ", num=" + num + ", sex=" + sex + ", obligate=" + obligate + ", friend="
+//				+ friend + ", name=" + name + ", getName()=" + getName() + ", getAge()=" + getAge() + ", getNum()="
+//				+ getNum() + ", getSex()=" + getSex() + ", getObligate()=" + getObligate() + ", getFriend()="
+//				+ getFriend() + ", getCommentdesc()=" + getCommentdesc() + ", getCharacteristicdesc()="
+//				+ getCharacteristicdesc() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+//				+ ", getId()=" + getId() + ", getZhuid()=" + getZhuid() + ", getCongid()=" + getCongid()
+//				+ ", getUserscore()=" + getUserscore() + ", getUserdesc()=" + getUserdesc() + ", getCommentgood()="
+//				+ getCommentgood() + ", getCommentbad()=" + getCommentbad() + ", getCharacteristicgood()="
+//				+ getCharacteristicgood() + ", getCharacteristicbad()=" + getCharacteristicbad() + ", getMindscore()="
+//				+ getMindscore() + ", getMinddesc()=" + getMinddesc() + ", getBodyscore()=" + getBodyscore()
+//				+ ", getBodydesc()=" + getBodydesc() + ", getCharacterscore()=" + getCharacterscore()
+//				+ ", getCharacterdesc()=" + getCharacterdesc() + ", getDistance()=" + getDistance() + ", getSpare()="
+//				+ getSpare() + ", getSpare1()=" + getSpare1() + ", getSpare2()=" + getSpare2() + ", getClass()="
+//				+ getClass() + "]";
+//	}
 
 
 	

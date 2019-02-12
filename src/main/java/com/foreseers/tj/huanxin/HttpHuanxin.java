@@ -95,8 +95,9 @@ public class HttpHuanxin {
 		    
 	       String hstr=  "http://a1.easemob.com/1106190114019314/foreseers/users";
 	       Map<String, String> maph = new HashMap<String, String>();
-	        maph.put("username", "85");
+	        maph.put("username", "63");
 	        maph.put("password", "123");	
+	        maph.put("nickname", "张三");
 	        
 	        String url=  "http://a1.easemob.com/1106190114019314/foreseers/token";
 	        Map<String, String> map = new HashMap<String, String>();
