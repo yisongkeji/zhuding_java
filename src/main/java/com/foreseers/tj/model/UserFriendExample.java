@@ -383,6 +383,456 @@ public class UserFriendExample {
             addCriterion("user_reation not between", value1, value2, "userReation");
             return (Criteria) this;
         }
+
+        public Criteria andFirendtimeIsNull() {
+            addCriterion("firendtime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeIsNotNull() {
+            addCriterion("firendtime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeEqualTo(String value) {
+            addCriterion("firendtime =", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeNotEqualTo(String value) {
+            addCriterion("firendtime <>", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeGreaterThan(String value) {
+            addCriterion("firendtime >", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeGreaterThanOrEqualTo(String value) {
+            addCriterion("firendtime >=", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeLessThan(String value) {
+            addCriterion("firendtime <", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeLessThanOrEqualTo(String value) {
+            addCriterion("firendtime <=", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeLike(String value) {
+            addCriterion("firendtime like", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeNotLike(String value) {
+            addCriterion("firendtime not like", value, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeIn(List<String> values) {
+            addCriterion("firendtime in", values, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeNotIn(List<String> values) {
+            addCriterion("firendtime not in", values, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeBetween(String value1, String value2) {
+            addCriterion("firendtime between", value1, value2, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirendtimeNotBetween(String value1, String value2) {
+            addCriterion("firendtime not between", value1, value2, "firendtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadIsNull() {
+            addCriterion("lookhead is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadIsNotNull() {
+            addCriterion("lookhead is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadEqualTo(Integer value) {
+            addCriterion("lookhead =", value, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadNotEqualTo(Integer value) {
+            addCriterion("lookhead <>", value, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadGreaterThan(Integer value) {
+            addCriterion("lookhead >", value, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadGreaterThanOrEqualTo(Integer value) {
+            addCriterion("lookhead >=", value, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadLessThan(Integer value) {
+            addCriterion("lookhead <", value, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadLessThanOrEqualTo(Integer value) {
+            addCriterion("lookhead <=", value, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadIn(List<Integer> values) {
+            addCriterion("lookhead in", values, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadNotIn(List<Integer> values) {
+            addCriterion("lookhead not in", values, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadBetween(Integer value1, Integer value2) {
+            addCriterion("lookhead between", value1, value2, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookheadNotBetween(Integer value1, Integer value2) {
+            addCriterion("lookhead not between", value1, value2, "lookhead");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixIsNull() {
+            addCriterion("sendpix is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixIsNotNull() {
+            addCriterion("sendpix is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixEqualTo(Integer value) {
+            addCriterion("sendpix =", value, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixNotEqualTo(Integer value) {
+            addCriterion("sendpix <>", value, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixGreaterThan(Integer value) {
+            addCriterion("sendpix >", value, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sendpix >=", value, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixLessThan(Integer value) {
+            addCriterion("sendpix <", value, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixLessThanOrEqualTo(Integer value) {
+            addCriterion("sendpix <=", value, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixIn(List<Integer> values) {
+            addCriterion("sendpix in", values, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixNotIn(List<Integer> values) {
+            addCriterion("sendpix not in", values, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixBetween(Integer value1, Integer value2) {
+            addCriterion("sendpix between", value1, value2, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andSendpixNotBetween(Integer value1, Integer value2) {
+            addCriterion("sendpix not between", value1, value2, "sendpix");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesIsNull() {
+            addCriterion("lookimages is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesIsNotNull() {
+            addCriterion("lookimages is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesEqualTo(Integer value) {
+            addCriterion("lookimages =", value, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesNotEqualTo(Integer value) {
+            addCriterion("lookimages <>", value, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesGreaterThan(Integer value) {
+            addCriterion("lookimages >", value, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesGreaterThanOrEqualTo(Integer value) {
+            addCriterion("lookimages >=", value, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesLessThan(Integer value) {
+            addCriterion("lookimages <", value, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesLessThanOrEqualTo(Integer value) {
+            addCriterion("lookimages <=", value, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesIn(List<Integer> values) {
+            addCriterion("lookimages in", values, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesNotIn(List<Integer> values) {
+            addCriterion("lookimages not in", values, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesBetween(Integer value1, Integer value2) {
+            addCriterion("lookimages between", value1, value2, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andLookimagesNotBetween(Integer value1, Integer value2) {
+            addCriterion("lookimages not between", value1, value2, "lookimages");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintIsNull() {
+            addCriterion("spareint is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintIsNotNull() {
+            addCriterion("spareint is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintEqualTo(Integer value) {
+            addCriterion("spareint =", value, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintNotEqualTo(Integer value) {
+            addCriterion("spareint <>", value, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintGreaterThan(Integer value) {
+            addCriterion("spareint >", value, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintGreaterThanOrEqualTo(Integer value) {
+            addCriterion("spareint >=", value, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintLessThan(Integer value) {
+            addCriterion("spareint <", value, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintLessThanOrEqualTo(Integer value) {
+            addCriterion("spareint <=", value, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintIn(List<Integer> values) {
+            addCriterion("spareint in", values, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintNotIn(List<Integer> values) {
+            addCriterion("spareint not in", values, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintBetween(Integer value1, Integer value2) {
+            addCriterion("spareint between", value1, value2, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareintNotBetween(Integer value1, Integer value2) {
+            addCriterion("spareint not between", value1, value2, "spareint");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareIsNull() {
+            addCriterion("spare is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareIsNotNull() {
+            addCriterion("spare is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareEqualTo(String value) {
+            addCriterion("spare =", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareNotEqualTo(String value) {
+            addCriterion("spare <>", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareGreaterThan(String value) {
+            addCriterion("spare >", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareGreaterThanOrEqualTo(String value) {
+            addCriterion("spare >=", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareLessThan(String value) {
+            addCriterion("spare <", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareLessThanOrEqualTo(String value) {
+            addCriterion("spare <=", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareLike(String value) {
+            addCriterion("spare like", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareNotLike(String value) {
+            addCriterion("spare not like", value, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareIn(List<String> values) {
+            addCriterion("spare in", values, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareNotIn(List<String> values) {
+            addCriterion("spare not in", values, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareBetween(String value1, String value2) {
+            addCriterion("spare between", value1, value2, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareNotBetween(String value1, String value2) {
+            addCriterion("spare not between", value1, value2, "spare");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1IsNull() {
+            addCriterion("spare1 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1IsNotNull() {
+            addCriterion("spare1 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1EqualTo(String value) {
+            addCriterion("spare1 =", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1NotEqualTo(String value) {
+            addCriterion("spare1 <>", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1GreaterThan(String value) {
+            addCriterion("spare1 >", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1GreaterThanOrEqualTo(String value) {
+            addCriterion("spare1 >=", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1LessThan(String value) {
+            addCriterion("spare1 <", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1LessThanOrEqualTo(String value) {
+            addCriterion("spare1 <=", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1Like(String value) {
+            addCriterion("spare1 like", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1NotLike(String value) {
+            addCriterion("spare1 not like", value, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1In(List<String> values) {
+            addCriterion("spare1 in", values, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1NotIn(List<String> values) {
+            addCriterion("spare1 not in", values, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1Between(String value1, String value2) {
+            addCriterion("spare1 between", value1, value2, "spare1");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpare1NotBetween(String value1, String value2) {
+            addCriterion("spare1 not between", value1, value2, "spare1");
+            return (Criteria) this;
+        }
     }
 
     /**

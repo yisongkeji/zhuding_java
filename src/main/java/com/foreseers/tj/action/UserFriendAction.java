@@ -1,7 +1,9 @@
 package com.foreseers.tj.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,12 +141,15 @@ public class UserFriendAction extends BaseAction{
 			log.error("参数不正确");
 			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
 		}
-		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		String friendtime =  format.format(date);
 		
 		UserFriend userFriend = new UserFriend();
 		userFriend.setUserId(userid);
 		userFriend.setFriendId(friendid);
 		userFriend.setUserReation(reation);
+		userFriend.setFirendtime(friendtime);  //保存添加好友 的时间
 		userFriendService.insertSelective(userFriend);
 		log.info("返回值："+userFriend);
 		return ResultType.creat(userFriend);

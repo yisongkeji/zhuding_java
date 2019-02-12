@@ -6,6 +6,13 @@
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="friend_id" jdbcType="VARCHAR" property="friendId" />
     <result column="user_reation" jdbcType="INTEGER" property="userReation" />
+    <result column="firendtime" jdbcType="VARCHAR" property="firendtime" />
+    <result column="lookhead" jdbcType="INTEGER" property="lookhead" />
+    <result column="sendpix" jdbcType="INTEGER" property="sendpix" />
+    <result column="lookimages" jdbcType="INTEGER" property="lookimages" />
+    <result column="spareint" jdbcType="INTEGER" property="spareint" />
+    <result column="spare" jdbcType="VARCHAR" property="spare" />
+    <result column="spare1" jdbcType="VARCHAR" property="spare1" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, friend_id, user_reation
+    id, user_id, friend_id, user_reation, firendtime, lookhead, sendpix, lookimages, 
+    spareint, spare, spare1
   </sql>
   <select id="selectByExample" parameterType="com.foreseers.tj.model.UserFriendExample" resultMap="BaseResultMap">
     select
@@ -90,11 +98,18 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user_friend
-    where id = #{id,jdbcType=INTEGER}
+   <!-- 得到好友的数量 -->
+  <select id="selectcountnum" parameterType="String" resultType="java.lang.Integer">
+    select COUNT(*) from (
+	select friend_id from user_friend  WHERE user_id = #{userid} and user_reation = 0
+	UNION ALL
+	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0) u;
+  </select>
+  <select id="selectlist" parameterType="String" resultType="String">
+    
+	select friend_id from user_friend  WHERE user_id = #{userid} and user_reation = 0
+	UNION ALL
+	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0 ;
   </select>
   
     <select id="selectUserFriend" parameterType="String" resultMap="BaseResultMap">
@@ -104,6 +119,12 @@
    (user_id = #{user_id} and friend_id = #{friend_id}) or (friend_id = #{user_id} AND user_id = #{friend_id})
   </select>
   
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_friend
+    where id = #{id,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_friend
     where id = #{id,jdbcType=INTEGER}
@@ -118,10 +139,14 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_friend (user_id, friend_id, user_reation
-      )
-    values (#{userId,jdbcType=VARCHAR}, #{friendId,jdbcType=VARCHAR}, #{userReation,jdbcType=INTEGER}
-      )
+    insert into user_friend (user_id, friend_id, user_reation, 
+      firendtime, lookhead, sendpix, 
+      lookimages, spareint, spare, 
+      spare1)
+    values (#{userId,jdbcType=VARCHAR}, #{friendId,jdbcType=VARCHAR}, #{userReation,jdbcType=INTEGER}, 
+      #{firendtime,jdbcType=VARCHAR}, #{lookhead,jdbcType=INTEGER}, #{sendpix,jdbcType=INTEGER}, 
+      #{lookimages,jdbcType=INTEGER}, #{spareint,jdbcType=INTEGER}, #{spare,jdbcType=VARCHAR}, 
+      #{spare1,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.foreseers.tj.model.UserFriend">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -138,6 +163,27 @@
       <if test="userReation != null">
         user_reation,
       </if>
+      <if test="firendtime != null">
+        firendtime,
+      </if>
+      <if test="lookhead != null">
+        lookhead,
+      </if>
+      <if test="sendpix != null">
+        sendpix,
+      </if>
+      <if test="lookimages != null">
+        lookimages,
+      </if>
+      <if test="spareint != null">
+        spareint,
+      </if>
+      <if test="spare != null">
+        spare,
+      </if>
+      <if test="spare1 != null">
+        spare1,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -149,6 +195,27 @@
       <if test="userReation != null">
         #{userReation,jdbcType=INTEGER},
       </if>
+      <if test="firendtime != null">
+        #{firendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="lookhead != null">
+        #{lookhead,jdbcType=INTEGER},
+      </if>
+      <if test="sendpix != null">
+        #{sendpix,jdbcType=INTEGER},
+      </if>
+      <if test="lookimages != null">
+        #{lookimages,jdbcType=INTEGER},
+      </if>
+      <if test="spareint != null">
+        #{spareint,jdbcType=INTEGER},
+      </if>
+      <if test="spare != null">
+        #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        #{spare1,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.foreseers.tj.model.UserFriendExample" resultType="java.lang.Long">
@@ -157,21 +224,6 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <!-- 得到好友的数量 -->
-  <select id="selectcountnum" parameterType="String" resultType="java.lang.Integer">
-    select COUNT(*) from (
-	select friend_id from user_friend  WHERE user_id = #{userid} and user_reation = 0
-	UNION ALL
-	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0) u;
-  </select>
-  
-    <select id="selectlist" parameterType="String" resultType="String">
-    
-	select friend_id from user_friend  WHERE user_id = #{userid} and user_reation = 0
-	UNION ALL
-	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0 ;
-  </select>
-  
   <update id="updateByExampleSelective" parameterType="map">
     update user_friend
     <set>
@@ -187,6 +239,27 @@
       <if test="record.userReation != null">
         user_reation = #{record.userReation,jdbcType=INTEGER},
       </if>
+      <if test="record.firendtime != null">
+        firendtime = #{record.firendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lookhead != null">
+        lookhead = #{record.lookhead,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendpix != null">
+        sendpix = #{record.sendpix,jdbcType=INTEGER},
+      </if>
+      <if test="record.lookimages != null">
+        lookimages = #{record.lookimages,jdbcType=INTEGER},
+      </if>
+      <if test="record.spareint != null">
+        spareint = #{record.spareint,jdbcType=INTEGER},
+      </if>
+      <if test="record.spare != null">
+        spare = #{record.spare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare1 != null">
+        spare1 = #{record.spare1,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -197,7 +270,14 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=VARCHAR},
       friend_id = #{record.friendId,jdbcType=VARCHAR},
-      user_reation = #{record.userReation,jdbcType=INTEGER}
+      user_reation = #{record.userReation,jdbcType=INTEGER},
+      firendtime = #{record.firendtime,jdbcType=VARCHAR},
+      lookhead = #{record.lookhead,jdbcType=INTEGER},
+      sendpix = #{record.sendpix,jdbcType=INTEGER},
+      lookimages = #{record.lookimages,jdbcType=INTEGER},
+      spareint = #{record.spareint,jdbcType=INTEGER},
+      spare = #{record.spare,jdbcType=VARCHAR},
+      spare1 = #{record.spare1,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -214,6 +294,27 @@
       <if test="userReation != null">
         user_reation = #{userReation,jdbcType=INTEGER},
       </if>
+      <if test="firendtime != null">
+        firendtime = #{firendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="lookhead != null">
+        lookhead = #{lookhead,jdbcType=INTEGER},
+      </if>
+      <if test="sendpix != null">
+        sendpix = #{sendpix,jdbcType=INTEGER},
+      </if>
+      <if test="lookimages != null">
+        lookimages = #{lookimages,jdbcType=INTEGER},
+      </if>
+      <if test="spareint != null">
+        spareint = #{spareint,jdbcType=INTEGER},
+      </if>
+      <if test="spare != null">
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        spare1 = #{spare1,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -221,7 +322,14 @@
     update user_friend
     set user_id = #{userId,jdbcType=VARCHAR},
       friend_id = #{friendId,jdbcType=VARCHAR},
-      user_reation = #{userReation,jdbcType=INTEGER}
+      user_reation = #{userReation,jdbcType=INTEGER},
+      firendtime = #{firendtime,jdbcType=VARCHAR},
+      lookhead = #{lookhead,jdbcType=INTEGER},
+      sendpix = #{sendpix,jdbcType=INTEGER},
+      lookimages = #{lookimages,jdbcType=INTEGER},
+      spareint = #{spareint,jdbcType=INTEGER},
+      spare = #{spare,jdbcType=VARCHAR},
+      spare1 = #{spare1,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
