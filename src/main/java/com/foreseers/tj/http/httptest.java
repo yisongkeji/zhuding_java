@@ -164,8 +164,6 @@ public class httptest {
         System.out.println("响应结果：" + body);
     }
 */
-    
-    /*
     @Test
     public void testSendPostDataByJson() throws ClientProtocolException, IOException {
        // String url = "http://www.easemob.com/1122161011178276/testapp/token";
@@ -199,7 +197,6 @@ public class httptest {
         
         String rebody = sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8");
        System.out.println(rebody);
-       */
        /*
         JSONObject ojb = JSON.parseObject(rebody);
         System.out.println(ojb);
@@ -257,7 +254,7 @@ public class httptest {
         String s = s4.substring(0,s4.length()-1);
         System.out.println(s);
         */
- //   }
+    }
  
 		
 /*

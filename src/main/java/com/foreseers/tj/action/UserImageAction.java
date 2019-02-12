@@ -8,7 +8,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-//import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

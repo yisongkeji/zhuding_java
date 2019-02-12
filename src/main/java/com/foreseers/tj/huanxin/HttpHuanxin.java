@@ -89,7 +89,7 @@ public class HttpHuanxin {
 
 	        return response;
 	    }
-	/* 
+	 
 	 @Test
 	  public void testSendPostDataByJson() throws ClientProtocolException, IOException {
 		    
@@ -110,9 +110,23 @@ public class HttpHuanxin {
 	          System.out.println(rebody.getStatusLine().getStatusCode());
 	          String result =  EntityUtils.toString(rebody.getEntity(),"utf-8");
 	          JSONObject job = JSON.parseObject(result);
-
+//	          String token = job.getString("access_token");
+//	       //   String token = "qkwjbejq";
+//	          System.out.println(token);
+//	          rebody.close();
+//	          String urll =  "http://a1.easemob.com/1106190114019314/foreseers/chatmessages/2019012310"; 
+////	          Map<String, String> mapd = new HashMap<String, String>();
+////	          mapd.put("Authorization","Bearer ${"+token+"}");
+////	          System.out.println("Bearer ${"+token+"}");
+//	          CloseableHttpResponse rebodyd = sendGetData(urll,"utf-8",token);
+//	          System.out.println(rebodyd.getStatusLine().getStatusCode());
+//	          System.out.println(EntityUtils.toString(rebodyd.getEntity(), "utf-8"));
+//	          
+//	          rebodyd.close();
+	       //   System.out.println(rebody.getStatusLine().getStatusCode());
+	       //   System.out.println(EntityUtils.toString(rebody.getEntity(),"utf-8"));
 	        
 	 }
-	 */
+	 
 	 
 }
