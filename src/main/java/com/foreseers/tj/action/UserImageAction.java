@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -77,6 +78,58 @@ public class UserImageAction extends BaseAction{
 			 log.info("返回参数："+userImage);
 			return ResultType.creat(userImage);
 	}
+	
+	/*
+	 * 上传模糊相册
+	 */
+	@RequestMapping("/uploadblurimage")
+	@ResponseBody
+	public ResultType uploadblurimage(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
+		log.info("进入上传模糊相册方法");
+		String userid =  request.getParameter("userid");	
+		log.info("参数：userid:"+userid);
+		String imagepath = "E:/dt/image/"+userid; 
+		log.info("保存路径"+imagepath);
+		if(file == null) {
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
+		}
+	//	 String imagename = file.getOriginalFilename();   //得到图片的后缀名
+	//	 log.info(imagename);
+		 int uid = 0; 
+		 String bimagename = "";
+		 List<UserImage> list = userImageService.queryByUseridlist(Integer.parseInt(userid));
+		 UserImage userImage = new UserImage();
+			for(int i= 0;i<list.size();i++) {
+				UserImage userImageinfo = list.get(i);
+				if(userImageinfo.getSpare() == null) {
+					 uid = userImageinfo.getId();
+					 bimagename = userImageinfo.getImagename();
+				}
+			}
+			if(uid != 0) {  //存在模糊头像为空的位置，保存图片到本地和数据库
+				String name = "b"+bimagename;
+				   log.info("模糊图片名称："+name);
+					File savefile = new File(imagepath);
+					if(!savefile.exists()) {
+						savefile.mkdirs();
+					}			
+					String save = imagepath+"/"+name;
+					log.info("图片保存地址："+name);
+					String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+					log.info(saveurl);
+					file.transferTo(new File(save));   //保存图片			
+					userImage.setId(uid);
+					userImage.setSpare(saveurl);
+					userImageService.updateByPrimaryKeySelective(userImage);	
+					 log.info("返回参数："+userImage);
+			}else { //不存在
+				throw new BusinessExpection(EmBussinsError.UNKNOWN_ERROR);	
+			}
+
+
+			return ResultType.creat(userImage);
+	}
+	
 	/*
 	 * 删除相册
 	 * @Parameter(userid) 用户id

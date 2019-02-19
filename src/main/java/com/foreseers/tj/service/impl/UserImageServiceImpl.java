@@ -37,5 +37,12 @@ public class UserImageServiceImpl implements UserImageService {
 		
 	}
 
+	@Override
+	public int updateByPrimaryKeySelective(UserImage record) {
+		// TODO Auto-generated method stub
+		return userImageMapper.updateByPrimaryKeySelective(record);
+	}
+
+
 
 }

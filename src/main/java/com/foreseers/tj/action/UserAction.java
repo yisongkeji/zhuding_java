@@ -1,7 +1,10 @@
 package com.foreseers.tj.action;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.client.ClientProtocolException;
@@ -42,7 +46,9 @@ import com.foreseers.tj.model.ReturnImage;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.Timezone;
 import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.model.UserImage;
+import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.ZoneService;
@@ -63,6 +69,10 @@ public class UserAction extends BaseAction{
 	
 	@Autowired
 	private UserImageService userImageService;
+	
+	@Autowired
+	private UserFriendService userFriendService;
+	
 	/*
 	 * 查询用户方法
 	 */
@@ -84,7 +94,7 @@ public class UserAction extends BaseAction{
 	
 	@RequestMapping("/countage")
 	@ResponseBody
-	public void  countAge(HttpServletRequest request) throws ParseException {
+	public ResultType  countAge(HttpServletRequest request) throws ParseException {
 	    String userid = request.getParameter("userid");
 		User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
 		String date = user.getDate();
@@ -112,6 +122,11 @@ public class UserAction extends BaseAction{
 			userService.updateByPrimaryKeySelective(record);
 		}
 	  }
+		//新增计算好友时间方法
+		List<Map> list = userFriendService.selectUserFriendList(userid);
+		
+		return ResultType.creat(list);
+	
 	}
 	
 	/*
@@ -284,23 +299,26 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/uploadhead")
 	@ResponseBody
 	public ResultType uploadtou(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
-		log.info("用户头像上传方法");
-		String imagepath = "E:/dt/head"; 
+		log.info("用户头像上传方法");		
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
-	    String facebook = request.getParameter("facebookid");
-	    log.info("请求信息：facebook"+facebook);
-		if( facebook == null || facebook == "") {
+	    String userid = request.getParameter("userid");
+	    log.info("请求信息：userid:"+userid);
+	    String imagepath = "E:/dt/head/"+userid; 
+		if( userid == null || userid == "") {
 			log.error("参数不正确");
-			log.error("facebook:"+facebook);
+			log.error("userid:"+userid);
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);			
 		}
-		User userinfo = userService.QueryUser(facebook);
+		User userinfo = userService.selectByPrimaryKey(Integer.parseInt(userid));
 		if(userinfo != null) {
 		String userhead = userinfo.getHead();
 			if(userhead != null || userhead != "") {
-				String headold = userhead.substring(25);
+				String[] heads= userhead.split("/");
+				
+				String headold = heads[heads.length-1];
+				log.info(headold);
 				new File(imagepath+"/"+headold).delete(); 
 			}
 		}
@@ -312,15 +330,67 @@ public class UserAction extends BaseAction{
 			savefile.mkdirs();
 		}
 		
-		String save = imagepath+"/"+name;
-		String saveurl = "http://192.168.1.73:8080/"+name;
+		String save = savefile.getAbsolutePath()+"/"+name;
+		String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+		log.info("保存图片的地址："+save);
+		log.info("保存到数据库的地址："+saveurl);
 	//	String saveurl = "http://chat.foreseers.com/"+headname;    服务器上的保存图片的路径
-		//System.out.println(save);
 		file.transferTo(new File(save));
 		User user = new User();
-		user.setFacebook(facebook);
+		user.setId(Integer.parseInt(userid));
 		user.setHead(saveurl);
-		userService.updateByFaceIDSelective(user);
+		userService.updateByPrimaryKeySelective(user);
+		log.info("返回值："+user);
+		return ResultType.creat(user);
+	}
+	
+	/*
+	 * 上传模糊头像
+	 */
+	@RequestMapping("/uploadblurhead")
+	@ResponseBody
+	public ResultType uploadblurhead(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
+		log.info("用户模糊头像上传方法");
+		
+		if(file == null) {
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
+		}
+	    String userid = request.getParameter("userid");
+	    log.info("请求信息：userid:"+userid);
+	    String imagepath = "E:/dt/head/"+userid; 
+		if( userid == null || userid == "") {
+			log.error("参数不正确");
+			log.error("userid:"+userid);
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);			
+		}
+		User userinfo = userService.selectByPrimaryKey(Integer.parseInt(userid));
+		if(userinfo != null) {
+		String userpicture = userinfo.getPicture();
+			if(userpicture != null || userpicture != "") {
+				String[] pictures= userpicture.split("/");
+				String headold = pictures[pictures.length-1];
+				log.info(headold);
+				new File(imagepath+"/"+headold).delete(); 
+				log.info("删除以前的模糊头像");
+			}
+		}
+		String name = file.getOriginalFilename();	
+		log.info("图片的名称："+name);
+	//	String imagepath = "/var/zhuding/head";   服务器上的存放图片的地址（记得修改application.yml配置文件）
+		File savefile = new File(imagepath);
+		if(!savefile.exists()) {
+			savefile.mkdirs();
+		}		
+		String save = savefile.getAbsolutePath()+"/"+name;
+		String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+		log.info("保存图片的地址："+save);
+		log.info("保存到数据库的地址："+saveurl);
+	//	String saveurl = "http://chat.foreseers.com/"+headname;    服务器上的保存图片的路径
+		file.transferTo(new File(save));
+		User user = new User();
+		user.setId(Integer.parseInt(userid));
+		user.setPicture(saveurl);
+		userService.updateByPrimaryKeySelective(user);
 		log.info("返回值："+user);
 		return ResultType.creat(user);
 	}

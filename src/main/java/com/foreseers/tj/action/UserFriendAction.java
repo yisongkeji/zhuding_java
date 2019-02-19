@@ -155,5 +155,50 @@ public class UserFriendAction extends BaseAction{
 		return ResultType.creat(userFriend);
 	}
 	
+	/*
+	 * 修改好友相对应的权限
+	 */
+	@RequestMapping("/friendTime")
+	@ResponseBody
+	public ResultType friendTime(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入修改用户好友相对应权限方法");
+		String userid= request.getParameter("userid");
+		String friendid = request.getParameter("friendid");
+		String lookhead= request.getParameter("lookhead");
+		String sendpix= request.getParameter("sendpix");
+		String lookimages= request.getParameter("lookimages");
+		log.info("请求参数：userid："+userid);
+		log.info("请求参数：friendid："+friendid);
+		log.info("请求参数：lookhead："+lookhead);
+		log.info("请求参数：sendpix："+sendpix);
+		log.info("请求参数：lookimages："+lookimages);
+		if(userid == null || friendid == null) {
+			log.error("请求参数不合法");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		UserFriend userFriend = userFriendService.selectUserFriend(userid, friendid); 
+		log.info("userFriend"+userFriend);
+		String result = "";
+		if(userFriend != null) { //存在好友关系
+			log.info("存在好友关系");
+			if(userFriend.getUserReation() == 0) {  //两用户是好友
+				log.info("两人是好友");
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("lookimages", lookimages);
+				map.put("sendpix", sendpix);
+				map.put("lookhead", lookhead);
+				map.put("uid", userFriend.getId());
+				log.info("map"+map);
+				result = userFriendService.friendTime(map);
+				log.info("result"+result);
+			}
+		}
+		if(result.equals("success")) {
+		return ResultType.creat(result);
+		}else {
+			return ResultType.creat(result,"fail");		
+		}
+		
+	}
 	
 }

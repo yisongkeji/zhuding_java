@@ -32,9 +32,11 @@ import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.ReturnUsermatch;
 import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserFriend;
+import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.model.Usermatch;
 import com.foreseers.tj.model.UsermatchWithBLOBs;
 import com.foreseers.tj.service.UserFriendService;
+import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.UsermatchService;
 import com.foreseers.tj.util.getAge;
@@ -51,6 +53,8 @@ public class UserMatAction extends BaseAction{
 	private UsermatchService usermatchService;
 	@Autowired
 	private UserFriendService userFriendService;
+	@Autowired
+	private UserImageService userImageService;
 	
 	@RequestMapping("/matching")
 	@ResponseBody
@@ -200,15 +204,13 @@ public class UserMatAction extends BaseAction{
 			 idlistinfo.add(idlist.get(q));
 		 }
 		//判断周围人的个数，如果太少就添加，添加特殊用户		
-	//	System.out.println(idlistinfo);
-		
+
 		for (int k = 0;k<idlist.size();k++) {    //调用接口前判断重复
 			Usermatch usermatch = usermatchService.usermatchQuery(accountId,idlist.get(k));
 			if(usermatch != null) {
 				idlist.remove(k--);
 			}
 		}
-	//	System.out.println(idlist);
 		if(idlist.size() >0) {   //如果存在附近的人
 			//调用接口
 			log.info("调用命书接口");
@@ -250,12 +252,7 @@ public class UserMatAction extends BaseAction{
 					 characterscore = character.getInteger("score");
 					 characterdesc = character.get("desc").toString();
 					 //计算两用户之前的距离
-//					 LocationUtils local = new LocationUtils();
-//					 User touser = userService.selectByPrimaryKey(user_id);
-//					 Double tolat = touser.getLat();
-//					 Double tolan = touser.getLng();
-//					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
-					 //将信息保存到数据库
+
 					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
 					 usermatchWithBLOBs.setZhuid(accountId);
 					 usermatchWithBLOBs.setCongid(user_id);
@@ -275,21 +272,7 @@ public class UserMatAction extends BaseAction{
 			}
 						
 		}
-		//计算两个用户之间的距离,更新到表中
-		/*
-		for(int z=0;z<idlistinfo.size();z++) {
-			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
-			 LocationUtils local = new LocationUtils();
-			 User touser = userService.selectByPrimaryKey(idlistinfo.get(z));
-			 Double tolat = touser.getLat();
-			 Double tolan = touser.getLng();
-			 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
-			 usermatchWithBLOBs.setZhuid(accountId);
-			 usermatchWithBLOBs.setCongid(idlistinfo.get(z));
-			 usermatchWithBLOBs.setDistance(distance);
-			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
-		}
-		*/
+
 		//得到给前端返回的list用户，需要修改，根据idlist，查询用户列表	
 		List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
 	    for(int i=0;i<idlistinfo.size();i++) {
@@ -298,10 +281,6 @@ public class UserMatAction extends BaseAction{
 	    	User usertest = userService.selectByPrimaryKey(id);
         	String  dateyear = usertest.getDate(); //用户的出生日期
         	
-//        	int useryear = Integer.parseInt(dateyear.substring(0, 4));
-//	    	Date date = new Date();
-//	    	int year = date.getYear()+1900;
-//	    	int age = year-useryear;
         	getAge getage = new getAge();			
 			int age = getage.jiuanAge(dateyear);	 //计算得到年		
 	    	returnUser.setAge(age);
@@ -333,17 +312,36 @@ public class UserMatAction extends BaseAction{
 		int userinfoid = Integer.parseInt(uid);	
 		log.info("请求参数：userinfoid"+userinfoid);
 		log.info("请求参数：userid"+userid);
+	//	int lookhead = 0;
+		ReturnUsermatch returnUsermatch = new ReturnUsermatch();
 		UsermatchWithBLOBs usermatchWithBLOBs = usermatchService.usermatchQuery(userinfoid, userid);
+		User user = userService.selectByPrimaryKey(userid);
 		if(usermatchWithBLOBs == null) {
 			log.error("两人之间没有关系");
 			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
 		}
 		UserFriend userFriend = userFriendService.selectUserFriend(userinfoid+"", userid+"");
-		int friend = 0;
+		int friend = 0;   //是好友关系
+		int lookimages = 0;  //不可以查看相册
+		returnUsermatch.setHead(user.getPicture());
 		if(userFriend == null) {
-			friend = 1;
+			friend = 1;         //不是好友
+		}else { 
+			if(userFriend.getUserReation() != 0) { // 不是好友关系
+				friend = 1;  
+			}else {  //两人是好友关系
+				//判断一下是否可以查看清晰头像
+				if(userFriend.getLookhead() == 1) {
+					// lookhead = 1;   //可以查看用户清晰头像
+					 returnUsermatch.setHead(user.getHead());
+				}
+				if(userFriend.getLookimages() == 1) {
+					lookimages = userFriend.getLookimages();
+					returnUsermatch.setLookimages(lookimages);
+				}
+			}			
 		}
-	    User user = userService.selectByPrimaryKey(userid);
+	    
 	    String useryear =  user.getDate();
 	    int num = user.getNum();   //擦过的次数
 	    String sex = user.getSex();  //性别
@@ -351,15 +349,16 @@ public class UserMatAction extends BaseAction{
 		//getAge getage = new getAge();
 	    int age = user.getReservedint();   //年龄  
 	    String name = user.getUsername();   //名称
-	    String head = user.getHead();      //touxiang
-	    ReturnUsermatch returnUsermatch = new ReturnUsermatch();
+	
+	    List<UserImage> list = userImageService.queryByUseridlist(userid);
 	    returnUsermatch.setAge(age);	
 	    returnUsermatch.setNum(num);
 	    returnUsermatch.setSex(sex);
 	    returnUsermatch.setObligate(obligate);
 	    returnUsermatch.setFriend(friend);
 	    returnUsermatch.setName(name);
-	    returnUsermatch.setHead(head);
+	  //  returnUsermatch.setHead(head);
+	    returnUsermatch.setImages(list);
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);
 	    log.info("返回值："+returnUsermatch);
 		return ResultType.creat(returnUsermatch);

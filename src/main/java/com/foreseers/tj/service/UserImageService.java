@@ -11,4 +11,8 @@ public interface UserImageService {
 	 List<UserImage> queryByUseridlist(int userid);
 
 	void deleteimage(UserImage userImage);
+	
+	  int updateByPrimaryKeySelective(UserImage record);
+
+	
 }

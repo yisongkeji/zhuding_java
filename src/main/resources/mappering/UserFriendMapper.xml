@@ -111,7 +111,13 @@
 	UNION ALL
 	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0 ;
   </select>
-  
+ 
+  <select id="selectUserFriendList" parameterType="String" resultMap="BaseResultMap">
+	select 
+	 <include refid="Base_Column_List" />
+ 	from user_friend  WHERE user_id = #{userid} or friend_id = #{userid};
+  </select>
+
     <select id="selectUserFriend" parameterType="String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
