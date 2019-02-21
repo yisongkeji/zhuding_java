@@ -61,14 +61,23 @@ public class UserFriendAction extends BaseAction{
 	     for(int i=0;i<userlist.size();i++) {
 	    Map<String,Object> returnmap = new HashMap<String,Object>();
 	    	 int id = Integer.parseInt( userlist.get(i));
-	  
+	    	 UserFriend userFriend = userFriendService.selectUserFriend(userid,userlist.get(i)); //查询好友的关系
+	    	 int lookhead = 0;
+	    	 if(userFriend != null) {
+	    		 lookhead = userFriend.getLookhead();
+	    	 }
 	    	 User user = userService.selectByPrimaryKey(id);
 	    	 if(user != null) {
 	    	 user.getUsername();
 	    	 user.getHead();
 	    	 returnmap.put("userid", id);
 	    	 returnmap.put("username", user.getUsername());
-	    	 returnmap.put("userhead",  user.getHead());
+	    	 if(lookhead == 1) {
+	    		 returnmap.put("userhead",  user.getHead());
+	    	 }else {
+	    		 returnmap.put("userhead",  user.getPicture());
+	    	 }
+	    	 
 	    	 rutrnlist.add(returnmap);
 	    	 }
 	     }	

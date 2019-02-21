@@ -138,12 +138,15 @@ public class UserImageAction extends BaseAction{
 	@RequestMapping("/deleteimage")
 	@ResponseBody
 	public ResultType deleteimage(HttpServletRequest request) throws BusinessExpection {
-		
+		log.info("进入删除相册方法");
 		UserImage userImage = new UserImage();
 		String userid = request.getParameter("userid");
 		String nameurl = request.getParameter("nameurl");
+		log.info("请求参数：userid"+userid);
+		log.info("请求参数：nameurl"+nameurl);
 		
 		if(userid == null || nameurl == null) {
+			log.error("参数不合法");
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
 		String[] names = nameurl.split("/");
@@ -154,8 +157,9 @@ public class UserImageAction extends BaseAction{
 		userImage.setUserid(Integer.parseInt(userid));
 		userImage.setImagename(name);
 		userImageService.deleteimage(userImage);
-		
+		String bname = "b"+name;
 		new File(imagepath+"/"+name).delete();  //删除本地地图片
+		new File(imagepath+"/"+bname).delete();  //删除模糊图片
 		
 		return ResultType.creat("success");
 	}

@@ -31,10 +31,12 @@ import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.ReturnUsermatch;
 import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserCaHistory;
 import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.model.Usermatch;
 import com.foreseers.tj.model.UsermatchWithBLOBs;
+import com.foreseers.tj.service.UserCaHistoryService;
 import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
@@ -55,6 +57,8 @@ public class UserMatAction extends BaseAction{
 	private UserFriendService userFriendService;
 	@Autowired
 	private UserImageService userImageService;
+	@Autowired
+	private UserCaHistoryService userCaHistoryService;
 	
 	@RequestMapping("/matching")
 	@ResponseBody
@@ -72,6 +76,9 @@ public class UserMatAction extends BaseAction{
 		int userageli = Integer.parseInt(request.getParameter("ageLittle"));         //筛选条件年龄
 		int useragebig = Integer.parseInt(request.getParameter("agebig"));         //筛选条件年龄
 		int userdistance = Integer.parseInt(request.getParameter("distance"));         //筛选条件距离
+		log.info("请求参数：country:"+country);
+		log.info("请求参数：city:"+city);
+		log.info("请求参数：area:"+area);
 		log.info("请求参数：facebook:"+facebook);
 		log.info("请求参数：经度:"+lat);
 		log.info("请求参数：纬度:"+lng);
@@ -119,7 +126,7 @@ public class UserMatAction extends BaseAction{
 	    userService.updateByFaceIDSelective(user);  //将用户的位置信息插入到数据库中
 	    log.info("将个人信息更新到数据库");
 	    User userinfo = userService.QueryUser(facebook);
-	    int accountId = userinfo.getId();    
+	    int accountId = userinfo.getId();             //当前用户ID
 		//根据位置信息查用户
 	    Map mapuser = new HashMap<String,Object>();
 	    mapuser.put("id", accountId);
@@ -131,6 +138,7 @@ public class UserMatAction extends BaseAction{
 	    mapuser.put("ageli",userageli);
 	    mapuser.put("agebig",useragebig);
 		List<Integer> idlist = userService.QueryUserByCity(mapuser);
+		log.info("idlist:"+idlist);
 //增加筛选条件
 		//计算两个用户之间的距离,更新到表中
 		for(int z=0;z<idlist.size();z++) {
@@ -165,21 +173,7 @@ public class UserMatAction extends BaseAction{
 					idlist.add(listuser.get(j));
 				}							
 			}
-			/*
-			if(idlist.size()<10) {
-			int quenum = 10-idlist.size();			
-			Map map = new HashMap<String, Object>();
-			map.put("country", country);
-			map.put("city", city);
-			map.put("quenum", quenum);
-			List<Integer> quelist = userService.QueryUserByqueNUM(map);  //不足50个补齐
-			for(int a=0;a<quelist.size();a++ ){
-				if(!idlist.contains(quelist.get(a))) {
-				idlist.add(quelist.get(a));	
-				}
-				}
-			}	
-			*/
+
 		}else {
 			if(idlist.size()<100) {
 				int paihang = 40;
@@ -277,10 +271,10 @@ public class UserMatAction extends BaseAction{
 		List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
 	    for(int i=0;i<idlistinfo.size();i++) {
 	    	ReturnUser returnUser = new ReturnUser();
-	    	int id = idlistinfo.get(i);	    	
+	    	int id = idlistinfo.get(i);	          // 其他用户的ID 	
+
 	    	User usertest = userService.selectByPrimaryKey(id);
-        	String  dateyear = usertest.getDate(); //用户的出生日期
-        	
+        	String  dateyear = usertest.getDate(); //用户的出生日期     	
         	getAge getage = new getAge();			
 			int age = getage.jiuanAge(dateyear);	 //计算得到年		
 	    	returnUser.setAge(age);
@@ -307,8 +301,8 @@ public class UserMatAction extends BaseAction{
 	@ResponseBody
 	public ResultType showUser(HttpServletRequest request) throws BusinessExpection {
 		log.info("进入好友详情页方法");
-		String uid = request.getParameter("uid");
-		int userid = Integer.parseInt(request.getParameter("userid"));
+		String uid = request.getParameter("uid");  						//当前用户id
+		int userid = Integer.parseInt(request.getParameter("userid"));  //其他人id
 		int userinfoid = Integer.parseInt(uid);	
 		log.info("请求参数：userinfoid"+userinfoid);
 		log.info("请求参数：userid"+userid);
@@ -333,6 +327,7 @@ public class UserMatAction extends BaseAction{
 				//判断一下是否可以查看清晰头像
 				if(userFriend.getLookhead() == 1) {
 					// lookhead = 1;   //可以查看用户清晰头像
+					log.info("两人是好友，返回清晰头像");
 					 returnUsermatch.setHead(user.getHead());
 				}
 				if(userFriend.getLookimages() == 1) {
@@ -341,7 +336,21 @@ public class UserMatAction extends BaseAction{
 				}
 			}			
 		}
-	    
+	    //判断是否使用过擦子，判断是否头像是否的清晰的
+		if(returnUsermatch.getHead().equals(user.getPicture())) {  //当前是模糊头像，判断是否使用过擦子
+			log.info("头像是模糊的头像，判断主用户是否擦过这个用户");
+			UserCaHistory userCaHistory = new UserCaHistory();
+			userCaHistory.setUserid(userinfoid); // 主id
+			userCaHistory.setCaid(userid);
+			UserCaHistory userCaHistoryinfo = userCaHistoryService.selectByUserCaHistory(userCaHistory); 
+			if(userCaHistoryinfo != null) {  
+				//有查询结果，说明被擦过
+				log.info("当前用户擦过这个用户，返回清晰头像");
+				returnUsermatch.setHead(user.getHead());
+			}
+			
+		}
+		
 	    String useryear =  user.getDate();
 	    int num = user.getNum();   //擦过的次数
 	    String sex = user.getSex();  //性别
