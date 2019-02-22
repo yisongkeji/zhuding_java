@@ -1,6 +1,7 @@
 package com.foreseers.tj.action;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +62,9 @@ public class UserCaHistoryAction extends BaseAction{
 			user.setId(Integer.parseInt(caid));
 			user.setNum(num);
 			userService.updateByPrimaryKeySelective(user);
+			//更新用户的擦子数 减一，userid，（新增）
+			
+			//更新用户的擦子数 减一，userid，（新增）
 			return ResultType.creat(result);
 		}else {
 			return ResultType.creat(result,"fail");
@@ -69,24 +73,30 @@ public class UserCaHistoryAction extends BaseAction{
 	
 	@RequestMapping("/showUserHistory")
 	@ResponseBody
-	public String showUserHistory(HttpServletRequest request) {
+	public ResultType showUserHistory(HttpServletRequest request) {
 		log.info("进入谁擦过我好友列表");
 		int userid = Integer.parseInt(request.getParameter("userid"));
 		log.info("请求参数：caid"+userid);
 		 List<UserCaHistory>  UserCaHistorys = userCaHistoryService.userCaHistoryService(userid);
+		 log.info(""+UserCaHistorys);
 		 Map<String,Object> map = new HashMap<String,Object>();
-		 
+		 List<Map> list = new ArrayList<>();
 		 for(UserCaHistory userCaHistory:UserCaHistorys) {
 			 int id = userCaHistory.getUserid();
+			 log.info("好友id:"+id);
 			 User user = userService.selectByPrimaryKey(id);
 			 UsermatchWithBLOBs usermatchWithBLOBs =  usermatchService.usermatchQuery(userid, id);  //得到这两个人的关系
-			 map.put("username", user.getUsername());
-			 map.put("sex", user.getSex());
-			 map.put("age", user.getReservedint());
-			 map.put("time", userCaHistory.getUsertime());			 
+			 log.info("usermatchWithBLOBs");
+			 map.put("username", user.getUsername());     //名字
+			 map.put("sex", user.getSex());               //性别
+			 map.put("age", user.getReservedint());       //年龄
+			 map.put("time", userCaHistory.getUsertime()); //擦的时间		
+			 map.put("userscore", usermatchWithBLOBs.getUserscore()); //匹配度
 			 log.info(user.getUsername());
 			 log.info(user.getSex());
+			 log.info("map"+map);
+			 list.add(map);
 		 }		
-		return UserCaHistorys.toString();
+		return ResultType.creat(list);
 	}
 }

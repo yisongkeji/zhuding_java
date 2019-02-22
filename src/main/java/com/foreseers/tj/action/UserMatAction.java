@@ -141,6 +141,7 @@ public class UserMatAction extends BaseAction{
 		log.info("idlist:"+idlist);
 //增加筛选条件
 		//计算两个用户之间的距离,更新到表中
+		Map<Integer,Integer> mapd = new HashMap<Integer,Integer>();
 		for(int z=0;z<idlist.size();z++) {
 			log.info("通过筛选条件筛选用户");
 			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
@@ -149,10 +150,11 @@ public class UserMatAction extends BaseAction{
 			 Double tolat = touser.getLat();
 			 Double tolan = touser.getLng();
 			 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
-			 usermatchWithBLOBs.setZhuid(accountId);
-			 usermatchWithBLOBs.setCongid(idlist.get(z));
-			 usermatchWithBLOBs.setDistance(distance);
-			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+//			 usermatchWithBLOBs.setZhuid(accountId);
+//			 usermatchWithBLOBs.setCongid(idlist.get(z));
+//			 usermatchWithBLOBs.setDistance(distance);
+//			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+			 mapd.put(idlist.get(z), distance);
 			 if(distance >userdistance) {
 				 idlist.remove(z--);
 			 }
@@ -205,6 +207,7 @@ public class UserMatAction extends BaseAction{
 				idlist.remove(k--);
 			}
 		}
+		log.info("命书用户ids:"+idlist);
 		if(idlist.size() >0) {   //如果存在附近的人
 			//调用接口
 			log.info("调用命书接口");
@@ -221,6 +224,8 @@ public class UserMatAction extends BaseAction{
 				log.info("调用命书接口成功");
 				//System.out.println("调用接口成功");
 				JSONArray result = jsn.getJSONArray("result");
+				log.info("接口返回结果"+result);
+				
 				for(int i = 0;i<result.size();i++) {					
 					//JSONObject resultjson = JSON.parseObject(result.get(i).toString());
 					//解析接口
@@ -228,51 +233,87 @@ public class UserMatAction extends BaseAction{
 					 user_id = resultjson.getInteger("user_id");
 					 score = resultjson.getInteger("score");
 					 desc = resultjson.get("desc").toString();
-					JSONObject comment = JSON.parseObject(resultjson.get("comment").toString());
-					 commentdesc = comment.get("desc").toString();
-					 commentgood = comment.get("good").toString();
-					 commentbad = comment.get("bad").toString();
-					JSONObject characteristic = JSON.parseObject(resultjson.get("characteristic").toString());
-					 characteristicdesc = characteristic.get("desc").toString();
-					 characteristicgood = characteristic.get("good").toString();
-					 characteristicbad = characteristic.get("bad").toString();
-					JSONObject mind = JSON.parseObject(resultjson.get("mind").toString());
-					 mindscore = mind.getInteger("score");
-					 minddesc = mind.get("desc").toString();
-					JSONObject body = JSON.parseObject(resultjson.get("body").toString());
-					 bodyscore = body.getInteger("score");
-					 bodydesc = body.get("desc").toString();
-					JSONObject character = JSON.parseObject(resultjson.get("character").toString());
-					 characterscore = character.getInteger("score");
-					 characterdesc = character.get("desc").toString();
-					 //计算两用户之前的距离
-
+			//		JSONObject comment = JSON.parseObject(resultjson.get("comment").toString());
+					 commentdesc = resultjson.get("comment").toString();
+//					 commentgood = comment.get("good").toString();
+//					 commentbad = comment.get("bad").toString();
+				//	JSONObject characteristic = JSON.parseObject(resultjson.get("characteristic").toString());
+					 characteristicdesc = resultjson.get("characteristic").toString();
+					 String characteristicdesc1 =  characteristicdesc.replace("[", "");
+					 String characteristicdesc2 =  characteristicdesc1.replace("]", "");
+					 String characteristicdesc3 =  characteristicdesc1.replace("\"","");
+				//	 characteristicgood = characteristic.get("good").toString();
+				//	 characteristicbad = characteristic.get("bad").toString();
+				//	JSONObject mind = JSON.parseObject(resultjson.get("mind").toString());
+					 mindscore = resultjson.getInteger("mind");
+				//	 minddesc = mind.get("desc").toString();
+				//	JSONObject body = JSON.parseObject(resultjson.get("body").toString());
+					 bodyscore = resultjson.getInteger("body");
+				//	 bodydesc = body.get("desc").toString();
+				//	JSONObject character = JSON.parseObject(resultjson.get("character").toString());  //character
+					 characterscore = resultjson.getInteger("character");
+				//	 characterdesc = character.get("desc").toString();
+					 String courting = resultjson.get("courting").toString();
+					 //计算两用户之前的距离				
+					 int userinfodistance = 0;
+					 for(Map.Entry<Integer,Integer> entry:mapd.entrySet()) {
+						 if(entry.getKey() == user_id) {
+							 userinfodistance = entry.getValue();
+						 }
+					 }					 
 					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
 					 usermatchWithBLOBs.setZhuid(accountId);
 					 usermatchWithBLOBs.setCongid(user_id);
 					 usermatchWithBLOBs.setUserscore(score);
 					 usermatchWithBLOBs.setUserdesc(desc);
 					 usermatchWithBLOBs.setCommentdesc(commentdesc);
-					 usermatchWithBLOBs.setCharacteristicdesc(characteristicdesc);
+					 usermatchWithBLOBs.setCharacteristicdesc(characteristicdesc2);
 					 usermatchWithBLOBs.setMinddesc(minddesc);
 					 usermatchWithBLOBs.setMindscore(mindscore);
 					 usermatchWithBLOBs.setBodydesc(bodydesc);
 					 usermatchWithBLOBs.setBodyscore(bodyscore);
 					 usermatchWithBLOBs.setCharacterdesc(characterdesc);
 					 usermatchWithBLOBs.setCharacterscore(characterscore);
-					// usermatchWithBLOBs.setDistance(distance);
+					 usermatchWithBLOBs.setDistance(userinfodistance);
+					 usermatchWithBLOBs.setSpare(courting);
 					 usermatchService.insertSelective(usermatchWithBLOBs);   
+					 log.info("插入到数据库");
 				}				
 			}
 						
 		}
 
-		//得到给前端返回的list用户，需要修改，根据idlist，查询用户列表	
+		//得到给前端返回的list用户，需要修改，根据idlist，查询用户列表
+		log.info("判断是否返回清晰头像");
 		List<ReturnUser> returnUserlist = new ArrayList<ReturnUser>();
 	    for(int i=0;i<idlistinfo.size();i++) {
 	    	ReturnUser returnUser = new ReturnUser();
 	    	int id = idlistinfo.get(i);	          // 其他用户的ID 	
-
+            //增加判断是否可以查看清晰头像（新增）
+	    	int lookhead = 0;
+	    	UserFriend userFriend = userFriendService.selectUserFriend(accountId+"", id+"");
+	    	if(userFriend != null) { //存在好友关系
+	    		if(userFriend.getUserReation() == 0) { //是好友关系
+	    			if(userFriend.getLookhead() == 1) {  //可以查看清晰头像
+	    				log.info("两人是好友关系，切可以返回清晰头像");
+	    				lookhead = 1;
+	    			}
+	    		}	
+	    	}
+	    	if(lookhead == 0) { //判断是否使用过擦子
+	    		log.info("两人不是好友关系，或者成为好友时间不够，判断是否使用过擦子");
+				UserCaHistory userCaHistory = new UserCaHistory();
+				userCaHistory.setUserid(accountId); // 主id
+				userCaHistory.setCaid(id);
+				UserCaHistory userCaHistoryinfo = userCaHistoryService.selectByUserCaHistory(userCaHistory); 
+				if(userCaHistoryinfo != null) {
+					log.info("使用过擦子，返回清晰头像");
+					lookhead = 1;
+				}
+				log.info("没有使用过擦子，不能查看清晰头像");
+	    	}
+	    	returnUser.setLookhead(lookhead);
+	    	 //增加判断是否可以查看清晰头像
 	    	User usertest = userService.selectByPrimaryKey(id);
         	String  dateyear = usertest.getDate(); //用户的出生日期     	
         	getAge getage = new getAge();			

@@ -46,8 +46,10 @@ import com.foreseers.tj.model.ReturnImage;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.Timezone;
 import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserCanums;
 import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.model.UserImage;
+import com.foreseers.tj.service.UserCanumsService;
 import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
@@ -73,6 +75,8 @@ public class UserAction extends BaseAction{
 	@Autowired
 	private UserFriendService userFriendService;
 	
+	@Autowired
+	private UserCanumsService userCanumsService; 
 	/*
 	 * 查询用户方法
 	 */
@@ -198,12 +202,12 @@ public class UserAction extends BaseAction{
 		userinfo.setReservedint(age);
 		userinfo.setReservedvar(20+"");
 		log.info("user:"+userinfo);
-		int insertid =  userService.insertSelective(userinfo); 
+		 userService.insertSelective(userinfo); 
 		log.info("保存到数据库成功");
-		int accountId = userinfo.getId();
-	//	User user1= userService.QueryUser(facebookid);
-//		int accountId = user1.getId();
-		
+	//	int accountId = userinfo.getId();
+		User user1= userService.QueryUser(facebookid);
+		int accountId = user1.getId();
+		log.info("accountId"+accountId);
 		String url = "https://api2047.foreseers.com/Dating/personalAnalysis";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("date", date);
@@ -289,6 +293,14 @@ public class UserAction extends BaseAction{
 		
 		log.info("返回值:"+user);
 		userService.updateByPrimaryKeySelective(user);
+		//插入用户擦子数表
+		UserCanums UserCanums = new UserCanums();
+		UserCanums.setUserid(accountId);
+		UserCanums.setNums(0);
+		UserCanums.setEveryday(0);
+		UserCanums.setVipeveryday(0);
+		userCanumsService.insertSelective(UserCanums);
+		//插入用户擦子数表
 		
 		return ResultType.creat(user);
 	}
@@ -314,16 +326,17 @@ public class UserAction extends BaseAction{
 		User userinfo = userService.selectByPrimaryKey(Integer.parseInt(userid));
 		if(userinfo != null) {
 		String userhead = userinfo.getHead();
-			if(userhead != null || userhead != "") {
-				String[] heads= userhead.split("/");
-				
+		log.info("userhead："+userhead);
+			if(userhead != null && userhead != "" ) {
+				log.info("删除头像");
+				String[] heads= userhead.split("/");				
 				String headold = heads[heads.length-1];
 				log.info(headold);
 				new File(imagepath+"/"+headold).delete(); 
 			}
 		}
 		String name = file.getOriginalFilename();
-		
+		log.info("name"+name);
 	//	String imagepath = "/var/zhuding/head";   服务器上的存放图片的地址（记得修改application.yml配置文件）
 		File savefile = new File(imagepath);
 		if(!savefile.exists()) {
@@ -366,7 +379,7 @@ public class UserAction extends BaseAction{
 		User userinfo = userService.selectByPrimaryKey(Integer.parseInt(userid));
 		if(userinfo != null) {
 		String userpicture = userinfo.getPicture();
-			if(userpicture != null || userpicture != "") {
+			if( userpicture != null && userpicture != "") {
 				String[] pictures= userpicture.split("/");
 				String headold = pictures[pictures.length-1];
 				log.info(headold);

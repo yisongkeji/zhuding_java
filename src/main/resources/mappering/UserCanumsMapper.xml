@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.foreseers.tj.mapper.UserCaHistoryMapper">
-  <resultMap id="BaseResultMap" type="com.foreseers.tj.model.UserCaHistory">
+<mapper namespace="com.foreseers.tj.mapper.UserCanumsMapper">
+  <resultMap id="BaseResultMap" type="com.foreseers.tj.model.UserCanums">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="userid" jdbcType="INTEGER" property="userid" />
-    <result column="caid" jdbcType="INTEGER" property="caid" />
-    <result column="usertime" jdbcType="VARCHAR" property="usertime" />
-    <result column="userupdated" jdbcType="TIMESTAMP" property="userupdated" />
+    <result column="everyday" jdbcType="INTEGER" property="everyday" />
+    <result column="vipeveryday" jdbcType="INTEGER" property="vipeveryday" />
+    <result column="nums" jdbcType="INTEGER" property="nums" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
     <result column="spare" jdbcType="VARCHAR" property="spare" />
+    <result column="spare1" jdbcType="VARCHAR" property="spare1" />
     <result column="spareint" jdbcType="INTEGER" property="spareint" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,15 +71,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, caid, usertime, userupdated, spare, spareint
+    id, userid, everyday, vipeveryday, nums, updated, spare, spare1, spareint
   </sql>
-  <select id="selectByExample" parameterType="com.foreseers.tj.model.UserCaHistoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.foreseers.tj.model.UserCanumsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user_ca_history
+    from user_canums
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,65 +98,64 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user_ca_history
+    from user_canums
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-  <select id="selectByUserCaHistory" parameterType="com.foreseers.tj.model.UserCaHistory" resultMap="BaseResultMap">
+  <select id="selectByUserKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user_ca_history
-    where userid = #{userid,jdbcType=INTEGER} and caid = #{caid,jdbcType=INTEGER};
+    from user_canums
+    where userid = #{userid,jdbcType=INTEGER}
   </select>
-   
-   <select id="userCaHistoryService" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-      <include refid="Base_Column_List" />
-    from user_ca_history
-    where  caid = #{caid,jdbcType=INTEGER};
-  </select>
-   
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_ca_history
+    delete from user_canums
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.foreseers.tj.model.UserCaHistoryExample">
-    delete from user_ca_history
+  <delete id="deleteByExample" parameterType="com.foreseers.tj.model.UserCanumsExample">
+    delete from user_canums
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.foreseers.tj.model.UserCaHistory">
+  <insert id="insert" parameterType="com.foreseers.tj.model.UserCanums">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_ca_history (userid, caid, usertime, 
-      userupdated, spare, spareint
-      )
-    values (#{userid,jdbcType=INTEGER}, #{caid,jdbcType=INTEGER}, #{usertime,jdbcType=VARCHAR}, 
-      #{userupdated,jdbcType=TIMESTAMP}, #{spare,jdbcType=VARCHAR}, #{spareint,jdbcType=INTEGER}
-      )
+    insert into user_canums (userid, everyday, vipeveryday, 
+      nums, updated, spare, 
+      spare1, spareint)
+    values (#{userid,jdbcType=INTEGER}, #{everyday,jdbcType=INTEGER}, #{vipeveryday,jdbcType=INTEGER}, 
+      #{nums,jdbcType=INTEGER}, #{updated,jdbcType=TIMESTAMP}, #{spare,jdbcType=VARCHAR}, 
+      #{spare1,jdbcType=VARCHAR}, #{spareint,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.foreseers.tj.model.UserCaHistory">
+  <insert id="insertSelective" parameterType="com.foreseers.tj.model.UserCanums">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_ca_history
+    insert into user_canums
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userid != null">
         userid,
       </if>
-      <if test="caid != null">
-        caid,
+      <if test="everyday != null">
+        everyday,
       </if>
-      <if test="usertime != null">
-        usertime,
+      <if test="vipeveryday != null">
+        vipeveryday,
       </if>
-      <if test="userupdated != null">
-        userupdated,
+      <if test="nums != null">
+        nums,
+      </if>
+      <if test="updated != null">
+        updated,
       </if>
       <if test="spare != null">
         spare,
+      </if>
+      <if test="spare1 != null">
+        spare1,
       </if>
       <if test="spareint != null">
         spareint,
@@ -164,31 +165,37 @@
       <if test="userid != null">
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="caid != null">
-        #{caid,jdbcType=INTEGER},
+      <if test="everyday != null">
+        #{everyday,jdbcType=INTEGER},
       </if>
-      <if test="usertime != null">
-        #{usertime,jdbcType=VARCHAR},
+      <if test="vipeveryday != null">
+        #{vipeveryday,jdbcType=INTEGER},
       </if>
-      <if test="userupdated != null">
-        #{userupdated,jdbcType=TIMESTAMP},
+      <if test="nums != null">
+        #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
       </if>
       <if test="spare != null">
         #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        #{spare1,jdbcType=VARCHAR},
       </if>
       <if test="spareint != null">
         #{spareint,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.foreseers.tj.model.UserCaHistoryExample" resultType="java.lang.Long">
-    select count(*) from user_ca_history
+  <select id="countByExample" parameterType="com.foreseers.tj.model.UserCanumsExample" resultType="java.lang.Long">
+    select count(*) from user_canums
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user_ca_history
+    update user_canums
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -196,17 +203,23 @@
       <if test="record.userid != null">
         userid = #{record.userid,jdbcType=INTEGER},
       </if>
-      <if test="record.caid != null">
-        caid = #{record.caid,jdbcType=INTEGER},
+      <if test="record.everyday != null">
+        everyday = #{record.everyday,jdbcType=INTEGER},
       </if>
-      <if test="record.usertime != null">
-        usertime = #{record.usertime,jdbcType=VARCHAR},
+      <if test="record.vipeveryday != null">
+        vipeveryday = #{record.vipeveryday,jdbcType=INTEGER},
       </if>
-      <if test="record.userupdated != null">
-        userupdated = #{record.userupdated,jdbcType=TIMESTAMP},
+      <if test="record.nums != null">
+        nums = #{record.nums,jdbcType=INTEGER},
+      </if>
+      <if test="record.updated != null">
+        updated = #{record.updated,jdbcType=TIMESTAMP},
       </if>
       <if test="record.spare != null">
         spare = #{record.spare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare1 != null">
+        spare1 = #{record.spare1,jdbcType=VARCHAR},
       </if>
       <if test="record.spareint != null">
         spareint = #{record.spareint,jdbcType=INTEGER},
@@ -217,35 +230,43 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user_ca_history
+    update user_canums
     set id = #{record.id,jdbcType=INTEGER},
       userid = #{record.userid,jdbcType=INTEGER},
-      caid = #{record.caid,jdbcType=INTEGER},
-      usertime = #{record.usertime,jdbcType=VARCHAR},
-      userupdated = #{record.userupdated,jdbcType=TIMESTAMP},
+      everyday = #{record.everyday,jdbcType=INTEGER},
+      vipeveryday = #{record.vipeveryday,jdbcType=INTEGER},
+      nums = #{record.nums,jdbcType=INTEGER},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
       spare = #{record.spare,jdbcType=VARCHAR},
+      spare1 = #{record.spare1,jdbcType=VARCHAR},
       spareint = #{record.spareint,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.foreseers.tj.model.UserCaHistory">
-    update user_ca_history
+  <update id="updateByPrimaryKeySelective" parameterType="com.foreseers.tj.model.UserCanums">
+    update user_canums
     <set>
       <if test="userid != null">
         userid = #{userid,jdbcType=INTEGER},
       </if>
-      <if test="caid != null">
-        caid = #{caid,jdbcType=INTEGER},
+      <if test="everyday != null">
+        everyday = #{everyday,jdbcType=INTEGER},
       </if>
-      <if test="usertime != null">
-        usertime = #{usertime,jdbcType=VARCHAR},
+      <if test="vipeveryday != null">
+        vipeveryday = #{vipeveryday,jdbcType=INTEGER},
       </if>
-      <if test="userupdated != null">
-        userupdated = #{userupdated,jdbcType=TIMESTAMP},
+      <if test="nums != null">
+        nums = #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=TIMESTAMP},
       </if>
       <if test="spare != null">
         spare = #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        spare1 = #{spare1,jdbcType=VARCHAR},
       </if>
       <if test="spareint != null">
         spareint = #{spareint,jdbcType=INTEGER},
@@ -253,13 +274,15 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.UserCaHistory">
-    update user_ca_history
+  <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.UserCanums">
+    update user_canums
     set userid = #{userid,jdbcType=INTEGER},
-      caid = #{caid,jdbcType=INTEGER},
-      usertime = #{usertime,jdbcType=VARCHAR},
-      userupdated = #{userupdated,jdbcType=TIMESTAMP},
+      everyday = #{everyday,jdbcType=INTEGER},
+      vipeveryday = #{vipeveryday,jdbcType=INTEGER},
+      nums = #{nums,jdbcType=INTEGER},
+      updated = #{updated,jdbcType=TIMESTAMP},
       spare = #{spare,jdbcType=VARCHAR},
+      spare1 = #{spare1,jdbcType=VARCHAR},
       spareint = #{spareint,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
