@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.foreseers.tj.action.UserCanumsAction;
+import com.foreseers.tj.service.UserCanumsService;
+
 @Component
 public class HuanxinJobs {
 
@@ -29,5 +32,12 @@ public class HuanxinJobs {
 		log.info("保存前一天的聊天记录");
 	}
 	
+	/*
+	 * 明天晚上十二点，更新用户的擦子数
+	 */
+	public void updateUserNums() {
+		UserCanumsAction userCanumsAction = new UserCanumsAction();
+		
+	}
 	
 }

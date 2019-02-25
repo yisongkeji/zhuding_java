@@ -2,12 +2,14 @@ package com.foreseers.tj.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.foreseers.tj.mapper.UserCanumsMapper;
 import com.foreseers.tj.model.UserCanums;
 import com.foreseers.tj.service.UserCanumsService;
 
 @Service
+@Transactional
 public class UserCanumsServiceImpl implements UserCanumsService {
 
 	@Autowired

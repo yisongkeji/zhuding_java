@@ -7,7 +7,8 @@ public enum EmBussinsError implements CommonError{
 	UNKNOWN_ERROR(1000,"未知错误"),
 	HUANXIN_ERROR(1002,"环信注册失败"),
 	MINGSHU_ERROR(1003,"命书注册失败"),
-	ILLAGAL_PARAMETERS(1004,"参数不合法") 
+	ILLAGAL_PARAMETERS(1004,"参数不合法"),
+	GENERAL_ERROR(2000,"通用错误")
 	;
 	
 	private EmBussinsError(int errCode,String errMsg ) {

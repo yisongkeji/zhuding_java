@@ -24,6 +24,7 @@ import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserCaHistory;
 import com.foreseers.tj.model.UsermatchWithBLOBs;
 import com.foreseers.tj.service.UserCaHistoryService;
+import com.foreseers.tj.service.UserCanumsService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.UsermatchService;
 
@@ -39,6 +40,7 @@ public class UserCaHistoryAction extends BaseAction{
 	private UserService userService;
 	@Autowired
 	private UsermatchService usermatchService;
+
 	
 	@RequestMapping("/updatehistory")
 	@ResponseBody
@@ -52,7 +54,8 @@ public class UserCaHistoryAction extends BaseAction{
 			log.error("参数不合法");
 			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
 		}
-
+		//UserCanums userCanumsService.selectByUserKey(Integer.parseInt(userid));
+		
 		String  result = userCaHistoryService.userCaHistoryService(userid,caid);
 		if(result.equals("success")) {
 			//更新被擦数

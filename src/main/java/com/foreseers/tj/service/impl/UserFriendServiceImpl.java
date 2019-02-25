@@ -12,12 +12,14 @@ import javax.print.attribute.HashAttributeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.foreseers.tj.mapper.UserFriendMapper;
 import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.service.UserFriendService;
 
 @Service
+@Transactional
 public class UserFriendServiceImpl implements UserFriendService {
 
 	@Autowired
@@ -54,6 +56,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 	}
 
 	@Override
+	@Transactional
 	public String friendTime(Map<String, Object> map) {
 		int uid =(int) map.get("uid");
 		UserFriend userFriend = new UserFriend();
@@ -71,6 +74,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 	}
 
 	@Override
+	@Transactional
 	public List<Map> selectUserFriendList(String userid) throws ParseException {
 		List<UserFriend>  listUserFriend = userFriendMapper.selectUserFriendList(userid);
 		List<Map> list = new ArrayList<>();
