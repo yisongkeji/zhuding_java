@@ -10,21 +10,29 @@ import java.util.Map;
 
 import javax.print.attribute.HashAttributeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.foreseers.tj.mapper.UserFriendMapper;
+import com.foreseers.tj.model.BusinessExpection;
+import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.service.UserFriendService;
+import com.foreseers.tj.service.UserService;
 
 @Service
 @Transactional
 public class UserFriendServiceImpl implements UserFriendService {
-
+	
+	private static final Logger log = LoggerFactory.getLogger(UserFriendServiceImpl.class);
+	
 	@Autowired
 	private UserFriendMapper userFriendMapper;
-	
+	@Autowired
+	private UserService userService;
 	@Override
 	public int insertSelective(UserFriend record) {
 		// TODO Auto-generated method stub
@@ -87,16 +95,48 @@ public class UserFriendServiceImpl implements UserFriendService {
 				 long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
 				long nh = 1000 * 60 * 60;//一小时的毫秒数
 				long diff = date.getTime()-friendt.getTime();
-				long hour = diff / nh;            //到现在已经多个小时
+				//long hour = diff / nh;            //到现在已经多个小时
 				Map<String,Object> map = new HashMap<String,Object>();
 				map.put("userid", userFriend.getUserId());
 				map.put("friend", userFriend.getFriendId());
-				map.put("hour", hour);
+				map.put("hour", diff);
 				list.add(map);
 			}
 		}
 		
 		return list;
+	}
+
+	@Override
+	@Transactional
+	public String deletefriend(Map<String, Object> map) throws BusinessExpection {
+		// TODO Auto-generated method stub
+		log.info("map:"+map);
+		String userid = (String)map.get("userid");
+		String friendid = (String)map.get("friendid");
+		int reation = (int)map.get("reation");
+		
+		UserFriend userFriend  = selectUserFriend(userid,friendid); //查询出这条记录
+		if(userFriend != null) {
+			UserFriend userFriendinfo = new UserFriend();
+			userFriendinfo.setId(userFriend.getId());
+			userFriendinfo.setUserReation(reation);
+			userFriendinfo.setLookhead(0);
+			userFriendinfo.setLookimages(0);
+			userFriendinfo.setSendpix(0);
+			updateByPrimaryKeySelective(userFriendinfo);  //更新状态
+			//好友位数量加一  minuserfriendnum   addserfriendnum
+			userService.addserfriendnum(Integer.parseInt(userid));
+			userService.addserfriendnum(Integer.parseInt(friendid));
+			//好友位数量加一
+			
+			return "success";
+		}else {
+			log.error("两人不是好友关系");
+			throw new BusinessExpection(EmBussinsError.GENERAL_ERROR,"两人不是好友关系");
+			
+		}
+		
 	}
 
 

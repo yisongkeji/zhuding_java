@@ -81,5 +81,17 @@ public class UserServiceImpl implements UserService {
 		return userMapper.updateByPrimaryKeySelective(record);
 	}
 
+	@Override
+	public void minuserfriendnum(int parseInt) {
+		// TODO Auto-generated method stub
+		userMapper.minuserfriendnum(parseInt);
+	}
+
+	@Override
+	public void addserfriendnum(int parseInt) {
+		// TODO Auto-generated method stub
+		userMapper.addserfriendnum(parseInt);
+	}
+
 
 }

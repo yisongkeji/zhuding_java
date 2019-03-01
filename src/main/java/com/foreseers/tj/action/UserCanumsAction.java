@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.foreseers.tj.model.BusinessExpection;
+import com.foreseers.tj.model.EmBussinsError;
+import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserCanums;
 import com.foreseers.tj.service.UserCanumsService;
@@ -27,7 +30,7 @@ public class UserCanumsAction extends BaseAction{
 	
 	@RequestMapping("/updatenums")
 	@ResponseBody
-	public int updatenums(HttpServletRequest request) {
+	public ResultType updatenums(HttpServletRequest request) throws BusinessExpection {
 		log.info("进入更新擦子数方法");
 		int userid = Integer.parseInt(request.getParameter("userid"));
 		User user =  userService.selectByPrimaryKey(userid);
@@ -37,17 +40,23 @@ public class UserCanumsAction extends BaseAction{
 		int everyday = 0;
 		int vipeveryday = 0;
 		UserCanums userCanums = userCanumsService.selectByUserKey(userid);
+		if(userCanums == null) {
+			log.error("用户不存在");
+			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);  
+		}
 		if (userCanums.getEveryday() == 0) {
 			//普通用户今天还未领取
+			log.info("普通用户还未领取");
 			num = 3;
 			everyday = 1;
-
 		}
 		//判断vip用户是否已领取
-		if(userCanums.getVipeveryday() == 0) { //vip用户还未领取
+		if(vip == 1) {
+			if(userCanums.getVipeveryday() == 0) { //vip用户还未领取
 				num = 23;
 				vipeveryday= 1;
-		}		
+			}	
+		}
 		if(num != 0 || everyday != 0 || vipeveryday != 0) {
 			UserCanums userCanumsinfo = new UserCanums();
 			userCanumsinfo.setId(userCanums.getId());
@@ -59,8 +68,28 @@ public class UserCanumsAction extends BaseAction{
 			ststus = 1;  
 		}
 
-		
-		return ststus;
+		return ResultType.creat(ststus);
 	}
 	
+	/*
+	 * 获取擦子数方法
+	 */
+	@RequestMapping("/getUserNums")
+	@ResponseBody
+	public ResultType getUserNums(HttpServletRequest request) throws BusinessExpection {
+		log.info("获取用户的擦字子数方法");
+		String userid = request.getParameter("userid");
+		if(userid == null) {
+			log.error("参数不合法");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		UserCanums userCanums = userCanumsService.selectByUserKey(Integer.parseInt(userid));
+		if(userCanums == null) {
+			log.error("用户不存在");
+			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
+		}
+		
+		return ResultType.creat(userCanums);
+	}
+
 }

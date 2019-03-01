@@ -27,7 +27,18 @@ spring:
         maxOpenPreparedStatements: 20
     resources:
          static-locations: file:${web.upload-path},file:${web.front-path}
-         
+    
+    redis:
+      host: 127.0.0.1  
+      port: 6379
+      password: requirepass
+    pool:
+      max-active: 8
+      max-wait: 1
+      max-idle: 8
+      min-idle: 0
+      timeout: 0
+       
 ## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:
   mapper-locations: classpath:mappering/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
@@ -51,7 +62,7 @@ logging:
   file: zhuding.log    
   level:
     com.foreseers.tj.mapper : debug
-    
+
 
 
 

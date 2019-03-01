@@ -101,7 +101,14 @@
     from user_canums
     where id = #{id,jdbcType=INTEGER}
   </select>
-  
+ 
+  <select id="selectUserNums" parameterType="com.foreseers.tj.model.UserCanums" resultType="java.lang.Integer">
+    select 
+   		id
+    from user_canums
+    where everyday = #{everyday,jdbcType=INTEGER} or vipeveryday = #{vipeveryday,jdbcType=INTEGER}
+  </select>
+   
   <select id="selectByUserKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -109,6 +116,17 @@
     where userid = #{userid,jdbcType=INTEGER}
   </select>
   
+   
+  <update id="updateUserNums" parameterType="java.util.List">
+  	update user_canums
+  	 set everyday = 0 , vipeveryday = 0, nums = 0
+  	 where 
+  	  id in 
+  	  <foreach collection="list" item="item" index="index" open="(" separator=","  close=")">
+  	  #{item}
+  	  </foreach>
+  </update>
+ 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_canums
     where id = #{id,jdbcType=INTEGER}

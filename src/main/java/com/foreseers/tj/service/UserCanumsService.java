@@ -8,4 +8,6 @@ public interface UserCanumsService {
 	
 	int updateByPrimaryKeySelective(UserCanums record);
 	int insertSelective(UserCanums record);
+
+	void updateUserNums();
 }

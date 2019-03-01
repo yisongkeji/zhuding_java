@@ -256,6 +256,16 @@
     </set>
     where facebook = #{facebook,jdbcType=VARCHAR}
   </update>
+  <update id="minuserfriendnum" parameterType="java.lang.Integer">
+    update dt_user set reservedvar = reservedvar-1
+     where id = #{userid,jdbcType=INTEGER}
+  </update>
+  
+    <update id="addserfriendnum" parameterType="java.lang.Integer">
+    update dt_user set reservedvar = reservedvar+1
+     where id = #{userid,jdbcType=INTEGER}
+  </update>
+  
   
    <!-- selectUserlist -->    
    <select id="selectUserlistbyCountry" parameterType="com.foreseers.tj.model.User" resultMap="BaseResultMap">

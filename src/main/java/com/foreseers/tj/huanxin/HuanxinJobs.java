@@ -1,11 +1,13 @@
 package com.foreseers.tj.huanxin;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,9 @@ public class HuanxinJobs {
 	//private static Logger log = LoggerFactory.getLogger(HuanxinJobs.class);
 	 private static Logger log = LoggerFactory.getLogger(HuanxinJobs.class);
 	
+	 @Autowired
+	 private UserCanumsService userCanumsService;
+	 
 	//@Scheduled(cron="0 0,55 0,17 ? * ? ")
 	//@Scheduled(cron="0 0,14 0,11 ? * ? ")
 	@Scheduled(cron="0 0 1 * * ?")
@@ -33,11 +38,16 @@ public class HuanxinJobs {
 	}
 	
 	/*
-	 * 明天晚上十二点，更新用户的擦子数
+	 * 每天晚上十二点，更新用户的擦子数
 	 */
+	@Scheduled(cron="0 0 0 * * ?")
 	public void updateUserNums() {
-		UserCanumsAction userCanumsAction = new UserCanumsAction();
-		
+		log.info("更新会员擦子数方法");
+		LocalTime localtime = LocalTime.now(); 
+		log.info("现在的时间："+localtime);
+//		UserCanumsAction userCanumsAction = new UserCanumsAction();
+//		userCanumsAction.updateUserNums();
+		userCanumsService.updateUserNums();
 	}
 	
 }

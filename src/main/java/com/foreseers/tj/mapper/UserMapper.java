@@ -42,4 +42,8 @@ public interface UserMapper {
 	List<Integer> QueryUserByNUM(Integer paihang, Integer getnum);
 
 	List<Integer> QueryUserByqueNUM(Map map);
+
+	void minuserfriendnum(int userid);
+
+	void addserfriendnum(int userid);
 }

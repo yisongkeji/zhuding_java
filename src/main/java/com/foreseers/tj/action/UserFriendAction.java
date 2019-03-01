@@ -25,7 +25,9 @@ import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserCaHistory;
 import com.foreseers.tj.model.UserFriend;
+import com.foreseers.tj.service.UserCaHistoryService;
 import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserService;
 
@@ -39,6 +41,8 @@ public class UserFriendAction extends BaseAction{
 	@Autowired
 	private UserFriendService userFriendService;
 	
+	@Autowired
+	private UserCaHistoryService userCaHistoryService;
 	/*
 	 * 获取好友的username
 	 */
@@ -75,7 +79,15 @@ public class UserFriendAction extends BaseAction{
 	    	 if(lookhead == 1) {
 	    		 returnmap.put("userhead",  user.getHead());
 	    	 }else {
-	    		 returnmap.put("userhead",  user.getPicture());
+	    		 //判断是否使用过擦子
+				 UserCaHistory userCaHistoryinfo = new UserCaHistory();
+				 userCaHistoryinfo.setUserid(Integer.parseInt(userid));
+				 userCaHistoryinfo.setCaid(id);
+				 if(userCaHistoryService.selectByUserCaHistory(userCaHistoryinfo) != null) {
+					 returnmap.put("userhead",  user.getHead());
+				 }else {
+					 returnmap.put("userhead",  user.getPicture());
+				 }
 	    	 }
 	    	 
 	    	 rutrnlist.add(returnmap);
@@ -96,7 +108,7 @@ public class UserFriendAction extends BaseAction{
 		int userint = 0;
 		Map<String, Object> map = new HashMap<String, Object>();
 		String facebook = request.getParameter("facebookid");
-		String friid = request.getParameter("friendid");
+		String friid = request.getParameter("friendid");    //添加好友ID
 		log.info("facebook:"+facebook);
 		log.info("请求好友id:"+friid);
 		if(facebook == null || friid == null) {
@@ -109,7 +121,7 @@ public class UserFriendAction extends BaseAction{
 		User userfriend = userService.selectByPrimaryKey(Integer.parseInt(friid));
 		int userfriendnum =  Integer.parseInt(user.getReservedvar()); //获取用户的好友的用户数量上线
 		int userfri =  Integer.parseInt(userfriend.getReservedvar());
-		int userid = user.getId();
+		int userid = user.getId();                     //当前用户ID
 		//System.out.println(userid+"");
 		int usercount = userFriendService.selectcountnum(userid+"");
 		int userfir = userFriendService.selectcountnum(friid);
@@ -125,9 +137,21 @@ public class UserFriendAction extends BaseAction{
 			log.info("自己的好友数量剩余值："+userint);
 
 		}
-
+		 String head = user.getPicture();
+		//判断头像
+		 UserCaHistory userCaHistoryinfo = new UserCaHistory();
+		 userCaHistoryinfo.setUserid(Integer.parseInt(friid));
+		 userCaHistoryinfo.setCaid(userid);
+		 UserCaHistory userCaHistory = userCaHistoryService.selectByUserCaHistory(userCaHistoryinfo);
+		 if(userCaHistory != null) {  
+			 log.info("使用过擦子，返回清晰头像");
+			 head = user.getHead();
+		 }
+		 
 		map.put("status", status);
 		map.put("userint", userint);
+		map.put("head", head);
+		map.put("name", user.getUsername());
 		log.info("返回值："+map);
 		return ResultType.creat(map);
 	}
@@ -153,15 +177,75 @@ public class UserFriendAction extends BaseAction{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		String friendtime =  format.format(date);
-		
+		UserFriend  userFriendinfo = userFriendService.selectUserFriend(userid, friendid);
 		UserFriend userFriend = new UserFriend();
-		userFriend.setUserId(userid);
-		userFriend.setFriendId(friendid);
-		userFriend.setUserReation(reation);
-		userFriend.setFirendtime(friendtime);  //保存添加好友 的时间
-		userFriendService.insertSelective(userFriend);
+		if(userFriendinfo != null) {
+			log.info("两人存在关系，只需更新数据库");
+			//说明存在关系
+			userFriend.setId(userFriendinfo.getId());
+			userFriend.setUserReation(reation);
+			userFriend.setFirendtime(friendtime);
+			userFriendService.updateByPrimaryKeySelective(userFriend); //更新数据库
+		}else {	
+			//不存在关系，
+			log.info("两人不存在关系，将数据插入到数据库");
+		//	UserFriend userFriend = new UserFriend();
+			userFriend.setUserId(userid);
+			userFriend.setFriendId(friendid);
+			userFriend.setUserReation(reation);
+			userFriend.setFirendtime(friendtime);  //保存添加好友 的时间
+			userFriendService.insertSelective(userFriend);
+		}
+		//将用户的好友位数减一
+		userService.minuserfriendnum(Integer.parseInt(userid));
+		userService.minuserfriendnum(Integer.parseInt(friendid));
+		//将用户的好友位数减一
 		log.info("返回值："+userFriend);
 		return ResultType.creat(userFriend);
+	}
+	
+	/*
+	 * 删除好友
+	 */
+	@RequestMapping("/deletefriend")
+	@ResponseBody
+	public ResultType deletefriend(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入删除好友方法");
+		String userid= request.getParameter("userid");
+		String friendid = request.getParameter("friendid");
+		int reation = Integer.parseInt(request.getParameter("reation"));
+		log.info("请求参数：userid:"+userid);
+		log.info("请求参数:friendid:"+friendid);
+		log.info("请求参数:reation:"+reation);
+		if(userid == null || friendid == null  ) {
+			log.error("参数不正确");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		Map<String,Object> map = new HashMap<>();
+		map.put("userid", userid);
+		map.put("friendid", friendid);
+		map.put("reation", reation);
+		String result =	userFriendService.deletefriend(map);
+		
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Date date = new Date();
+//		String friendtime =  format.format(date);
+//		UserFriend user = userFriendService.selectUserFriend(userid, friendid); 
+//		if(user != null) {
+//			UserFriend userFriend = new UserFriend();
+//			userFriend.setId(user.getId());
+//			userFriend.setUserId(userid);
+//			userFriend.setFriendId(friendid);
+//			userFriend.setUserReation(reation);
+//		//	userFriend.setFirendtime(friendtime);  //保存添加好友 的时间
+//			userFriendService.updateByPrimaryKeySelective(userFriend);
+//		}
+//		//将用户的好友位数加一
+//		userService.adduserfriendnum(Integer.parseInt(userid));
+//		userService.adduserfriendnum(Integer.parseInt(friendid));
+//		//将用户的好友位数加一
+//		log.info("返回值："+userFriend);
+		return ResultType.creat(result);
 	}
 	
 	/*

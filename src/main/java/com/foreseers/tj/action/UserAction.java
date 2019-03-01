@@ -214,6 +214,7 @@ public class UserAction extends BaseAction{
 		map.put("time", time);
 		map.put("gender", gender);
 		map.put("accountId",accountId);
+		map.put("timezone", zone);
 		
 		httptest httptest = new httptest();
 		                     //sendPostDataByJson
@@ -529,6 +530,7 @@ public class UserAction extends BaseAction{
 //		String suzu[] = userfirst.getDate().split("-");
 //		Date datetimefirst = new Date();
 //		age = datetimefirst.getYear()+1900-Integer.parseInt(suzu[0]);
+		int timezone = userfirst.getZone();
 		User user = new User();
 		if(userid == null) {
 			log.error("参数不正确");
@@ -549,7 +551,7 @@ public class UserAction extends BaseAction{
 			String datesex = userfirst.getDate();
 			String timesex = userfirst.getTime();
 			//String gender = userfirst.getSex();
-			dating(datesex,timesex,sex,Integer.parseInt(userid));		
+			dating(datesex,timesex,sex,Integer.parseInt(userid),timezone);		
 			log.info("调用接口成功");
 		}
 		
@@ -560,7 +562,7 @@ public class UserAction extends BaseAction{
 			 age = getage.jiuanAge(date);	 //计算得到年龄
 			 user.setReservedint(age);
 			 userService.updateByPrimaryKeySelective(user);
-			dating(date,time,gender,Integer.parseInt(userid));
+			dating(date,time,gender,Integer.parseInt(userid),timezone);
 			log.info("调用接口成功");
    
 		}
@@ -573,7 +575,7 @@ public class UserAction extends BaseAction{
 		
 	} 
 	
-	public void  dating(String date,String time,String gender,int accountId) throws ClientProtocolException, IOException, BusinessExpection {
+	public void  dating(String date,String time,String gender,int accountId,int timezone) throws ClientProtocolException, IOException, BusinessExpection {
 		String url = "https://api2047.foreseers.com/Dating/personalAnalysis";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("date", date);
@@ -662,6 +664,26 @@ public class UserAction extends BaseAction{
 		 System.out.println("增加天数以后的日期：" + enddate);
 		 
 		 return enddate;
+	}
+	/*
+	 * 设置个性签名
+	 */
+	@RequestMapping("/setObligate")
+	@ResponseBody
+	public ResultType setObligate(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入设置个性签名接口");
+		String userid =  request.getParameter("userid");  //用户id
+		String obligate = request.getParameter("obligate"); // 签名
+		log.info("请求参数："+userid);
+		log.info("请求参数："+obligate);
+		if(userid == null || obligate == null) {
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	 
+		}
+		User  user = new User();
+		user.setId(Integer.parseInt(userid));
+		user.setObligate(obligate);
+		userService.updateByPrimaryKeySelective(user);
+		return ResultType.creat("success");
 	}
 	
 }

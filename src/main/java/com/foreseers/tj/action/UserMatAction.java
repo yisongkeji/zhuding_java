@@ -1,6 +1,8 @@
 package com.foreseers.tj.action;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -149,11 +151,14 @@ public class UserMatAction extends BaseAction{
 			 User touser = userService.selectByPrimaryKey(idlist.get(z));
 			 Double tolat = touser.getLat();
 			 Double tolan = touser.getLng();
+			 log.info("经度："+tolat);
+			 log.info("经度："+tolan);
 			 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //用户距离
-//			 usermatchWithBLOBs.setZhuid(accountId);
-//			 usermatchWithBLOBs.setCongid(idlist.get(z));
-//			 usermatchWithBLOBs.setDistance(distance);
-//			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+			 log.info("距离："+distance);
+			 usermatchWithBLOBs.setZhuid(accountId);
+			 usermatchWithBLOBs.setCongid(idlist.get(z));
+			 usermatchWithBLOBs.setDistance(distance);
+			 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
 			 mapd.put(idlist.get(z), distance);
 			 if(distance >userdistance) {
 				 idlist.remove(z--);
@@ -322,7 +327,8 @@ public class UserMatAction extends BaseAction{
 	    	Usermatch usermatch =	usermatchService.usermatchQuery(id,accountId);
 	    	if(usermatch != null) {
 	    	returnUser.setUserscore(usermatch.getUserscore());
-	    	returnUser.setDistance(usermatch.getDistance());	    	
+	    	returnUser.setDistance(usermatch.getDistance());	
+	    	returnUser.setDESC(usermatch.getUserdesc());
 	    	}
 	    	if(listuser.contains(id)) {
 	    		returnUser.setNumuser(1);
@@ -340,7 +346,7 @@ public class UserMatAction extends BaseAction{
 	//用户详细信息
 	@RequestMapping("/showUser")
 	@ResponseBody
-	public ResultType showUser(HttpServletRequest request) throws BusinessExpection {
+	public ResultType showUser(HttpServletRequest request) throws BusinessExpection, ParseException {
 		log.info("进入好友详情页方法");
 		String uid = request.getParameter("uid");  						//当前用户id
 		int userid = Integer.parseInt(request.getParameter("userid"));  //其他人id
@@ -356,6 +362,26 @@ public class UserMatAction extends BaseAction{
 			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
 		}
 		UserFriend userFriend = userFriendService.selectUserFriend(userinfoid+"", userid+"");
+		int sevenday = 0;  //不可以查看
+		int thirthday = 0;  //不可以查看
+		if(userFriend != null) {
+			String time =  userFriend.getFirendtime();   //得到成为好友的时间
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date friendt = format.parse(time);  //成为好友的时间
+			Date date = new Date();  
+			long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
+			long diff = date.getTime()-friendt.getTime();
+			long day = diff / nd ;  
+			log.info("day:"+day);
+			if(day>7) {
+				sevenday = 1;  //可以查看
+			}
+			if(day>30) {
+				thirthday = 1;
+			}
+		}
+
+		
 		int friend = 0;   //是好友关系
 		int lookimages = 0;  //不可以查看相册
 		returnUsermatch.setHead(user.getPicture());
@@ -390,8 +416,7 @@ public class UserMatAction extends BaseAction{
 				returnUsermatch.setHead(user.getHead());
 			}
 			
-		}
-		
+		}	
 	    String useryear =  user.getDate();
 	    int num = user.getNum();   //擦过的次数
 	    String sex = user.getSex();  //性别
@@ -399,6 +424,7 @@ public class UserMatAction extends BaseAction{
 		//getAge getage = new getAge();
 	    int age = user.getReservedint();   //年龄  
 	    String name = user.getUsername();   //名称
+	    String ziwei = user.getZiwei();     //紫微
 	
 	    List<UserImage> list = userImageService.queryByUseridlist(userid);
 	    returnUsermatch.setAge(age);	
@@ -407,6 +433,9 @@ public class UserMatAction extends BaseAction{
 	    returnUsermatch.setObligate(obligate);
 	    returnUsermatch.setFriend(friend);
 	    returnUsermatch.setName(name);
+	    returnUsermatch.setZiwei(ziwei);
+	    returnUsermatch.setSevenday(sevenday);
+	    returnUsermatch.setThirthday(thirthday);
 	  //  returnUsermatch.setHead(head);
 	    returnUsermatch.setImages(list);
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);

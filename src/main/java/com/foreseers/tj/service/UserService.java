@@ -26,4 +26,6 @@ public interface UserService {
 	 List<Integer> QueryUserByqueNUM(Map map);
 	 
 	 int updateByPrimaryKeySelective(User record);
+	void minuserfriendnum(int parseInt);
+	void addserfriendnum(int parseInt);
 }

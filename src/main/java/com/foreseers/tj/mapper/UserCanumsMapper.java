@@ -3,6 +3,8 @@ package com.foreseers.tj.mapper;
 import com.foreseers.tj.model.UserCanums;
 import com.foreseers.tj.model.UserCanumsExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserCanumsMapper {
@@ -29,4 +31,8 @@ public interface UserCanumsMapper {
     int updateByPrimaryKey(UserCanums record);
     
     UserCanums selectByUserKey(Integer userid);
+    
+    List<Integer> selectUserNums(UserCanums userCanums);
+    
+	void updateUserNums(List list);
 }
