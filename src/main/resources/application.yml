@@ -1,10 +1,11 @@
 server:
   port: 8080
 web:
-  upload-path: e:/dt/head/
-  front-path: e:/dt/image  
+  upload-path: /var/zhuding/head/  #头像地址
+  front-path: /var/zhuding/image/   #相册地址
+  
+httpurl: http://chat.foreseers.cn:8080/   #图片保存到数据库的url地址
 spring:
-
     datasource:
         name: localhost
         url: jdbc:mysql://localhost:3306/zhuding?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8

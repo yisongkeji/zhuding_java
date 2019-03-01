@@ -384,6 +384,7 @@ public class UserMatAction extends BaseAction{
 		
 		int friend = 0;   //是好友关系
 		int lookimages = 0;  //不可以查看相册
+		int lookhead = 0 ;    //不能查看清晰头像
 		returnUsermatch.setHead(user.getPicture());
 		if(userFriend == null) {
 			friend = 1;         //不是好友
@@ -396,6 +397,7 @@ public class UserMatAction extends BaseAction{
 					// lookhead = 1;   //可以查看用户清晰头像
 					log.info("两人是好友，返回清晰头像");
 					 returnUsermatch.setHead(user.getHead());
+					 lookhead = 1;
 				}
 				if(userFriend.getLookimages() == 1) {
 					lookimages = userFriend.getLookimages();
@@ -414,6 +416,7 @@ public class UserMatAction extends BaseAction{
 				//有查询结果，说明被擦过
 				log.info("当前用户擦过这个用户，返回清晰头像");
 				returnUsermatch.setHead(user.getHead());
+				 lookhead = 1;
 			}
 			
 		}	
@@ -436,6 +439,7 @@ public class UserMatAction extends BaseAction{
 	    returnUsermatch.setZiwei(ziwei);
 	    returnUsermatch.setSevenday(sevenday);
 	    returnUsermatch.setThirthday(thirthday);
+	    returnUsermatch.setLookhead(lookhead);
 	  //  returnUsermatch.setHead(head);
 	    returnUsermatch.setImages(list);
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);

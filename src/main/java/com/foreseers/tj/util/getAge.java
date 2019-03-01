@@ -38,11 +38,11 @@ public class getAge {
 		return age;
 	}
 	
-	@Test
-	public void testu() {
-		String date = "1996-02-20";
-		System.out.println(jiuanAge(date));
-		
-	}
-	
+//	@Test
+//	public void testu() {
+//		String date = "1996-02-20";
+//		System.out.println(jiuanAge(date));
+//		
+//	}
+//	
 }

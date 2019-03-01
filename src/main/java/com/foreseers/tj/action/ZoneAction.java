@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,13 +48,15 @@ public class ZoneAction{
 	
 	@RequestMapping("/gettime")
 	@ResponseBody
-	public int  getTimezone(HttpServletRequest re) {
-		//String name = re.getParameter("name");
-		//Timezone zone =  zoneService.selectByName(name);
-		String date = re.getParameter("date");
-		 Date datetime = new Date();
-		 int age = datetime.getYear()+1900-Integer.parseInt(date);	    
-		return age;
+	public String  getTimezone(HttpServletRequest re) {
+		String name = re.getParameter("name");
+	//	Timezone zone =  zoneService.selectByName(name);
+	//	String date = re.getParameter("date");
+	//	 Date datetime = new Date();
+	//	 int age = datetime.getYear()+1900-Integer.parseInt(date);
+
+		
+		return name;
 		
 	}
 	

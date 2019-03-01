@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.junit.Test;
+//import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +57,11 @@ public class UserFriendAction extends BaseAction{
 		log.error("参数不正确");
 		throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 	}
-	
 	List<String> userlist =  userFriendService.selectlist(userid);
-		List<Map> rutrnlist = new ArrayList<Map>();
-		
-		
+		 List<Map> rutrnlist = new ArrayList<Map>();
+
 	     for(int i=0;i<userlist.size();i++) {
-	    Map<String,Object> returnmap = new HashMap<String,Object>();
+	    	 Map<String,Object> returnmap = new HashMap<String,Object>();
 	    	 int id = Integer.parseInt( userlist.get(i));
 	    	 UserFriend userFriend = userFriendService.selectUserFriend(userid,userlist.get(i)); //查询好友的关系
 	    	 int lookhead = 0;
@@ -292,6 +290,29 @@ public class UserFriendAction extends BaseAction{
 			return ResultType.creat(result,"fail");		
 		}
 		
+	}
+	
+	@RequestMapping("/getFriendnums")
+	@ResponseBody
+	public ResultType getFriendnums(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入查询用户好友位方法");
+		String userid = request.getParameter("userid");
+		log.info("请求参数："+userid);
+		if(userid == null) {
+			log.error("参数不合法");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
+		int friendNums = Integer.parseInt(user.getReservedvar());   //好友剩余位数
+		log.info("剩余好友位："+friendNums);
+		List<String> userlist =  userFriendService.selectlist(userid);
+		int usenums = userlist.size();
+		log.info("已使用好友位："+usenums);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("friendNums", friendNums+usenums);
+		map.put("usenums", usenums);
+		log.info("返回参数："+map);
+		return ResultType.creat(map);
 	}
 	
 }

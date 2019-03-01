@@ -14,7 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.junit.Test;
+
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -90,7 +90,7 @@ public class HttpHuanxin {
 	        return response;
 	    }
 	 
-	 @Test
+	// @Test
 	  public void testSendPostDataByJson() throws ClientProtocolException, IOException {
 		    
 	       String hstr=  "http://a1.easemob.com/1106190114019314/foreseers/users";

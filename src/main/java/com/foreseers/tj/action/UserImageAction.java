@@ -9,10 +9,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.junit.runners.Parameterized.Parameter;
+//import org.junit.runners.Parameterized.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,7 @@ import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.service.UserImageService;
+import com.foreseers.tj.util.WebUpload;
 
 @Controller
 @RequestMapping("/userimage")
@@ -32,6 +34,11 @@ public class UserImageAction extends BaseAction{
 	@Autowired
 	private UserImageService userImageService;
 	
+	@Autowired
+	private WebUpload webUpload;
+	
+	@Value("${httpurl}")
+	private String httpurl;
 	/*
 	 * 上传相册
 	 */
@@ -42,7 +49,10 @@ public class UserImageAction extends BaseAction{
 		String userid =  request.getParameter("userid");
 		//System.out.println(userid);
 		log.info("参数：userid:"+userid);
-		String imagepath = "E:/dt/image/"+userid; 
+		String imageyml = webUpload.getFrontpath();   //配置文件中相册的地址
+		log.info("配置文件中相册的地址:"+imageyml);
+		String imagepath = imageyml+userid; 
+		log.info("最终相册保存的地址："+imagepath);
 		log.info("保存路径"+imagepath);
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
@@ -64,7 +74,7 @@ public class UserImageAction extends BaseAction{
 			}			
 			String save = imagepath+"/"+name;
 		//	log.info("图片名称："+name);
-			String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+			String saveurl = httpurl+userid+"/"+name;
 			log.info(saveurl);
 			file.transferTo(new File(save));   //保存图片
 //			System.out.println(Integer.parseInt(userid));
@@ -88,7 +98,10 @@ public class UserImageAction extends BaseAction{
 		log.info("进入上传模糊相册方法");
 		String userid =  request.getParameter("userid");	
 		log.info("参数：userid:"+userid);
-		String imagepath = "E:/dt/image/"+userid; 
+		String imageyml = webUpload.getFrontpath();   //配置文件中相册的地址
+		log.info("配置文件中相册的地址:"+imageyml);
+		String imagepath = imageyml+userid; 
+		log.info("最终相册保存的地址："+imagepath);
 		log.info("保存路径"+imagepath);
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
@@ -115,7 +128,7 @@ public class UserImageAction extends BaseAction{
 					}			
 					String save = imagepath+"/"+name;
 					log.info("图片保存地址："+name);
-					String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+					String saveurl = httpurl+userid+"/"+name;
 					log.info(saveurl);
 					file.transferTo(new File(save));   //保存图片			
 					userImage.setId(uid);
@@ -139,6 +152,7 @@ public class UserImageAction extends BaseAction{
 	@ResponseBody
 	public ResultType deleteimage(HttpServletRequest request) throws BusinessExpection {
 		log.info("进入删除相册方法");
+		String imageyml = webUpload.getFrontpath();   //配置文件中相册的地址
 		UserImage userImage = new UserImage();
 		String userid = request.getParameter("userid");
 		String nameurl = request.getParameter("nameurl");
@@ -152,7 +166,7 @@ public class UserImageAction extends BaseAction{
 		String[] names = nameurl.split("/");
 		 String name =  names[names.length-1];
 		System.out.println(name);
-		String imagepath = "E:/dt/image/"+userid; 
+		String imagepath = imageyml+userid; 
 		
 		userImage.setUserid(Integer.parseInt(userid));
 		userImage.setImagename(name);

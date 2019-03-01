@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,7 @@ import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.ZoneService;
+import com.foreseers.tj.util.WebUpload;
 import com.foreseers.tj.util.getAge;
 
 @Controller
@@ -77,6 +79,12 @@ public class UserAction extends BaseAction{
 	
 	@Autowired
 	private UserCanumsService userCanumsService; 
+	
+	@Autowired
+	private WebUpload webUpload;
+	
+	@Value("${httpurl}")
+	private String httpurl;
 	/*
 	 * 查询用户方法
 	 */
@@ -318,7 +326,10 @@ public class UserAction extends BaseAction{
 		}
 	    String userid = request.getParameter("userid");
 	    log.info("请求信息：userid:"+userid);
-	    String imagepath = "E:/dt/head/"+userid; 
+	    String headload =  webUpload.getUploadpath();     //配置的头像上传地址	  
+	    log.info("配置文件中头像地址："+headload);
+	    String imagepath = headload+userid; 
+	    log.info("最终头像上传地址："+imagepath);
 		if( userid == null || userid == "") {
 			log.error("参数不正确");
 			log.error("userid:"+userid);
@@ -345,7 +356,8 @@ public class UserAction extends BaseAction{
 		}
 		
 		String save = savefile.getAbsolutePath()+"/"+name;
-		String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+		//String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+		String saveurl = httpurl+userid+"/"+name;
 		log.info("保存图片的地址："+save);
 		log.info("保存到数据库的地址："+saveurl);
 	//	String saveurl = "http://chat.foreseers.com/"+headname;    服务器上的保存图片的路径
@@ -371,7 +383,10 @@ public class UserAction extends BaseAction{
 		}
 	    String userid = request.getParameter("userid");
 	    log.info("请求信息：userid:"+userid);
-	    String imagepath = "E:/dt/head/"+userid; 
+	    String headload =  webUpload.getUploadpath();     //配置的头像上传地址	    
+	    log.info("配置文件中头像地址："+headload);
+	    String imagepath = headload+userid; 
+	    log.info("最终头像上传地址："+imagepath);
 		if( userid == null || userid == "") {
 			log.error("参数不正确");
 			log.error("userid:"+userid);
@@ -396,7 +411,8 @@ public class UserAction extends BaseAction{
 			savefile.mkdirs();
 		}		
 		String save = savefile.getAbsolutePath()+"/"+name;
-		String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+		//String saveurl = "http://192.168.1.73:8080/"+userid+"/"+name;
+		String saveurl = httpurl+userid+"/"+name;
 		log.info("保存图片的地址："+save);
 		log.info("保存到数据库的地址："+saveurl);
 	//	String saveurl = "http://chat.foreseers.com/"+headname;    服务器上的保存图片的路径

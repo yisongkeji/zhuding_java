@@ -88,6 +88,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 		List<Map> list = new ArrayList<>();
 		for(UserFriend userFriend:listUserFriend) {
 			if(userFriend.getUserReation() == 0) {
+				if(userFriend.getLookhead() != 1 || userFriend.getLookimages() != 1 || userFriend.getSendpix() != 1) {
 				String friendtime = userFriend.getFirendtime();
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date friendt = format.parse(friendtime);  //成为好友的时间
@@ -101,6 +102,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 				map.put("friend", userFriend.getFriendId());
 				map.put("hour", diff);
 				list.add(map);
+				}
 			}
 		}
 		
