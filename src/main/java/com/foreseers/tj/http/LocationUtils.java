@@ -40,7 +40,7 @@ public class LocationUtils {
 
 	public static void main(String[] args) {
 		double distance = getDistance(39.0565173629,117.0912144470,
-				39.0551843571,117.0481681824);
+				22.3031421,114.1751515);
 		System.out.println("距离" + distance + "公里");
 	}
 	

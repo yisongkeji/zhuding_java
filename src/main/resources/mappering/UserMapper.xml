@@ -138,28 +138,29 @@
     from dt_user 
     where
     <if test="country != null">
-    country = #{country,jdbcType=VARCHAR}
+    country = #{country,jdbcType=VARCHAR} and
     </if>
     <if test="city != null">
-     and city = #{city,jdbcType=VARCHAR}
+      city = #{city,jdbcType=VARCHAR} and
     </if>
     <if test="area != null">
-    and area = #{area,jdbcType=VARCHAR}
+     area = #{area,jdbcType=VARCHAR} and
     </if>
     <if test="spare != null">
-    and spare = #{spare,jdbcType=VARCHAR}
+     spare = #{spare,jdbcType=VARCHAR} and
     </if>
      <if test="sex != null">
-    and sex = #{sex,jdbcType=VARCHAR}
+     sex = #{sex,jdbcType=VARCHAR}  and
     </if>   
     <if test="ageli != null">
-    and reservedint &gt;= #{ageli,jdbcType=INTEGER}
+     reservedint &gt;= #{ageli,jdbcType=INTEGER}  and
     </if>
     <if test="agebig != null">
-    and reservedint &lt;= #{agebig,jdbcType=INTEGER}
+     reservedint &lt;= #{agebig,jdbcType=INTEGER}  and
     </if>
-    and id != #{id,jdbcType=INTEGER}
+     id != #{id,jdbcType=INTEGER}
   </select> 
+  
   <update id="updateByFaceIDSelective" parameterType="com.foreseers.tj.model.User">
     update dt_user
     <set>
@@ -274,18 +275,18 @@
     from dt_user 
    <trim prefix="where" prefixOverrides="and">
     <if test="country != null">
-    country = #{country,jdbcType=VARCHAR}
+    country = #{country,jdbcType=VARCHAR} and
     </if>
     <if test="city != null">
-     and city = #{city,jdbcType=VARCHAR}
+      city = #{city,jdbcType=VARCHAR}  and
     </if>
     <if test="area != null">
-    and area = #{area,jdbcType=VARCHAR}
+     area = #{area,jdbcType=VARCHAR}  and
     </if>
     <if test="spare != null">
-    and spare = #{spare,jdbcType=VARCHAR}
+     spare = #{spare,jdbcType=VARCHAR}  and
     </if>
-    and id != #{id,jdbcType=INTEGER}
+     id != #{id,jdbcType=INTEGER}
     </trim>
   </select>  
  <select id="QueryUserByNUM" parameterType="java.lang.Integer" resultType="java.lang.Integer">

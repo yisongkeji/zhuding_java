@@ -1,16 +1,16 @@
 server:
   port: 8080
 web:
-  upload-path: /var/zhuding/head/  #头像地址
-  front-path: /var/zhuding/image/   #相册地址
+  upload-path: e:/dt/head/  #头像地址  /var/zhuding/head/
+  front-path: e:/dt/image/   #相册地址/var/zhuding/image/
   
-httpurl: http://chat.foreseers.cn:8080/   #图片保存到数据库的url地址
+httpurl: http://192.168.1.73:8080/   #图片保存到数据库的url地址  http://chat.foreseers.cn:80/
 spring:
     datasource:
         name: localhost
         url: jdbc:mysql://localhost:3306/zhuding?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
-        username: root
-        password: root
+        username: lover
+        password: forDating
 
         driver-class-name: com.mysql.cj.jdbc.Driver
         filters: stat

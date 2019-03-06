@@ -18,8 +18,17 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 	int sevenday;
 	int thirthday;
 	int lookhead;
+	int vip;
 	
 	
+	public int getVip() {
+		return vip;
+	}
+
+	public void setVip(int vip) {
+		this.vip = vip;
+	}
+
 	public int getLookhead() {
 		return lookhead;
 	}
@@ -129,16 +138,16 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 		return "ReturnUsermatch [age=" + age + ", num=" + num + ", sex=" + sex + ", obligate=" + obligate + ", friend="
 				+ friend + ", name=" + name + ", head=" + head + ", images=" + images + ", lookimages=" + lookimages
 				+ ", ziwei=" + ziwei + ", sevenday=" + sevenday + ", thirthday=" + thirthday + ", lookhead=" + lookhead
-				+ ", getLookhead()=" + getLookhead() + ", getZiwei()=" + getZiwei() + ", getSevenday()=" + getSevenday()
-				+ ", getThirthday()=" + getThirthday() + ", getLookimages()=" + getLookimages() + ", getImages()="
-				+ getImages() + ", getHead()=" + getHead() + ", getName()=" + getName() + ", getAge()=" + getAge()
-				+ ", getNum()=" + getNum() + ", getSex()=" + getSex() + ", getObligate()=" + getObligate()
-				+ ", getFriend()=" + getFriend() + ", getCommentdesc()=" + getCommentdesc()
-				+ ", getCharacteristicdesc()=" + getCharacteristicdesc() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + ", getId()=" + getId() + ", getZhuid()=" + getZhuid()
-				+ ", getCongid()=" + getCongid() + ", getUserscore()=" + getUserscore() + ", getUserdesc()="
-				+ getUserdesc() + ", getCommentgood()=" + getCommentgood() + ", getCommentbad()=" + getCommentbad()
-				+ ", getCharacteristicgood()=" + getCharacteristicgood() + ", getCharacteristicbad()="
+				+ ", vip=" + vip + ", getVip()=" + getVip() + ", getLookhead()=" + getLookhead() + ", getZiwei()="
+				+ getZiwei() + ", getSevenday()=" + getSevenday() + ", getThirthday()=" + getThirthday()
+				+ ", getLookimages()=" + getLookimages() + ", getImages()=" + getImages() + ", getHead()=" + getHead()
+				+ ", getName()=" + getName() + ", getAge()=" + getAge() + ", getNum()=" + getNum() + ", getSex()="
+				+ getSex() + ", getObligate()=" + getObligate() + ", getFriend()=" + getFriend() + ", getCommentdesc()="
+				+ getCommentdesc() + ", getCharacteristicdesc()=" + getCharacteristicdesc() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + ", getId()=" + getId() + ", getZhuid()="
+				+ getZhuid() + ", getCongid()=" + getCongid() + ", getUserscore()=" + getUserscore()
+				+ ", getUserdesc()=" + getUserdesc() + ", getCommentgood()=" + getCommentgood() + ", getCommentbad()="
+				+ getCommentbad() + ", getCharacteristicgood()=" + getCharacteristicgood() + ", getCharacteristicbad()="
 				+ getCharacteristicbad() + ", getMindscore()=" + getMindscore() + ", getMinddesc()=" + getMinddesc()
 				+ ", getBodyscore()=" + getBodyscore() + ", getBodydesc()=" + getBodydesc() + ", getCharacterscore()="
 				+ getCharacterscore() + ", getCharacterdesc()=" + getCharacterdesc() + ", getDistance()="

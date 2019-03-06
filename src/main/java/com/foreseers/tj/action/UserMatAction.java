@@ -144,7 +144,8 @@ public class UserMatAction extends BaseAction{
 //增加筛选条件
 		//计算两个用户之间的距离,更新到表中
 		Map<Integer,Integer> mapd = new HashMap<Integer,Integer>();
-		for(int z=0;z<idlist.size();z++) {
+		if(idlist.size() > 0) {
+		 for(int z=0;z<idlist.size();z++) {
 			log.info("通过筛选条件筛选用户");
 			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
 			 LocationUtils local = new LocationUtils();
@@ -163,8 +164,8 @@ public class UserMatAction extends BaseAction{
 			 if(distance >userdistance) {
 				 idlist.remove(z--);
 			 }
+		 }
 		}
-
 //增加筛选条件
 		List<Integer> listuser = new ArrayList<Integer>();  //推送的用户列表		                                              
 
@@ -440,6 +441,7 @@ public class UserMatAction extends BaseAction{
 	    returnUsermatch.setSevenday(sevenday);
 	    returnUsermatch.setThirthday(thirthday);
 	    returnUsermatch.setLookhead(lookhead);
+	    returnUsermatch.setVip(user.getVip());
 	  //  returnUsermatch.setHead(head);
 	    returnUsermatch.setImages(list);
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);

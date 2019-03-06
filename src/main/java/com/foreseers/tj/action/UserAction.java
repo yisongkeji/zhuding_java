@@ -702,4 +702,20 @@ public class UserAction extends BaseAction{
 		return ResultType.creat("success");
 	}
 	
+	
+	@RequestMapping("/show")
+	@ResponseBody
+	public ResultType show(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入个人信息查询界面");
+		String userid =  request.getParameter("userid");
+		log.info("请求的参数：userid："+userid);
+		if(userid == null) {
+			log.error("参数不合法");
+			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		Map<String,Object> map =userService.showMyself(Integer.parseInt(userid));
+		
+		return ResultType.creat(map);
+	}
+	
 }

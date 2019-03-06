@@ -1,24 +1,35 @@
 package com.foreseers.tj.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.foreseers.tj.mapper.UserMapper;
+import com.foreseers.tj.model.BusinessExpection;
+import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserExample;
+import com.foreseers.tj.model.UserImage;
+import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 	
+	private static final Logger log= LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private UserImageService userImageService;
 	
 	@Override
 	public int insertSelective(User record) {
@@ -91,6 +102,41 @@ public class UserServiceImpl implements UserService {
 	public void addserfriendnum(int parseInt) {
 		// TODO Auto-generated method stub
 		userMapper.addserfriendnum(parseInt);
+	}
+
+	/*
+	 * 展示自己的个人信息
+	 * @see com.foreseers.tj.service.UserService#showMyself(int)
+	 */
+	@Override
+	public Map<String,Object> showMyself(int userid) throws BusinessExpection {
+		// TODO Auto-generated method stub
+		User user =  userMapper.selectByPrimaryKey(userid);
+		if(user == null) {
+			log.error("用户不存在");
+			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
+		}
+		log.info("查询出来的user:"+user);
+		List<UserImage> list = userImageService.queryByUseridlist(userid);
+		List<String> imagelist = new ArrayList<>();
+		if(list.size() > 0) {
+			for(UserImage userImage:list) {
+				imagelist.add(userImage.getImage());
+			}
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("name", user.getUsername());
+		map.put("sex", user.getSex());
+		map.put("age", user.getReservedint());
+		map.put("num", user.getNum());
+		map.put("head", user.getHead());
+		map.put("vip", user.getVip());
+		map.put("ziwei", user.getZiwei());
+		map.put("sign", user.getObligate());
+		map.put("images", imagelist);
+		log.info("得到的Map:"+map);
+		
+		return map;
 	}
 
 
