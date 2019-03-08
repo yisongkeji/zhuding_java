@@ -1,5 +1,8 @@
 package com.foreseers.tj.action;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -27,6 +30,7 @@ public class UserLookHistoryAction extends BaseAction{
 	@RequestMapping("/updateUserLook")
 	@ResponseBody
 	public ResultType updateUserLook(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入更新谁看过我列表");
 		String userid =  request.getParameter("userid");
 		String lookid = request.getParameter("lookid");
 		log.info("请求参数：userid"+userid);
@@ -36,8 +40,49 @@ public class UserLookHistoryAction extends BaseAction{
 		}
 		String result =  userLookHistoryService.updateUserLook(Integer.parseInt(userid),Integer.parseInt(lookid));
 
-		return ResultType.creat(result);
+		if(result.equals("success")) {
+			return ResultType.creat(result);
+		}else {
+			return ResultType.creat(result,"fail");
+		}
+		
+	}
+	/*
+	 * 查询谁看过我
+	 */
+	@RequestMapping("/showUserLook")
+	@ResponseBody
+	public ResultType showUserLook(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入展示谁看过我列表");
+		String userid =  request.getParameter("userid");
+		log.info("请求参数：userid"+userid);
+		if(userid == null ) {
+			log.error("参数不合法");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		
+		List<List> returnlist =  userLookHistoryService.showUserLook(Integer.parseInt(userid));
+		
+		log.info("返回参数："+returnlist);
+		return ResultType.creat(returnlist);
 	}
 	
-	
+	/*
+	 * 通过时间查询谁看过我
+	 */
+	@RequestMapping("/showByDate")
+	@ResponseBody
+	public ResultType showByDate(HttpServletRequest request) throws BusinessExpection {
+		String id =request.getParameter("userid");
+		String date = request.getParameter("datetime");
+		if(id == null || date == null) {
+			log.error("参数不合法");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		int userid = Integer.parseInt(id);
+		
+		List<Map> list = userLookHistoryService.showBydate(userid,date);
+		log.info("返回的参数："+list);
+		return ResultType.creat(list);
+	}
 }

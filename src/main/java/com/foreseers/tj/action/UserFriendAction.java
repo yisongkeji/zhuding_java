@@ -156,7 +156,7 @@ public class UserFriendAction extends BaseAction{
 	
 	
 	/*
-	 * 添加好友成功
+	 * 更新好友关系
 	 */
 	@RequestMapping("/addfriend")
 	@ResponseBody
@@ -183,6 +183,9 @@ public class UserFriendAction extends BaseAction{
 			userFriend.setId(userFriendinfo.getId());
 			userFriend.setUserReation(reation);
 			userFriend.setFirendtime(friendtime);
+			userFriend.setLookhead(0);
+			userFriend.setLookimages(0);
+			userFriend.setSendpix(0);
 			userFriendService.updateByPrimaryKeySelective(userFriend); //更新数据库
 		}else {	
 			//不存在关系，
@@ -315,4 +318,22 @@ public class UserFriendAction extends BaseAction{
 		return ResultType.creat(map);
 	}
 	
+	/*
+	 * 获取黑名单列表
+	 
+	@RequestMapping("/getBlacklist")
+	@ResponseBody
+	public ResultType getBlacklist(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入获取黑名单列表接口");
+		String userid = request.getParameter("userid");
+		if(userid == null) {
+			log.error("参数不合法");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		List<Map> returnlist =  userFriendService.getBlacklist(userid);
+		log.info("返回的参数："+returnlist);
+		return ResultType.creat(returnlist);
+	}
+	*/
+
 }

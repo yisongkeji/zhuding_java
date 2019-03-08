@@ -29,4 +29,6 @@ public interface UserLookHistoryMapper {
     int updateByPrimaryKey(UserLookHistory record);
     
     UserLookHistory selectByUserLookHistory(UserLookHistory userLookHistory);
+
+	List<UserLookHistory> selectByUserid(int lookid);
 }

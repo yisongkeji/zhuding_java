@@ -27,6 +27,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.foreseers.tj.http.LocationUtils;
 import com.foreseers.tj.http.httptest;
+import com.foreseers.tj.mapper.UserDefriendMapper;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
@@ -34,11 +35,13 @@ import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.ReturnUsermatch;
 import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserCaHistory;
+import com.foreseers.tj.model.UserDefriend;
 import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.model.Usermatch;
 import com.foreseers.tj.model.UsermatchWithBLOBs;
 import com.foreseers.tj.service.UserCaHistoryService;
+import com.foreseers.tj.service.UserDefriendService;
 import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
@@ -61,6 +64,8 @@ public class UserMatAction extends BaseAction{
 	private UserImageService userImageService;
 	@Autowired
 	private UserCaHistoryService userCaHistoryService;
+	@Autowired
+	private UserDefriendMapper userDefriendMapper;
 	
 	@RequestMapping("/matching")
 	@ResponseBody
@@ -144,11 +149,11 @@ public class UserMatAction extends BaseAction{
 //增加筛选条件
 		//计算两个用户之间的距离,更新到表中
 		Map<Integer,Integer> mapd = new HashMap<Integer,Integer>();
+		LocationUtils local = new LocationUtils();
 		if(idlist.size() > 0) {
 		 for(int z=0;z<idlist.size();z++) {
 			log.info("通过筛选条件筛选用户");
-			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
-			 LocationUtils local = new LocationUtils();
+			UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();			 
 			 User touser = userService.selectByPrimaryKey(idlist.get(z));
 			 Double tolat = touser.getLat();
 			 Double tolan = touser.getLng();
@@ -178,7 +183,20 @@ public class UserMatAction extends BaseAction{
 			 listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
 			for(int j = 0;j<listuser.size();j++) {
 				if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {
-					idlist.add(listuser.get(j));
+					idlist.add(listuser.get(j));   //添加推送的id
+					log.info("推送的用户id为："+listuser.get(j));
+					 User touser = userService.selectByPrimaryKey(listuser.get(j)); //获得推送的人
+					 Double tolat = touser.getLat();
+					 Double tolan = touser.getLng();
+					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //计算距离 
+					 log.info("计算推送用户的距离："+distance);
+					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+					 usermatchWithBLOBs.setZhuid(accountId);
+					 usermatchWithBLOBs.setCongid(listuser.get(j));
+					 usermatchWithBLOBs.setDistance(distance);
+					 log.info("重新计算推送的人距离");
+					 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+					 mapd.put(listuser.get(j), distance);
 				}							
 			}
 
@@ -188,24 +206,65 @@ public class UserMatAction extends BaseAction{
 				int getnum = 5;
 				listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
 				for(int j = 0;j<listuser.size();j++) {
-					idlist.add(listuser.get(j));			
+					idlist.add(listuser.get(j));
+					log.info("推送的用户id为："+listuser.get(j));
+					 User touser = userService.selectByPrimaryKey(listuser.get(j)); //获得推送的人
+					 Double tolat = touser.getLat();
+					 Double tolan = touser.getLng();
+					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //计算距离 
+					 log.info("计算推送用户的距离："+distance);
+					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+					 usermatchWithBLOBs.setZhuid(accountId);
+					 usermatchWithBLOBs.setCongid(listuser.get(j));
+					 usermatchWithBLOBs.setDistance(distance);
+					 log.info("重新计算推送的人距离");
+					 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+					 mapd.put(listuser.get(j), distance);
 				}				
 			}else {
 				int paihang = 100;
 				int getnum = 10;
 				listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
 				for(int j = 0;j<listuser.size();j++) {
-					idlist.add(listuser.get(j));			
+					idlist.add(listuser.get(j));	
+					log.info("推送的用户id为："+listuser.get(j));
+					 User touser = userService.selectByPrimaryKey(listuser.get(j)); //获得推送的人
+					 Double tolat = touser.getLat();
+					 Double tolan = touser.getLng();
+					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //计算距离 
+					 log.info("计算推送用户的距离："+distance);
+					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+					 usermatchWithBLOBs.setZhuid(accountId);
+					 usermatchWithBLOBs.setCongid(listuser.get(j));
+					 usermatchWithBLOBs.setDistance(distance);
+					 log.info("重新计算推送的人距离");
+					 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+					 mapd.put(listuser.get(j), distance);
 				}
 				
 			}
 			
 		}
+		
+		 //将黑名单用户移除
+		 List<UserDefriend> blacks = userDefriendMapper.getBlackList(accountId);
+		 log.info("查询黑名单列表：blacks："+blacks);
+		 if(blacks.size()>0) {
+			 log.info("存在黑名单");
+			 for(int b = 0;b<blacks.size();b++) {
+				 for(int i=0;i<idlist.size();i++) {
+					 if(blacks.get(b).getBlackid() == idlist.get(i)) {
+						 log.info("从黑名单移除：id:"+idlist.get(i));
+						 idlist.remove(i--);
+					 }
+				 }
+			 }
+		 }
+		//将黑名单用户移除
 		// idlistinfo = idlist;
 		 for(int q=0;q<idlist.size();q++) {
 			 idlistinfo.add(idlist.get(q));
 		 }
-		//判断周围人的个数，如果太少就添加，添加特殊用户		
 
 		for (int k = 0;k<idlist.size();k++) {    //调用接口前判断重复
 			Usermatch usermatch = usermatchService.usermatchQuery(accountId,idlist.get(k));

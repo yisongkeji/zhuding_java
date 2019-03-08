@@ -111,6 +111,13 @@
 	UNION ALL
 	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 0 ;
   </select>
+  
+    <select id="selectBlacklist" parameterType="String" resultType="String">
+    
+	select friend_id from user_friend  WHERE user_id = #{userid} and user_reation = 1
+	UNION ALL
+	SELECT user_id from user_friend WHERE friend_id = #{userid}  and user_reation = 1 ;
+  </select>
  
   <select id="selectUserFriendList" parameterType="String" resultMap="BaseResultMap">
 	select 

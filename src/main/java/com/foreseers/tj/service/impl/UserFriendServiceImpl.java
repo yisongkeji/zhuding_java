@@ -19,7 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.foreseers.tj.mapper.UserFriendMapper;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
+import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserCaHistory;
 import com.foreseers.tj.model.UserFriend;
+import com.foreseers.tj.service.UserCaHistoryService;
 import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserService;
 
@@ -33,6 +36,9 @@ public class UserFriendServiceImpl implements UserFriendService {
 	private UserFriendMapper userFriendMapper;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserCaHistoryService userCaHistoryService;
+	
 	@Override
 	public int insertSelective(UserFriend record) {
 		// TODO Auto-generated method stub
@@ -139,6 +145,49 @@ public class UserFriendServiceImpl implements UserFriendService {
 			
 		}
 		
+	}
+
+	/*
+	 * 获取黑名单列表方法
+	 * @see com.foreseers.tj.service.UserFriendService#getBlacklist(java.lang.String)
+	 */
+	@Override
+	public List<Map> getBlacklist(String userid) {
+		// TODO Auto-generated method stub
+		
+		List<String> ids = userFriendMapper.selectBlacklist(userid);
+		 List<Map> rutrnlist = new ArrayList<Map>();
+		if(ids.size() > 0) {
+			for(int i=0;i<ids.size();i++) {
+				int frid = Integer.parseInt(ids.get(i));
+				Map<String,Object> map = new HashMap<>();
+				User user= userService.selectByPrimaryKey(frid);
+				map.put("userid", frid);
+				map.put("username", user.getUsername());
+				UserFriend userFriend = selectUserFriend(userid,ids.get(i));  //查询好友关系
+				map.put("date", userFriend.getFirendtime());
+				int lookhead = 0;
+				if(userFriend != null) {
+					lookhead = userFriend.getLookhead();
+				}
+				if(lookhead == 1) {
+					map.put("userhead", user.getHead());
+				}else {
+		    		 //判断是否使用过擦子
+					 UserCaHistory userCaHistoryinfo = new UserCaHistory();
+					 userCaHistoryinfo.setUserid(Integer.parseInt(userid));
+					 userCaHistoryinfo.setCaid(frid);
+					 if(userCaHistoryService.selectByUserCaHistory(userCaHistoryinfo) != null) {
+						 map.put("userhead",  user.getHead());
+					 }else {
+						 map.put("userhead",  user.getPicture());
+					 }
+				}
+				
+				rutrnlist.add(map);
+			}
+		}
+		return rutrnlist;
 	}
 
 

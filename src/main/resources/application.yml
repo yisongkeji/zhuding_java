@@ -1,10 +1,16 @@
 server:
-  port: 8080
+  port: 443    #8080
+  ssl:
+    key-store: foreseers_cn.p12  #tomcat.key
+    key-store-type: JKS
+    key-alias: tomcat
+    key-store-password: foreseers  #testhttps
+    
 web:
-  upload-path: e:/dt/head/  #头像地址  /var/zhuding/head/
-  front-path: e:/dt/image/   #相册地址/var/zhuding/image/
-  
-httpurl: http://192.168.1.73:8080/   #图片保存到数据库的url地址  http://chat.foreseers.cn:80/
+  upload-path: /var/zhuding/head/  #头像地址  /var/zhuding/head/  e:/dt/head/
+  front-path: /var/zhuding/image/  #相册地址/var/zhuding/image/   e:/dt/image/
+ 
+httpurl: https://chat.foreseers.cn:443/   #图片保存到数据库的url地址  https://chat.foreseers.cn:443/
 spring:
     datasource:
         name: localhost
@@ -27,18 +33,8 @@ spring:
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
     resources:
-         static-locations: file:${web.upload-path},file:${web.front-path}
-    
-    redis:
-      host: 127.0.0.1  
-      port: 6379
-      password: requirepass
-    pool:
-      max-active: 8
-      max-wait: 1
-      max-idle: 8
-      min-idle: 0
-      timeout: 0
+         static-locations: file:${web.upload-path},file:${web.front-path},classpath:/static/
+
        
 ## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
 mybatis:

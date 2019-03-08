@@ -35,4 +35,6 @@ public interface UserFriendMapper {
 	UserFriend selectUserFriend(String user_id, String friend_id);
 	
 	List<UserFriend> selectUserFriendList(String userid);
+	
+	List<String> selectBlacklist(String userid);
 }

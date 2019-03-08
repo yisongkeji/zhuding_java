@@ -164,6 +164,7 @@ public class UserCaHistoryAction extends BaseAction{
 		}
 		int userid = Integer.parseInt(id);
 		List<Map> list = userCaHistoryService.showBydate(userid,date);
+		
 		return ResultType.creat(list);
 	}
 }

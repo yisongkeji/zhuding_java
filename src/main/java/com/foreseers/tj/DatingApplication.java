@@ -29,6 +29,23 @@ public class DatingApplication {
 	   factory.setMaxRequestSize("50MB");
 	   return factory.createMultipartConfig();
 	}
+	
+//	@Bean
+//	 public EmbeddedServletContainerFactory servletContainer(){
+//	      TomcatEmbeddedServletContainerFactory tomcat=new TomcatEmbeddedServletContainerFactory(){
+//	          @Override
+//	          protected void postProcessContext(Context context) {
+//	              SecurityConstraint securityConstraint=new SecurityConstraint();
+//	              securityConstraint.setUserConstraint("CONFIDENTIAL");//confidential
+//	              SecurityCollection collection=new SecurityCollection();
+//	              collection.addPattern("/*");
+//	              securityConstraint.addCollection(collection);
+//	              context.addConstraint(securityConstraint);
+//	          }
+//	      };
+//	      tomcat.addAdditionalTomcatConnectors(httpConnector());
+//	      return tomcat;
+//	  }
 
 }
 

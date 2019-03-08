@@ -22,10 +22,10 @@ public class HuanxinJobs {
 	
 	 @Autowired
 	 private UserCanumsService userCanumsService;
-	 
-	//@Scheduled(cron="0 0,55 0,17 ? * ? ")
-	//@Scheduled(cron="0 0,14 0,11 ? * ? ")
-	@Scheduled(cron="0 0 1 * * ?")
+	 /*
+	  *每天一点 保存前一天的聊天记录
+	  */
+//	@Scheduled(cron="0 0 1 * * ?")
 	public void getMessages() throws ClientProtocolException, IOException {
 		
 		//System.out.println("现在的时间是："+new Date());

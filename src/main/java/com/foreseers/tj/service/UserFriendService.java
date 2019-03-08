@@ -24,5 +24,7 @@ public interface UserFriendService {
 	List<Map> selectUserFriendList(String userid) throws ParseException;
 
 	String deletefriend(Map<String, Object> map) throws BusinessExpection;
+
+	List<Map> getBlacklist(String userid);
 	
 }
