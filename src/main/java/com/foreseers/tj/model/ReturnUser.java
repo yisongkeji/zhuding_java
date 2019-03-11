@@ -2,22 +2,81 @@ package com.foreseers.tj.model;
 
 import java.io.Serializable;
 
-public class ReturnUser extends User implements Serializable,Comparable<ReturnUser>{
+public class ReturnUser   implements Serializable,Comparable<ReturnUser>{
 
+	int id;
+	String facebook;
+	String username;
+	String sex;
+	String head;
+	Integer reservedint;
+	String ziwei;	
 	int userscore;
-	
 	Integer  distance;
-
 	Integer  numuser;
-	
-	int age;
-	
+	//int age;
 	int lookhead;
 	
 	String DESC;
 	
 	
 	
+	public String getZiwei() {
+		return ziwei;
+	}
+
+	public void setZiwei(String ziwei) {
+		this.ziwei = ziwei;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getHead() {
+		return head;
+	}
+
+	public void setHead(String head) {
+		this.head = head;
+	}
+
+	public Integer getReservedint() {
+		return reservedint;
+	}
+
+	public void setReservedint(Integer reservedint) {
+		this.reservedint = reservedint;
+	}
+
 	public String getDESC() {
 		return DESC;
 	}
@@ -64,56 +123,11 @@ public class ReturnUser extends User implements Serializable,Comparable<ReturnUs
 	}
 	
 	
-	public int getAge() {
-		return age;
-	}
 
-	public void setAge(int age) {
-		this.age = age;
-	}
 
 
 	
-@Override
-	public String toString() {
-		return "ReturnUser [userscore=" + userscore + ", distance=" + distance + ", numuser=" + numuser + ", age=" + age
-				+ ", lookhead=" + lookhead + ", DESC=" + DESC + ", getDESC()=" + getDESC() + ", getLookhead()="
-				+ getLookhead() + ", getUserscore()=" + getUserscore() + ", getDistance()=" + getDistance()
-				+ ", getNumuser()=" + getNumuser() + ", getAge()=" + getAge() + ", getId()=" + getId()
-				+ ", getUsername()=" + getUsername() + ", getSex()=" + getSex() + ", getDate()=" + getDate()
-				+ ", getTime()=" + getTime() + ", getZone()=" + getZone() + ", getFacebook()=" + getFacebook()
-				+ ", getNum()=" + getNum() + ", getHead()=" + getHead() + ", getPicture()=" + getPicture()
-				+ ", getVip()=" + getVip() + ", getViptime()=" + getViptime() + ", getCity()=" + getCity()
-				+ ", getBazi()=" + getBazi() + ", getZodiac()=" + getZodiac() + ", getXingzuo()=" + getXingzuo()
-				+ ", getZiwei()=" + getZiwei() + ", getArea()=" + getArea() + ", getCountry()=" + getCountry()
-				+ ", getLat()=" + getLat() + ", getLng()=" + getLng() + ", getSpare()=" + getSpare() + ", getSpare1()="
-				+ getSpare1() + ", getUpdatetime()=" + getUpdatetime() + ", getObligate()=" + getObligate()
-				+ ", getNumerology()=" + getNumerology() + ", getUserstar()=" + getUserstar() + ", getReservedint()="
-				+ getReservedint() + ", getReservedvar()=" + getReservedvar() + ", getReservedvar1()="
-				+ getReservedvar1() + ", getCat1()=" + getCat1() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + "]";
-	}
 
-	/*
-	@Override
-	public String toString() {
-		return "ReturnUser [userscore=" + userscore + ", distance=" + distance + ", numuser=" + numuser + ", age=" + age
-				+ ", lookhead=" + lookhead + ", getLookhead()=" + getLookhead() + ", getUserscore()=" + getUserscore()
-				+ ", getDistance()=" + getDistance() + ", getNumuser()=" + getNumuser() + ", getAge()=" + getAge()
-				+ ", getId()=" + getId() + ", getUsername()=" + getUsername() + ", getSex()=" + getSex()
-				+ ", getDate()=" + getDate() + ", getTime()=" + getTime() + ", getZone()=" + getZone()
-				+ ", getFacebook()=" + getFacebook() + ", getNum()=" + getNum() + ", getHead()=" + getHead()
-				+ ", getPicture()=" + getPicture() + ", getVip()=" + getVip() + ", getViptime()=" + getViptime()
-				+ ", getCity()=" + getCity() + ", getBazi()=" + getBazi() + ", getZodiac()=" + getZodiac()
-				+ ", getXingzuo()=" + getXingzuo() + ", getZiwei()=" + getZiwei() + ", getArea()=" + getArea()
-				+ ", getCountry()=" + getCountry() + ", getLat()=" + getLat() + ", getLng()=" + getLng()
-				+ ", getSpare()=" + getSpare() + ", getSpare1()=" + getSpare1() + ", getUpdatetime()=" + getUpdatetime()
-				+ ", getObligate()=" + getObligate() + ", getNumerology()=" + getNumerology() + ", getUserstar()="
-				+ getUserstar() + ", getReservedint()=" + getReservedint() + ", getReservedvar()=" + getReservedvar()
-				+ ", getReservedvar1()=" + getReservedvar1() + ", getCat1()=" + getCat1() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
-	}
-*/
 	@Override
 	public int compareTo(ReturnUser o) {
 		// TODO Auto-generated method stub

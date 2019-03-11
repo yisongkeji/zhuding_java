@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,7 +66,8 @@ public class UserImageAction extends BaseAction{
 		 log.info(namesuffix);
 			DateFormat bf = new SimpleDateFormat("yyyyMMddHHmmss");//多态
 			Date date = new Date();
-			String name = bf.format(date)+"."+namesuffix;
+			String result =  getRandom();
+			String name = bf.format(date)+result+"."+namesuffix;
 		//	log.info("name:"+name);
 		   log.info("图片名称："+name);
 			File savefile = new File(imagepath);
@@ -120,7 +122,10 @@ public class UserImageAction extends BaseAction{
 				}
 			}
 			if(uid != 0) {  //存在模糊头像为空的位置，保存图片到本地和数据库
-				String name = "b"+bimagename;
+				DateFormat bf = new SimpleDateFormat("yyyyMMddHHmmss");//多态
+				Date date = new Date();
+				String result =  getRandom();
+				String name = bf.format(date)+result+"."+"jpg";
 				   log.info("模糊图片名称："+name);
 					File savefile = new File(imagepath);
 					if(!savefile.exists()) {
@@ -165,17 +170,41 @@ public class UserImageAction extends BaseAction{
 		}
 		String[] names = nameurl.split("/");
 		 String name =  names[names.length-1];
-		System.out.println(name);
+		//System.out.println(name);
 		String imagepath = imageyml+userid; 
-		
+		 List<UserImage> list = userImageService.queryByUseridlist(Integer.parseInt(userid));  
+		String bimagename = null;
+			for(int i= 0;i<list.size();i++) {  //查询相对应的模糊相册的地址
+				UserImage userImageinfo = list.get(i);
+				if(userImageinfo.getImagename().equals(name)) {
+					// uid = userImageinfo.getId();
+					 bimagename = userImageinfo.getSpare();
+					 log.info("查询到模糊头像的地址："+bimagename);
+				}
+			}
 		userImage.setUserid(Integer.parseInt(userid));
 		userImage.setImagename(name);
 		userImageService.deleteimage(userImage);
-		String bname = "b"+name;
+		if(bimagename != null) {
+			String[] mname = bimagename.split("/");
+			String bname = mname[mname.length-1];
+			log.info("模糊头像的名称："+bname);
+			new File(imagepath+"/"+bname).delete();  //删除模糊图片
+		}
 		new File(imagepath+"/"+name).delete();  //删除本地地图片
-		new File(imagepath+"/"+bname).delete();  //删除模糊图片
+		
 		
 		return ResultType.creat("success");
+	}
+	
+	public String getRandom() {
+		Random random = new Random();
+		String result="";
+		for (int i=0;i<6;i++)
+		{
+			result+=random.nextInt(10);
+		}
+		return result;
 	}
 	
 }

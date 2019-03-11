@@ -12,7 +12,8 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 	int friend;
 	String name;
 	String head;
-	List<UserImage> images;
+	//List<UserImage> images;
+	List<String> images;
 	int lookimages ;
 	String ziwei;
 	int sevenday;
@@ -21,6 +22,15 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 	int vip;
 	
 	
+	
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
+	}
+
 	public int getVip() {
 		return vip;
 	}
@@ -69,13 +79,6 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 		this.lookimages = lookimages;
 	}
 
-	public List<UserImage> getImages() {
-		return images;
-	}
-
-	public void setImages(List<UserImage> images) {
-		this.images = images;
-	}
 
 	public String getHead() {
 		return head;
@@ -133,27 +136,6 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 		this.friend = friend;
 	}
 
-	@Override
-	public String toString() {
-		return "ReturnUsermatch [age=" + age + ", num=" + num + ", sex=" + sex + ", obligate=" + obligate + ", friend="
-				+ friend + ", name=" + name + ", head=" + head + ", images=" + images + ", lookimages=" + lookimages
-				+ ", ziwei=" + ziwei + ", sevenday=" + sevenday + ", thirthday=" + thirthday + ", lookhead=" + lookhead
-				+ ", vip=" + vip + ", getVip()=" + getVip() + ", getLookhead()=" + getLookhead() + ", getZiwei()="
-				+ getZiwei() + ", getSevenday()=" + getSevenday() + ", getThirthday()=" + getThirthday()
-				+ ", getLookimages()=" + getLookimages() + ", getImages()=" + getImages() + ", getHead()=" + getHead()
-				+ ", getName()=" + getName() + ", getAge()=" + getAge() + ", getNum()=" + getNum() + ", getSex()="
-				+ getSex() + ", getObligate()=" + getObligate() + ", getFriend()=" + getFriend() + ", getCommentdesc()="
-				+ getCommentdesc() + ", getCharacteristicdesc()=" + getCharacteristicdesc() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + ", getId()=" + getId() + ", getZhuid()="
-				+ getZhuid() + ", getCongid()=" + getCongid() + ", getUserscore()=" + getUserscore()
-				+ ", getUserdesc()=" + getUserdesc() + ", getCommentgood()=" + getCommentgood() + ", getCommentbad()="
-				+ getCommentbad() + ", getCharacteristicgood()=" + getCharacteristicgood() + ", getCharacteristicbad()="
-				+ getCharacteristicbad() + ", getMindscore()=" + getMindscore() + ", getMinddesc()=" + getMinddesc()
-				+ ", getBodyscore()=" + getBodyscore() + ", getBodydesc()=" + getBodydesc() + ", getCharacterscore()="
-				+ getCharacterscore() + ", getCharacterdesc()=" + getCharacterdesc() + ", getDistance()="
-				+ getDistance() + ", getSpare()=" + getSpare() + ", getSpare1()=" + getSpare1() + ", getSpare2()="
-				+ getSpare2() + ", getClass()=" + getClass() + "]";
-	}
 
 
 

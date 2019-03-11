@@ -380,10 +380,10 @@ public class UserMatAction extends BaseAction{
 	    	returnUser.setLookhead(lookhead);
 	    	 //增加判断是否可以查看清晰头像
 	    	User usertest = userService.selectByPrimaryKey(id);
-        	String  dateyear = usertest.getDate(); //用户的出生日期     	
-        	getAge getage = new getAge();			
-			int age = getage.jiuanAge(dateyear);	 //计算得到年		
-	    	returnUser.setAge(age);
+//        	String  dateyear = usertest.getDate(); //用户的出生日期     	
+//        	getAge getage = new getAge();			
+//			int age = getage.jiuanAge(dateyear);	 //计算得到年		
+//	    	returnUser.setAge(age);
 	    	Usermatch usermatch =	usermatchService.usermatchQuery(id,accountId);
 	    	if(usermatch != null) {
 	    	returnUser.setUserscore(usermatch.getUserscore());
@@ -395,7 +395,19 @@ public class UserMatAction extends BaseAction{
 	    	}else {
 	    		returnUser.setNumuser(0);
 	    	}
-	    	BeanUtils.copyProperties(usertest, returnUser);
+	    //	BeanUtils.copyProperties(usertest, returnUser);
+	    	returnUser.setId(usertest.getId());
+	    	returnUser.setFacebook(usertest.getFacebook());
+	    	returnUser.setUsername(usertest.getUsername());
+	    	returnUser.setReservedint(usertest.getReservedint());
+	    	returnUser.setSex(usertest.getSex());
+	    	returnUser.setZiwei(usertest.getZiwei());
+	    	if(lookhead == 0) {
+	    		returnUser.setHead(usertest.getPicture());
+	    	}
+	    	if(lookhead ==1) {
+	    		returnUser.setHead(usertest.getHead());
+	    	}
 	    	returnUserlist.add(returnUser);
 	    }
 	    Collections.sort(returnUserlist);
@@ -490,6 +502,17 @@ public class UserMatAction extends BaseAction{
 	    String ziwei = user.getZiwei();     //紫微
 	
 	    List<UserImage> list = userImageService.queryByUseridlist(userid);
+	    List<String>  imagelists = new ArrayList<>();
+	    if(list.size() >0) {
+	    	for(UserImage userImage:list) {
+	    		if(lookimages == 0) {
+	    			imagelists.add(userImage.getSpare());
+	    		}
+	    		if(lookimages == 1) {
+	    			imagelists.add(userImage.getImage());
+	    		}
+	    	}
+	    }
 	    returnUsermatch.setAge(age);	
 	    returnUsermatch.setNum(num);
 	    returnUsermatch.setSex(sex);
@@ -502,7 +525,7 @@ public class UserMatAction extends BaseAction{
 	    returnUsermatch.setLookhead(lookhead);
 	    returnUsermatch.setVip(user.getVip());
 	  //  returnUsermatch.setHead(head);
-	    returnUsermatch.setImages(list);
+	    returnUsermatch.setImages(imagelists);
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);
 	    log.info("返回值："+returnUsermatch);
 		return ResultType.creat(returnUsermatch);

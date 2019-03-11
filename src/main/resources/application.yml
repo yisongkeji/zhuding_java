@@ -1,13 +1,13 @@
 server:
-  port: 443    #8080
+  port: 443    #8080  443
   ssl:
-    key-store: foreseers_cn.p12  #tomcat.key
-    key-store-type: JKS
-    key-alias: tomcat
-    key-store-password: foreseers  #testhttps
+     key-store: foreseers_cn.p12         #tomcat.key  foreseers_cn.p12
+     key-store-type: JKS
+     key-alias: tomcat
+     key-store-password: foreseers  #testhttps  foreseers
     
 web:
-  upload-path: /var/zhuding/head/  #头像地址  /var/zhuding/head/  e:/dt/head/
+  upload-path:  /var/zhuding/head/  #头像地址  /var/zhuding/head/  e:/dt/head/
   front-path: /var/zhuding/image/  #相册地址/var/zhuding/image/   e:/dt/image/
  
 httpurl: https://chat.foreseers.cn:443/   #图片保存到数据库的url地址  https://chat.foreseers.cn:443/
@@ -15,8 +15,8 @@ spring:
     datasource:
         name: localhost
         url: jdbc:mysql://localhost:3306/zhuding?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
-        username: lover
-        password: forDating
+        username: lover      
+        password: forDating  
 
         driver-class-name: com.mysql.cj.jdbc.Driver
         filters: stat
