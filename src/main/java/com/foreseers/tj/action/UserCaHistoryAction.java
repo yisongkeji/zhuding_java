@@ -113,7 +113,8 @@ public class UserCaHistoryAction extends BaseAction{
 					 head = user.getHead();  //清晰的头像
 				 }
 			 }
-			 log.info("usermatchWithBLOBs");
+			 log.info("usermatchWithBLOBs"+usermatchWithBLOBs);
+			 map.put("userid", user.getId());     //名字
 			 map.put("username", user.getUsername());     //名字
 			 map.put("sex", user.getSex());               //性别
 			 map.put("age", user.getReservedint());       //年龄
@@ -122,8 +123,8 @@ public class UserCaHistoryAction extends BaseAction{
 			 map.put("ziwei", user.getZiwei());               //紫薇
 			 map.put("head", head);                         //头像地址
 			 map.put("DESC", usermatchWithBLOBs.getUserdesc());  
-			 log.info(user.getUsername());
-			 log.info(user.getSex());
+			// log.info(user.getUsername());
+			// log.info(user.getSex());
 			 log.info("map"+map);
 			 if(list.size()>0) {
 				 int status = 0;

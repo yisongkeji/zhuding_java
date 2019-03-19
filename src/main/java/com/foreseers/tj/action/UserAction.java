@@ -260,6 +260,7 @@ public class UserAction extends BaseAction{
 			//userService.
 			log.error("调用接口失败");
 			log.error("errcode:"+errcode);
+			userService.deleteByPrimaryKey(accountId);  //将用户记录删除
 			throw new BusinessExpection(EmBussinsError.MINGSHU_ERROR);
 		}
 		/*
@@ -277,6 +278,7 @@ public class UserAction extends BaseAction{
 	        if(status != 200) {
 	        	log.error("环信接口注册失败");
 	        	log.error("状态码："+status);
+	        	userService.deleteByPrimaryKey(accountId);  //将用户记录删除
 	        	throw new BusinessExpection(EmBussinsError.HUANXIN_ERROR);
 	        }
 	        
@@ -360,8 +362,10 @@ public class UserAction extends BaseAction{
 		String saveurl = httpurl+userid+"/"+name;
 		log.info("保存图片的地址："+save);
 		log.info("保存到数据库的地址："+saveurl);
-	//	String saveurl = "http://chat.foreseers.com/"+headname;    服务器上的保存图片的路径
-		file.transferTo(new File(save));
+		file.transferTo(new File(save));  //将图片保存到本地
+		//增加压缩图片
+		userService.compressPictures(save);
+		//增加压缩图片
 		User user = new User();
 		user.setId(Integer.parseInt(userid));
 		user.setHead(saveurl);
@@ -668,7 +672,9 @@ public class UserAction extends BaseAction{
 	@RequestMapping("/setvip")
 	@ResponseBody
 	public String setvip(HttpServletRequest request) {
-		int num = 25;
+		//String userid = request.getParameter("userid");
+	//	String vipdate = request.getParameter("vipdate");
+		int num = 3;
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 Date date = new Date();
 		 String datenow = format.format(date);
@@ -681,6 +687,7 @@ public class UserAction extends BaseAction{
 		 
 		 return enddate;
 	}
+	
 	/*
 	 * 设置个性签名
 	 */
@@ -702,7 +709,9 @@ public class UserAction extends BaseAction{
 		return ResultType.creat("success");
 	}
 	
-	
+	/*
+	 * 个人信息查询接口
+	 */
 	@RequestMapping("/show")
 	@ResponseBody
 	public ResultType show(HttpServletRequest request) throws BusinessExpection {
@@ -714,6 +723,25 @@ public class UserAction extends BaseAction{
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
 		}
 		Map<String,Object> map =userService.showMyself(Integer.parseInt(userid));
+		
+		return ResultType.creat(map);
+	}
+	
+	@RequestMapping("/queryName")
+	@ResponseBody
+	public ResultType queryName(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入查询用户名称方法");
+		String userid = request.getParameter("userid");
+		log.info("请求参数："+userid);
+		if(userid == null) {
+			log.error("参数不合法");
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
+		Map<String,Object> map = new HashMap<>();
+		map.put("userid", user.getId());
+		map.put("username", user.getUsername());
+		map.put("head", user.getPicture());
 		
 		return ResultType.creat(map);
 	}

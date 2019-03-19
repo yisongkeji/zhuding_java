@@ -25,6 +25,7 @@ import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.service.UserImageService;
+import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.util.WebUpload;
 
 @Controller
@@ -37,6 +38,9 @@ public class UserImageAction extends BaseAction{
 	
 	@Autowired
 	private WebUpload webUpload;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Value("${httpurl}")
 	private String httpurl;
@@ -75,13 +79,13 @@ public class UserImageAction extends BaseAction{
 				savefile.mkdirs();
 			}			
 			String save = imagepath+"/"+name;
-		//	log.info("图片名称："+name);
+			log.info("图片名称："+name);
 			String saveurl = httpurl+userid+"/"+name;
-			log.info(saveurl);
+			log.info("保存图片的路径"+saveurl);
 			file.transferTo(new File(save));   //保存图片
-//			System.out.println(Integer.parseInt(userid));
-//			System.out.println(saveurl);
-//			System.out.println(name);
+			//压缩图片
+			userService.compressPictures(save);
+			
 			UserImage userImage = new UserImage();
 			userImage.setUserid(Integer.parseInt(userid));
 			userImage.setImage(saveurl);

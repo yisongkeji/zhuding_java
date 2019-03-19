@@ -1,5 +1,6 @@
 package com.foreseers.tj.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,9 @@ import com.foreseers.tj.model.UserExample;
 import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
+
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.resizers.configurations.ScalingMode;
 
 @Service
 @Transactional
@@ -137,6 +141,36 @@ public class UserServiceImpl implements UserService {
 		log.info("得到的Map:"+map);
 		
 		return map;
+	}
+
+	/*
+	 * 压缩图片(non-Javadoc)
+	 * @see com.foreseers.tj.service.UserService#compressPictures()
+	 */
+	@Override
+	public void compressPictures(String save) {
+		// TODO Auto-generated method stub
+		log.info("压缩图片方法");
+		log.info("图片路径："+save);
+        try {
+            Thumbnails.of(save).
+                    scalingMode(
+                    ScalingMode.BICUBIC).
+                    // 图片缩放80%, 不能和size()一起使用
+                    scale(0.8).
+                    // 图片质量压缩80%
+                    outputQuality(0.8).
+                    toFile(save);
+            log.info("压缩成功");
+        } catch (IOException e) {
+        	log.error(e.getMessage());
+        }
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.deleteByPrimaryKey(id);
 	}
 
 

@@ -178,8 +178,8 @@ public class UserMatAction extends BaseAction{
 		//判断周围人的个数，如果太少就添加，添加特殊用户
 		if(idlist.size()<50) {
 			//插入两个根据num排行的随机数
-			int paihang = 2;
-			int getnum = 1;
+			int paihang = 20;
+			int getnum = 2;
 			 listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
 			for(int j = 0;j<listuser.size();j++) {
 				if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {

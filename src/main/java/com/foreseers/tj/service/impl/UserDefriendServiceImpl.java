@@ -70,6 +70,10 @@ public class UserDefriendServiceImpl implements UserDefriendService{
 				UserFriendinfo.setSendpix(0);
 				userFriendService.updateByPrimaryKeySelective(UserFriendinfo);
 				log.info("操作成功");
+				//两个用户的好友位加一
+				UserService.addserfriendnum(userid);
+				UserService.addserfriendnum(blackid);
+				log.info("好友位加一");
 			}
 		}
 		//判断是否是好友,如果是解除好友关系
@@ -126,6 +130,7 @@ public class UserDefriendServiceImpl implements UserDefriendService{
 		return rutrnlist;
 	}
 	@Override
+	@Transactional
 	public String removeUser(int userid, int blackid) {
 		// TODO Auto-generated method stub
 		try {

@@ -10,6 +10,7 @@ import com.foreseers.tj.model.UserExample;
 
 public interface UserService {
 
+	 int deleteByPrimaryKey(Integer id);
 	 int insertSelective(User record);
 	 User QueryUser(String facebookid);
 	 
@@ -31,4 +32,5 @@ public interface UserService {
 	void addserfriendnum(int parseInt);
 	
 	Map<String,Object> showMyself(int userid) throws BusinessExpection;  //展示自己的个人信息
+	void compressPictures(String save);
 }

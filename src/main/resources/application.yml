@@ -1,16 +1,21 @@
 server:
-  port: 443    #8080  443
-  ssl:
-     key-store: foreseers_cn.p12         #tomcat.key  foreseers_cn.p12
-     key-store-type: JKS
-     key-alias: tomcat
-     key-store-password: foreseers  #testhttps  foreseers
+  port: 8080    #8080  443
+#  ssl:
+#     key-store: tomcat.key         #tomcat.key  foreseers_cn.p12
+#     key-store-type: JKS
+#     key-alias: tomcat
+#     key-store-password: testhttps  #testhttps  foreseers
+  tomcat:
+   max-http-post-size: 8192
+      
     
 web:
-  upload-path:  /var/zhuding/head/  #头像地址  /var/zhuding/head/  e:/dt/head/
-  front-path: /var/zhuding/image/  #相册地址/var/zhuding/image/   e:/dt/image/
+  upload-path:   e:/dt/head/  #头像地址  /var/zhuding/head/  e:/dt/head/
+  front-path: e:/dt/image/  #相册地址/var/zhuding/image/   e:/dt/image/
  
-httpurl: https://chat.foreseers.cn:443/   #图片保存到数据库的url地址  https://chat.foreseers.cn:443/
+#httpurl: https://chat.foreseers.cn:443/   #图片保存到数据库的url地址  https://chat.foreseers.cn:443/
+httpurl: http://192.168.1.73:8080/   #图片保存到数据库的url地址  https://chat.foreseers.cn:443/
+
 spring:
     datasource:
         name: localhost
@@ -57,8 +62,9 @@ pagehelper:
     params: count=countSql
 logging:
   file: zhuding.log    
-  level:
+  level: 
     com.foreseers.tj.mapper : debug
+    com.foreseers.tj.service.impl : debug
 
 
 
