@@ -12,12 +12,12 @@ public class UserCanums implements Serializable {
     private Integer userid;
 
     /**
-     * 每天是否领取过擦子
+     * 每天是否领取过擦子（0，未领取。1，已领取）
      */
     private Integer everyday;
 
     /**
-     * vip是否每天领取
+     * vip是否每天领取（0，未领取。1，已领取）
      */
     private Integer vipeveryday;
 
@@ -28,6 +28,16 @@ public class UserCanums implements Serializable {
 
     private Date updated;
 
+    /**
+     * 购买的擦字数
+     */
+    private Integer buynums;
+
+    /**
+     * 总共的擦子数
+     */
+    private Integer countnums;
+
     private String spare;
 
     private String spare1;
@@ -36,8 +46,7 @@ public class UserCanums implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -85,6 +94,22 @@ public class UserCanums implements Serializable {
         this.updated = updated;
     }
 
+    public Integer getBuynums() {
+        return buynums;
+    }
+
+    public void setBuynums(Integer buynums) {
+        this.buynums = buynums;
+    }
+
+    public Integer getCountnums() {
+        return countnums;
+    }
+
+    public void setCountnums(Integer countnums) {
+        this.countnums = countnums;
+    }
+
     public String getSpare() {
         return spare;
     }
@@ -127,6 +152,8 @@ public class UserCanums implements Serializable {
             && (this.getVipeveryday() == null ? other.getVipeveryday() == null : this.getVipeveryday().equals(other.getVipeveryday()))
             && (this.getNums() == null ? other.getNums() == null : this.getNums().equals(other.getNums()))
             && (this.getUpdated() == null ? other.getUpdated() == null : this.getUpdated().equals(other.getUpdated()))
+            && (this.getBuynums() == null ? other.getBuynums() == null : this.getBuynums().equals(other.getBuynums()))
+            && (this.getCountnums() == null ? other.getCountnums() == null : this.getCountnums().equals(other.getCountnums()))
             && (this.getSpare() == null ? other.getSpare() == null : this.getSpare().equals(other.getSpare()))
             && (this.getSpare1() == null ? other.getSpare1() == null : this.getSpare1().equals(other.getSpare1()))
             && (this.getSpareint() == null ? other.getSpareint() == null : this.getSpareint().equals(other.getSpareint()));
@@ -142,6 +169,8 @@ public class UserCanums implements Serializable {
         result = prime * result + ((getVipeveryday() == null) ? 0 : getVipeveryday().hashCode());
         result = prime * result + ((getNums() == null) ? 0 : getNums().hashCode());
         result = prime * result + ((getUpdated() == null) ? 0 : getUpdated().hashCode());
+        result = prime * result + ((getBuynums() == null) ? 0 : getBuynums().hashCode());
+        result = prime * result + ((getCountnums() == null) ? 0 : getCountnums().hashCode());
         result = prime * result + ((getSpare() == null) ? 0 : getSpare().hashCode());
         result = prime * result + ((getSpare1() == null) ? 0 : getSpare1().hashCode());
         result = prime * result + ((getSpareint() == null) ? 0 : getSpareint().hashCode());
@@ -160,6 +189,8 @@ public class UserCanums implements Serializable {
         sb.append(", vipeveryday=").append(vipeveryday);
         sb.append(", nums=").append(nums);
         sb.append(", updated=").append(updated);
+        sb.append(", buynums=").append(buynums);
+        sb.append(", countnums=").append(countnums);
         sb.append(", spare=").append(spare);
         sb.append(", spare1=").append(spare1);
         sb.append(", spareint=").append(spareint);

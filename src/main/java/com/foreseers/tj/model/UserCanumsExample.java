@@ -485,6 +485,126 @@ public class UserCanumsExample {
             return (Criteria) this;
         }
 
+        public Criteria andBuynumsIsNull() {
+            addCriterion("buynums is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsIsNotNull() {
+            addCriterion("buynums is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsEqualTo(Integer value) {
+            addCriterion("buynums =", value, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsNotEqualTo(Integer value) {
+            addCriterion("buynums <>", value, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsGreaterThan(Integer value) {
+            addCriterion("buynums >", value, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("buynums >=", value, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsLessThan(Integer value) {
+            addCriterion("buynums <", value, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsLessThanOrEqualTo(Integer value) {
+            addCriterion("buynums <=", value, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsIn(List<Integer> values) {
+            addCriterion("buynums in", values, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsNotIn(List<Integer> values) {
+            addCriterion("buynums not in", values, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsBetween(Integer value1, Integer value2) {
+            addCriterion("buynums between", value1, value2, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuynumsNotBetween(Integer value1, Integer value2) {
+            addCriterion("buynums not between", value1, value2, "buynums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsIsNull() {
+            addCriterion("countnums is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsIsNotNull() {
+            addCriterion("countnums is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsEqualTo(Integer value) {
+            addCriterion("countnums =", value, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsNotEqualTo(Integer value) {
+            addCriterion("countnums <>", value, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsGreaterThan(Integer value) {
+            addCriterion("countnums >", value, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("countnums >=", value, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsLessThan(Integer value) {
+            addCriterion("countnums <", value, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsLessThanOrEqualTo(Integer value) {
+            addCriterion("countnums <=", value, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsIn(List<Integer> values) {
+            addCriterion("countnums in", values, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsNotIn(List<Integer> values) {
+            addCriterion("countnums not in", values, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsBetween(Integer value1, Integer value2) {
+            addCriterion("countnums between", value1, value2, "countnums");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountnumsNotBetween(Integer value1, Integer value2) {
+            addCriterion("countnums not between", value1, value2, "countnums");
+            return (Criteria) this;
+        }
+
         public Criteria andSpareIsNull() {
             addCriterion("spare is null");
             return (Criteria) this;

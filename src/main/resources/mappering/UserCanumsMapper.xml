@@ -8,6 +8,8 @@
     <result column="vipeveryday" jdbcType="INTEGER" property="vipeveryday" />
     <result column="nums" jdbcType="INTEGER" property="nums" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <result column="buynums" jdbcType="INTEGER" property="buynums" />
+    <result column="countnums" jdbcType="INTEGER" property="countnums" />
     <result column="spare" jdbcType="VARCHAR" property="spare" />
     <result column="spare1" jdbcType="VARCHAR" property="spare1" />
     <result column="spareint" jdbcType="INTEGER" property="spareint" />
@@ -71,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, everyday, vipeveryday, nums, updated, spare, spare1, spareint
+    id, userid, everyday, vipeveryday, nums, updated, buynums, countnums, spare, spare1, 
+    spareint
   </sql>
   <select id="selectByExample" parameterType="com.foreseers.tj.model.UserCanumsExample" resultMap="BaseResultMap">
     select
@@ -101,23 +104,23 @@
     from user_canums
     where id = #{id,jdbcType=INTEGER}
   </select>
- 
-  <select id="selectUserNums" parameterType="com.foreseers.tj.model.UserCanums" resultType="java.lang.Integer">
+  
+    <select id="selectUserNums" parameterType="com.foreseers.tj.model.UserCanums" resultType="java.lang.Integer">
     select 
    		id
     from user_canums
     where everyday = #{everyday,jdbcType=INTEGER} or vipeveryday = #{vipeveryday,jdbcType=INTEGER}
   </select>
-   
-  <select id="selectByUserKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  
+  <!-- 通过userid查询 -->
+   <select id="selectByUserKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user_canums
     where userid = #{userid,jdbcType=INTEGER}
   </select>
-  
-   
-  <update id="updateUserNums" parameterType="java.util.List">
+  <!-- 批量更新擦子数 -->
+   <update id="updateUserNums" parameterType="java.util.List">
   	update user_canums
   	 set everyday = 0 , vipeveryday = 0, nums = 0
   	 where 
@@ -126,7 +129,7 @@
   	  #{item}
   	  </foreach>
   </update>
- 
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_canums
     where id = #{id,jdbcType=INTEGER}
@@ -142,11 +145,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into user_canums (userid, everyday, vipeveryday, 
-      nums, updated, spare, 
-      spare1, spareint)
+      nums, updated, buynums, 
+      countnums, spare, spare1, 
+      spareint)
     values (#{userid,jdbcType=INTEGER}, #{everyday,jdbcType=INTEGER}, #{vipeveryday,jdbcType=INTEGER}, 
-      #{nums,jdbcType=INTEGER}, #{updated,jdbcType=TIMESTAMP}, #{spare,jdbcType=VARCHAR}, 
-      #{spare1,jdbcType=VARCHAR}, #{spareint,jdbcType=INTEGER})
+      #{nums,jdbcType=INTEGER}, #{updated,jdbcType=TIMESTAMP}, #{buynums,jdbcType=INTEGER}, 
+      #{countnums,jdbcType=INTEGER}, #{spare,jdbcType=VARCHAR}, #{spare1,jdbcType=VARCHAR}, 
+      #{spareint,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.foreseers.tj.model.UserCanums">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -168,6 +173,12 @@
       </if>
       <if test="updated != null">
         updated,
+      </if>
+      <if test="buynums != null">
+        buynums,
+      </if>
+      <if test="countnums != null">
+        countnums,
       </if>
       <if test="spare != null">
         spare,
@@ -194,6 +205,12 @@
       </if>
       <if test="updated != null">
         #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buynums != null">
+        #{buynums,jdbcType=INTEGER},
+      </if>
+      <if test="countnums != null">
+        #{countnums,jdbcType=INTEGER},
       </if>
       <if test="spare != null">
         #{spare,jdbcType=VARCHAR},
@@ -233,6 +250,12 @@
       <if test="record.updated != null">
         updated = #{record.updated,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.buynums != null">
+        buynums = #{record.buynums,jdbcType=INTEGER},
+      </if>
+      <if test="record.countnums != null">
+        countnums = #{record.countnums,jdbcType=INTEGER},
+      </if>
       <if test="record.spare != null">
         spare = #{record.spare,jdbcType=VARCHAR},
       </if>
@@ -255,6 +278,8 @@
       vipeveryday = #{record.vipeveryday,jdbcType=INTEGER},
       nums = #{record.nums,jdbcType=INTEGER},
       updated = #{record.updated,jdbcType=TIMESTAMP},
+      buynums = #{record.buynums,jdbcType=INTEGER},
+      countnums = #{record.countnums,jdbcType=INTEGER},
       spare = #{record.spare,jdbcType=VARCHAR},
       spare1 = #{record.spare1,jdbcType=VARCHAR},
       spareint = #{record.spareint,jdbcType=INTEGER}
@@ -280,6 +305,12 @@
       <if test="updated != null">
         updated = #{updated,jdbcType=TIMESTAMP},
       </if>
+      <if test="buynums != null">
+        buynums = #{buynums,jdbcType=INTEGER},
+      </if>
+      <if test="countnums != null">
+        countnums = #{countnums,jdbcType=INTEGER},
+      </if>
       <if test="spare != null">
         spare = #{spare,jdbcType=VARCHAR},
       </if>
@@ -299,6 +330,8 @@
       vipeveryday = #{vipeveryday,jdbcType=INTEGER},
       nums = #{nums,jdbcType=INTEGER},
       updated = #{updated,jdbcType=TIMESTAMP},
+      buynums = #{buynums,jdbcType=INTEGER},
+      countnums = #{countnums,jdbcType=INTEGER},
       spare = #{spare,jdbcType=VARCHAR},
       spare1 = #{spare1,jdbcType=VARCHAR},
       spareint = #{spareint,jdbcType=INTEGER}

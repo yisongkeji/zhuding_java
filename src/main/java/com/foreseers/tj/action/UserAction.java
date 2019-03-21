@@ -228,7 +228,7 @@ public class UserAction extends BaseAction{
 		                     //sendPostDataByJson
 		log.info("调用命书接口");
 		String body = httptest.sendPostDataByJson(url,JSON.toJSONString(map),"utf-8");
-		
+		log.info(body);
 		JSONObject jsn = JSON.parseObject(body);
 		 String errcode = jsn.getString("errCode");
 		if(errcode.equals("200") ) {

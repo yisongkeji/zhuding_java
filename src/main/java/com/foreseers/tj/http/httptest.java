@@ -110,7 +110,7 @@ public class httptest {
      * @throws ClientProtocolException
      * @throws IOException
      */
-    public  String sendPostDataByJson(String url, String json, String encoding) throws ClientProtocolException, IOException {
+    public static String sendPostDataByJson(String url, String json, String encoding) throws ClientProtocolException, IOException {
         String result = "";
 
        log.info("调用接口");

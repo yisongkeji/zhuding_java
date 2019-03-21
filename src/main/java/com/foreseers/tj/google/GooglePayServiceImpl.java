@@ -43,19 +43,45 @@ public class GooglePayServiceImpl implements GooglePayService {
 	
 	
 	@Override
-	public Boolean check(String signtureData) throws Exception {
+	public Map check(String signtureData,String type) throws Exception {
 	
 		JSONObject body = JSON.parseObject(signtureData);  //购买结果
 		String productId = body.getString("productId");   //商品ID
 		String purchaseToken = body.getString("purchaseToken");  
 		
-		//支付校验
-		String access_token = getToken();  //得到token
-		//判断购买，更新操作。
-		
-	
-		
-		return true;
+		log.info("item"+productId);
+		log.info("code"+purchaseToken);
+		//支付校验,调用命书接口判断
+		// String access_token = getToken();  //得到token
+		String url = "https://api2047.foreseers.com/Dating/verifyInapp"; //命书接口地址
+		Map<String,Object> map = new HashMap<>();
+		map.put("item", productId);
+		map.put("code", purchaseToken);
+		map.put("os", type);
+		/*
+		String result =  httptest.sendPostDataByJson(url, JSON.toJSONString(map), "utf-8");
+		log.info("得到命书的接口的返回值"+result);
+		//判断是否购买成功。
+		JSONObject jsn = JSON.parseObject(result);
+		*/
+		Map<String,Object> returnmap = new HashMap<>();
+		returnmap.put("productId", productId);
+		returnmap.put("purchaseToken", purchaseToken);
+		returnmap.put("status", 1);
+		//如果成功，判断是购买的什么，进行相应的操作。并通知前端购买成功
+		/*
+		if(jsn.getString("errCode").equals("200")) {
+			log.info("支付成功");
+		//	returnmap.put("status", 1);
+			//进行相应的操作	
+		}else {
+			//如果校验是失败的
+			log.info("支付失败");
+		//	returnmap.put("status", 0);
+		}
+		*/
+		log.info("返回值："+returnmap);
+		return returnmap;
 		
 		
 	}

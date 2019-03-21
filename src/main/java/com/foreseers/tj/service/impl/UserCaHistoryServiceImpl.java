@@ -61,7 +61,7 @@ public class UserCaHistoryServiceImpl implements UserCaHistoryService {
 			log.error("用户信息不存在");
 			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT); 
 		}
-		if(userCanums.getNums() == 0) {
+		if(userCanums.getCountnums() == 0) {
 			log.error("用户擦字数为0,不能使用擦子");
 			throw new BusinessExpection(EmBussinsError.GENERAL_ERROR,"用户擦子数为0"); 
 		}
@@ -76,11 +76,22 @@ public class UserCaHistoryServiceImpl implements UserCaHistoryService {
 		userCaHistory.setUsertime(datetime);
 		userCaHistoryMapper.insertSelective(userCaHistory);   //保存到数据库
 		//将用户的擦字数减一
-		UserCanums userCanumsinfo = new UserCanums();
-		userCanumsinfo.setId(userCanums.getId());
-		userCanumsinfo.setNums(userCanums.getNums()-1);
-		userCanumsService.updateByPrimaryKeySelective(userCanumsinfo);	
-		
+		if(userCanums.getNums() != 0) {
+			log.info("使用每天领的擦子数");
+			UserCanums userCanumsinfo = new UserCanums();
+			userCanumsinfo.setId(userCanums.getId());
+			userCanumsinfo.setNums(userCanums.getNums()-1);
+			userCanumsService.updateByPrimaryKeySelective(userCanumsinfo);	
+		}else {
+			if(userCanums.getBuynums() != 0) {
+				log.info("使用购买的擦子数");
+				UserCanums userCanumsinfo = new UserCanums();
+				userCanumsinfo.setId(userCanums.getId());
+				userCanumsinfo.setBuynums(userCanums.getBuynums()-1);
+				userCanumsService.updateByPrimaryKeySelective(userCanumsinfo);	
+			}		
+		}
+
 		return "success";				
 		}catch(Exception e) {
 			return "fail";
