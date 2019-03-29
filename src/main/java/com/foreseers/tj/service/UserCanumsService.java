@@ -10,4 +10,7 @@ public interface UserCanumsService {
 	int insertSelective(UserCanums record);
 
 	void updateUserNums();
+	
+	//更新购买擦擦子数
+	int updateBuyNums(UserCanums userCanums);
 }

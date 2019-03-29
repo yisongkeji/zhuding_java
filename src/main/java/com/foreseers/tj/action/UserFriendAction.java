@@ -115,26 +115,33 @@ public class UserFriendAction extends BaseAction{
 		}
 
 		User user = userService.QueryUser(facebook);
-	//	log.info("user:"+user);
+
 		User userfriend = userService.selectByPrimaryKey(Integer.parseInt(friid));
 		int userfriendnum =  Integer.parseInt(user.getReservedvar()); //获取用户的好友的用户数量上线
 		int userfri =  Integer.parseInt(userfriend.getReservedvar());
 		int userid = user.getId();                     //当前用户ID
-		//System.out.println(userid+"");
-		int usercount = userFriendService.selectcountnum(userid+"");
-		int userfir = userFriendService.selectcountnum(friid);
-		if(usercount >= userfriendnum) {  //达到好友上线
-			status = 1;
-			log.info("自己的好友数量达到上线");
-			if(userfir >= userfri ) {
-				status = 2;
-				log.info("请求的好友的好友数量达到上线");
-			}
-		}else {
-			userint = userfriendnum - usercount;
-			log.info("自己的好友数量剩余值："+userint);
-
-		}
+	    if(userfriendnum < 0) {
+	    	status = 1;
+	    }else {
+	    	if(userfri <0) {
+	    		status = 2;
+	    	}
+	    }
+		
+//		int usercount = userFriendService.selectcountnum(userid+"");
+//		int userfir = userFriendService.selectcountnum(friid);
+//		if(usercount >= userfriendnum) {  //达到好友上线
+//			status = 1;
+//			log.info("自己的好友数量达到上线");
+//			if(userfir >= userfri ) {
+//				status = 2;
+//				log.info("请求的好友的好友数量达到上线");
+//			}
+//		}else {
+//			userint = userfriendnum - usercount;
+//			log.info("自己的好友数量剩余值："+userint);
+//
+//		}
 		 String head = user.getPicture();
 		//判断头像
 		 UserCaHistory userCaHistoryinfo = new UserCaHistory();
@@ -147,7 +154,7 @@ public class UserFriendAction extends BaseAction{
 		 }
 		 
 		map.put("status", status);
-		map.put("userint", userint);
+		map.put("userint", userfriendnum);
 		map.put("head", head);
 		map.put("name", user.getUsername());
 		log.info("返回值："+map);

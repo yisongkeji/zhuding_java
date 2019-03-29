@@ -35,4 +35,7 @@ public interface UserCanumsMapper {
     List<Integer> selectUserNums(UserCanums userCanums);
     
 	void updateUserNums(List list);
+	
+	//更新购买擦擦子数
+	int updateBuyNums(UserCanums userCanums);
 }

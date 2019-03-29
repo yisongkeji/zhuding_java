@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.foreseers.tj.model.DtProduct;
 import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.service.DtProductService;
 
@@ -23,6 +24,9 @@ public class DtProductAction extends BaseAction{
 	@Autowired
 	private DtProductService dtProductService;
 	
+	/*
+	 * 获得商品列表
+	 */
 	@RequestMapping("/getProduct")
 	@ResponseBody
 	public ResultType getProduct(HttpServletRequest request) {
@@ -32,5 +36,17 @@ public class DtProductAction extends BaseAction{
 		return ResultType.creat(list);
 	}
 	
+	
+	/*
+	 * 获得命书商品列表		
+	@RequestMapping("/getIapList")
+	@ResponseBody
+	public ResultType getIapList() {
+		
+		List list = dtProductService.getIapList();
+		
+		return ResultType.creat(list);
+	}
+	 */
 	
 }

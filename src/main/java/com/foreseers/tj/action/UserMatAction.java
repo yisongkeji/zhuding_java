@@ -303,10 +303,32 @@ public class UserMatAction extends BaseAction{
 //					 commentgood = comment.get("good").toString();
 //					 commentbad = comment.get("bad").toString();
 				//	JSONObject characteristic = JSON.parseObject(resultjson.get("characteristic").toString());
-					 characteristicdesc = resultjson.get("characteristic").toString();
-					 String characteristicdesc1 =  characteristicdesc.replace("[", "");
-					 String characteristicdesc2 =  characteristicdesc1.replace("]", "");
-					 String characteristicdesc3 =  characteristicdesc1.replace("\"","");
+					 JSONObject cha = resultjson.getJSONObject("characteristic");
+			        	JSONArray inner = cha.getJSONArray("inner");
+			        	JSONArray outer = cha.getJSONArray("outer");
+			        	List innerlist = new ArrayList<>();
+			        	List outerlist = new ArrayList<>();
+			        	for(int j=0;j<inner.size();j++) {
+			        		String str = inner.getString(i);
+			        		innerlist.add(str);
+			        	//	innerstr.append(str);
+			        	}
+			        	for(int z=0;z<outer.size();z++) {
+			        		String str = outer.getString(z);
+			        		outerlist.add(str);
+			        		//outerstr.append(str);
+			        	}
+			        	String innerstr = innerlist.toString();
+			        	String outerstr = outerlist.toString();
+			        	innerstr = innerstr.replace("[", "");
+			        	innerstr = innerstr.replace("]", "");
+			        	outerstr = outerstr.replace("[", "");
+			        	outerstr = outerstr.replace("]", "");
+			        	log.info("innerstr"+innerstr);
+			        	log.info("outerstr"+outerstr);
+			        	characteristicdesc = innerstr;
+			        	characteristicgood = outerstr;
+			        	
 				//	 characteristicgood = characteristic.get("good").toString();
 				//	 characteristicbad = characteristic.get("bad").toString();
 				//	JSONObject mind = JSON.parseObject(resultjson.get("mind").toString());
@@ -332,7 +354,8 @@ public class UserMatAction extends BaseAction{
 					 usermatchWithBLOBs.setUserscore(score);
 					 usermatchWithBLOBs.setUserdesc(desc);
 					 usermatchWithBLOBs.setCommentdesc(commentdesc);
-					 usermatchWithBLOBs.setCharacteristicdesc(characteristicdesc2);
+					 usermatchWithBLOBs.setCharacteristicdesc(characteristicdesc);
+					 usermatchWithBLOBs.setCharacteristicgood(characteristicgood);
 					 usermatchWithBLOBs.setMinddesc(minddesc);
 					 usermatchWithBLOBs.setMindscore(mindscore);
 					 usermatchWithBLOBs.setBodydesc(bodydesc);
@@ -478,7 +501,8 @@ public class UserMatAction extends BaseAction{
 			}			
 		}
 	    //判断是否使用过擦子，判断是否头像是否的清晰的
-		if(returnUsermatch.getHead().equals(user.getPicture())) {  //当前是模糊头像，判断是否使用过擦子
+	
+		if(returnUsermatch.getHead() == user.getPicture()) {  //当前是模糊头像，判断是否使用过擦子
 			log.info("头像是模糊的头像，判断主用户是否擦过这个用户");
 			UserCaHistory userCaHistory = new UserCaHistory();
 			userCaHistory.setUserid(userinfoid); // 主id

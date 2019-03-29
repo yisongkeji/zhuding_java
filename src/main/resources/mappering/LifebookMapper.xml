@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foreseers.tj.mapper.LifebookMapper">
+  <resultMap id="BaseResultMap" type="com.foreseers.tj.model.Lifebook">
+    <id column="id" jdbcType="INTEGER" property="id" />
+     <id column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="isLeap" jdbcType="VARCHAR" property="isleap" />
+    <result column="lunaryear" jdbcType="VARCHAR" property="lunaryear" />
+    <result column="lunarmonth" jdbcType="VARCHAR" property="lunarmonth" />
+    <result column="lunarday" jdbcType="VARCHAR" property="lunarday" />
+    <result column="numerology" jdbcType="VARCHAR" property="numerology" />
+    <result column="numerologymatch" jdbcType="VARCHAR" property="numerologymatch" />
+    <result column="fiveElements" jdbcType="VARCHAR" property="fiveelements" />
+    <result column="horoscope" jdbcType="VARCHAR" property="horoscope" />
+    <result column="horoscopeid" jdbcType="VARCHAR" property="horoscopeid" />
+    <result column="horoscopename" jdbcType="VARCHAR" property="horoscopename" />
+    <result column="horoscopeguardPlanets" jdbcType="VARCHAR" property="horoscopeguardplanets" />
+    <result column="horoscopeguardPlanetsDesc" jdbcType="VARCHAR" property="horoscopeguardplanetsdesc" />
+    <result column="horoscopeguardGod" jdbcType="VARCHAR" property="horoscopeguardgod" />
+    <result column="horoscopemyth" jdbcType="VARCHAR" property="horoscopemyth" />
+    <result column="horoscopeguardAngel" jdbcType="VARCHAR" property="horoscopeguardangel" />
+    <result column="horoscopeguardCrystal" jdbcType="VARCHAR" property="horoscopeguardcrystal" />
+    <result column="horoscopematch" jdbcType="VARCHAR" property="horoscopematch" />
+    <result column="zodiac" jdbcType="VARCHAR" property="zodiac" />
+    <result column="zodiacid" jdbcType="VARCHAR" property="zodiacid" />
+    <result column="zodiacname" jdbcType="VARCHAR" property="zodiacname" />
+    <result column="zodiacguardBuddha" jdbcType="VARCHAR" property="zodiacguardbuddha" />
+    <result column="zodiacdesc" jdbcType="VARCHAR" property="zodiacdesc" />
+    <result column="zodiacmatch" jdbcType="VARCHAR" property="zodiacmatch" />
+    <result column="bazi" jdbcType="VARCHAR" property="bazi" />
+    <result column="bazimatch" jdbcType="VARCHAR" property="bazimatch" />
+    <result column="star" jdbcType="VARCHAR" property="star" />
+    <result column="starmatch" jdbcType="VARCHAR" property="starmatch" />
+    <result column="ziwei" jdbcType="VARCHAR" property="ziwei" />
+    <result column="ziweimatch" jdbcType="VARCHAR" property="ziweimatch" />
+    <result column="created" jdbcType="VARCHAR" property="created" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <result column="spare" jdbcType="VARCHAR" property="spare" />
+    <result column="spareint" jdbcType="INTEGER" property="spareint" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, userid,name, gender, date, time, isLeap, lunaryear, lunarmonth, lunarday, numerology, 
+    numerologymatch, fiveElements, horoscope, horoscopeid, horoscopename, horoscopeguardPlanets, 
+    horoscopeguardPlanetsDesc, horoscopeguardGod, horoscopemyth, horoscopeguardAngel, 
+    horoscopeguardCrystal, horoscopematch, zodiac, zodiacid, zodiacname, zodiacguardBuddha, 
+    zodiacdesc, zodiacmatch, bazi, bazimatch, star, starmatch, ziwei, ziweimatch, created, 
+    updated, spare, spareint
+  </sql>
+  <select id="selectByExample" parameterType="com.foreseers.tj.model.LifebookExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dt_lifebook
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dt_lifebook
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+ <!-- 通过用户ID查询用户的命书用户 --> 
+  <select id="lifeUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dt_lifebook
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dt_lifebook
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.foreseers.tj.model.LifebookExample">
+    delete from dt_lifebook
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.foreseers.tj.model.Lifebook">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into dt_lifebook (userid,name, gender, date, 
+      time, isLeap, lunaryear, 
+      lunarmonth, lunarday, numerology, 
+      numerologymatch, fiveElements, horoscope, 
+      horoscopeid, horoscopename, horoscopeguardPlanets, 
+      horoscopeguardPlanetsDesc, horoscopeguardGod, 
+      horoscopemyth, horoscopeguardAngel, horoscopeguardCrystal, 
+      horoscopematch, zodiac, zodiacid, 
+      zodiacname, zodiacguardBuddha, zodiacdesc, 
+      zodiacmatch, bazi, bazimatch, 
+      star, starmatch, ziwei, 
+      ziweimatch, created, updated, 
+      spare, spareint)
+    values (#{userid,jdbcType=INTEGER} ,#{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR}, #{isleap,jdbcType=VARCHAR}, #{lunaryear,jdbcType=VARCHAR}, 
+      #{lunarmonth,jdbcType=VARCHAR}, #{lunarday,jdbcType=VARCHAR}, #{numerology,jdbcType=VARCHAR}, 
+      #{numerologymatch,jdbcType=VARCHAR}, #{fiveelements,jdbcType=VARCHAR}, #{horoscope,jdbcType=VARCHAR}, 
+      #{horoscopeid,jdbcType=VARCHAR}, #{horoscopename,jdbcType=VARCHAR}, #{horoscopeguardplanets,jdbcType=VARCHAR}, 
+      #{horoscopeguardplanetsdesc,jdbcType=VARCHAR}, #{horoscopeguardgod,jdbcType=VARCHAR}, 
+      #{horoscopemyth,jdbcType=VARCHAR}, #{horoscopeguardangel,jdbcType=VARCHAR}, #{horoscopeguardcrystal,jdbcType=VARCHAR}, 
+      #{horoscopematch,jdbcType=VARCHAR}, #{zodiac,jdbcType=VARCHAR}, #{zodiacid,jdbcType=VARCHAR}, 
+      #{zodiacname,jdbcType=VARCHAR}, #{zodiacguardbuddha,jdbcType=VARCHAR}, #{zodiacdesc,jdbcType=VARCHAR}, 
+      #{zodiacmatch,jdbcType=VARCHAR}, #{bazi,jdbcType=VARCHAR}, #{bazimatch,jdbcType=VARCHAR}, 
+      #{star,jdbcType=VARCHAR}, #{starmatch,jdbcType=VARCHAR}, #{ziwei,jdbcType=VARCHAR}, 
+      #{ziweimatch,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=TIMESTAMP}, 
+      #{spare,jdbcType=VARCHAR}, #{spareint,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foreseers.tj.model.Lifebook" useGeneratedKeys="true" keyProperty="id">
+  <!-- 
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+     -->
+    insert into dt_lifebook
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+       <if test="userid != null">
+        userid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="isleap != null">
+        isLeap,
+      </if>
+      <if test="lunaryear != null">
+        lunaryear,
+      </if>
+      <if test="lunarmonth != null">
+        lunarmonth,
+      </if>
+      <if test="lunarday != null">
+        lunarday,
+      </if>
+      <if test="numerology != null">
+        numerology,
+      </if>
+      <if test="numerologymatch != null">
+        numerologymatch,
+      </if>
+      <if test="fiveelements != null">
+        fiveElements,
+      </if>
+      <if test="horoscope != null">
+        horoscope,
+      </if>
+      <if test="horoscopeid != null">
+        horoscopeid,
+      </if>
+      <if test="horoscopename != null">
+        horoscopename,
+      </if>
+      <if test="horoscopeguardplanets != null">
+        horoscopeguardPlanets,
+      </if>
+      <if test="horoscopeguardplanetsdesc != null">
+        horoscopeguardPlanetsDesc,
+      </if>
+      <if test="horoscopeguardgod != null">
+        horoscopeguardGod,
+      </if>
+      <if test="horoscopemyth != null">
+        horoscopemyth,
+      </if>
+      <if test="horoscopeguardangel != null">
+        horoscopeguardAngel,
+      </if>
+      <if test="horoscopeguardcrystal != null">
+        horoscopeguardCrystal,
+      </if>
+      <if test="horoscopematch != null">
+        horoscopematch,
+      </if>
+      <if test="zodiac != null">
+        zodiac,
+      </if>
+      <if test="zodiacid != null">
+        zodiacid,
+      </if>
+      <if test="zodiacname != null">
+        zodiacname,
+      </if>
+      <if test="zodiacguardbuddha != null">
+        zodiacguardBuddha,
+      </if>
+      <if test="zodiacdesc != null">
+        zodiacdesc,
+      </if>
+      <if test="zodiacmatch != null">
+        zodiacmatch,
+      </if>
+      <if test="bazi != null">
+        bazi,
+      </if>
+      <if test="bazimatch != null">
+        bazimatch,
+      </if>
+      <if test="star != null">
+        star,
+      </if>
+      <if test="starmatch != null">
+        starmatch,
+      </if>
+      <if test="ziwei != null">
+        ziwei,
+      </if>
+      <if test="ziweimatch != null">
+        ziweimatch,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="spare != null">
+        spare,
+      </if>
+      <if test="spareint != null">
+        spareint,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="isleap != null">
+        #{isleap,jdbcType=VARCHAR},
+      </if>
+      <if test="lunaryear != null">
+        #{lunaryear,jdbcType=VARCHAR},
+      </if>
+      <if test="lunarmonth != null">
+        #{lunarmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="lunarday != null">
+        #{lunarday,jdbcType=VARCHAR},
+      </if>
+      <if test="numerology != null">
+        #{numerology,jdbcType=VARCHAR},
+      </if>
+      <if test="numerologymatch != null">
+        #{numerologymatch,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveelements != null">
+        #{fiveelements,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscope != null">
+        #{horoscope,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeid != null">
+        #{horoscopeid,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopename != null">
+        #{horoscopename,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardplanets != null">
+        #{horoscopeguardplanets,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardplanetsdesc != null">
+        #{horoscopeguardplanetsdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardgod != null">
+        #{horoscopeguardgod,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopemyth != null">
+        #{horoscopemyth,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardangel != null">
+        #{horoscopeguardangel,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardcrystal != null">
+        #{horoscopeguardcrystal,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopematch != null">
+        #{horoscopematch,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiac != null">
+        #{zodiac,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacid != null">
+        #{zodiacid,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacname != null">
+        #{zodiacname,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacguardbuddha != null">
+        #{zodiacguardbuddha,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacdesc != null">
+        #{zodiacdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacmatch != null">
+        #{zodiacmatch,jdbcType=VARCHAR},
+      </if>
+      <if test="bazi != null">
+        #{bazi,jdbcType=VARCHAR},
+      </if>
+      <if test="bazimatch != null">
+        #{bazimatch,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null">
+        #{star,jdbcType=VARCHAR},
+      </if>
+      <if test="starmatch != null">
+        #{starmatch,jdbcType=VARCHAR},
+      </if>
+      <if test="ziwei != null">
+        #{ziwei,jdbcType=VARCHAR},
+      </if>
+      <if test="ziweimatch != null">
+        #{ziweimatch,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spare != null">
+        #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spareint != null">
+        #{spareint,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.foreseers.tj.model.LifebookExample" resultType="java.lang.Long">
+    select count(*) from dt_lifebook
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dt_lifebook
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        id = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isleap != null">
+        isLeap = #{record.isleap,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunaryear != null">
+        lunaryear = #{record.lunaryear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunarmonth != null">
+        lunarmonth = #{record.lunarmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunarday != null">
+        lunarday = #{record.lunarday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numerology != null">
+        numerology = #{record.numerology,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numerologymatch != null">
+        numerologymatch = #{record.numerologymatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fiveelements != null">
+        fiveElements = #{record.fiveelements,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscope != null">
+        horoscope = #{record.horoscope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopeid != null">
+        horoscopeid = #{record.horoscopeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopename != null">
+        horoscopename = #{record.horoscopename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopeguardplanets != null">
+        horoscopeguardPlanets = #{record.horoscopeguardplanets,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopeguardplanetsdesc != null">
+        horoscopeguardPlanetsDesc = #{record.horoscopeguardplanetsdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopeguardgod != null">
+        horoscopeguardGod = #{record.horoscopeguardgod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopemyth != null">
+        horoscopemyth = #{record.horoscopemyth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopeguardangel != null">
+        horoscopeguardAngel = #{record.horoscopeguardangel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopeguardcrystal != null">
+        horoscopeguardCrystal = #{record.horoscopeguardcrystal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.horoscopematch != null">
+        horoscopematch = #{record.horoscopematch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zodiac != null">
+        zodiac = #{record.zodiac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zodiacid != null">
+        zodiacid = #{record.zodiacid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zodiacname != null">
+        zodiacname = #{record.zodiacname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zodiacguardbuddha != null">
+        zodiacguardBuddha = #{record.zodiacguardbuddha,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zodiacdesc != null">
+        zodiacdesc = #{record.zodiacdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zodiacmatch != null">
+        zodiacmatch = #{record.zodiacmatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bazi != null">
+        bazi = #{record.bazi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bazimatch != null">
+        bazimatch = #{record.bazimatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.star != null">
+        star = #{record.star,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starmatch != null">
+        starmatch = #{record.starmatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ziwei != null">
+        ziwei = #{record.ziwei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ziweimatch != null">
+        ziweimatch = #{record.ziweimatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null">
+        created = #{record.created,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updated != null">
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spare != null">
+        spare = #{record.spare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareint != null">
+        spareint = #{record.spareint,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dt_lifebook
+    set id = #{record.id,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      isLeap = #{record.isleap,jdbcType=VARCHAR},
+      lunaryear = #{record.lunaryear,jdbcType=VARCHAR},
+      lunarmonth = #{record.lunarmonth,jdbcType=VARCHAR},
+      lunarday = #{record.lunarday,jdbcType=VARCHAR},
+      numerology = #{record.numerology,jdbcType=VARCHAR},
+      numerologymatch = #{record.numerologymatch,jdbcType=VARCHAR},
+      fiveElements = #{record.fiveelements,jdbcType=VARCHAR},
+      horoscope = #{record.horoscope,jdbcType=VARCHAR},
+      horoscopeid = #{record.horoscopeid,jdbcType=VARCHAR},
+      horoscopename = #{record.horoscopename,jdbcType=VARCHAR},
+      horoscopeguardPlanets = #{record.horoscopeguardplanets,jdbcType=VARCHAR},
+      horoscopeguardPlanetsDesc = #{record.horoscopeguardplanetsdesc,jdbcType=VARCHAR},
+      horoscopeguardGod = #{record.horoscopeguardgod,jdbcType=VARCHAR},
+      horoscopemyth = #{record.horoscopemyth,jdbcType=VARCHAR},
+      horoscopeguardAngel = #{record.horoscopeguardangel,jdbcType=VARCHAR},
+      horoscopeguardCrystal = #{record.horoscopeguardcrystal,jdbcType=VARCHAR},
+      horoscopematch = #{record.horoscopematch,jdbcType=VARCHAR},
+      zodiac = #{record.zodiac,jdbcType=VARCHAR},
+      zodiacid = #{record.zodiacid,jdbcType=VARCHAR},
+      zodiacname = #{record.zodiacname,jdbcType=VARCHAR},
+      zodiacguardBuddha = #{record.zodiacguardbuddha,jdbcType=VARCHAR},
+      zodiacdesc = #{record.zodiacdesc,jdbcType=VARCHAR},
+      zodiacmatch = #{record.zodiacmatch,jdbcType=VARCHAR},
+      bazi = #{record.bazi,jdbcType=VARCHAR},
+      bazimatch = #{record.bazimatch,jdbcType=VARCHAR},
+      star = #{record.star,jdbcType=VARCHAR},
+      starmatch = #{record.starmatch,jdbcType=VARCHAR},
+      ziwei = #{record.ziwei,jdbcType=VARCHAR},
+      ziweimatch = #{record.ziweimatch,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=VARCHAR},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      spare = #{record.spare,jdbcType=VARCHAR},
+      spareint = #{record.spareint,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foreseers.tj.model.Lifebook">
+    update dt_lifebook
+    <set>
+     <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="isleap != null">
+        isLeap = #{isleap,jdbcType=VARCHAR},
+      </if>
+      <if test="lunaryear != null">
+        lunaryear = #{lunaryear,jdbcType=VARCHAR},
+      </if>
+      <if test="lunarmonth != null">
+        lunarmonth = #{lunarmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="lunarday != null">
+        lunarday = #{lunarday,jdbcType=VARCHAR},
+      </if>
+      <if test="numerology != null">
+        numerology = #{numerology,jdbcType=VARCHAR},
+      </if>
+      <if test="numerologymatch != null">
+        numerologymatch = #{numerologymatch,jdbcType=VARCHAR},
+      </if>
+      <if test="fiveelements != null">
+        fiveElements = #{fiveelements,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscope != null">
+        horoscope = #{horoscope,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeid != null">
+        horoscopeid = #{horoscopeid,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopename != null">
+        horoscopename = #{horoscopename,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardplanets != null">
+        horoscopeguardPlanets = #{horoscopeguardplanets,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardplanetsdesc != null">
+        horoscopeguardPlanetsDesc = #{horoscopeguardplanetsdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardgod != null">
+        horoscopeguardGod = #{horoscopeguardgod,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopemyth != null">
+        horoscopemyth = #{horoscopemyth,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardangel != null">
+        horoscopeguardAngel = #{horoscopeguardangel,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopeguardcrystal != null">
+        horoscopeguardCrystal = #{horoscopeguardcrystal,jdbcType=VARCHAR},
+      </if>
+      <if test="horoscopematch != null">
+        horoscopematch = #{horoscopematch,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiac != null">
+        zodiac = #{zodiac,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacid != null">
+        zodiacid = #{zodiacid,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacname != null">
+        zodiacname = #{zodiacname,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacguardbuddha != null">
+        zodiacguardBuddha = #{zodiacguardbuddha,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacdesc != null">
+        zodiacdesc = #{zodiacdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="zodiacmatch != null">
+        zodiacmatch = #{zodiacmatch,jdbcType=VARCHAR},
+      </if>
+      <if test="bazi != null">
+        bazi = #{bazi,jdbcType=VARCHAR},
+      </if>
+      <if test="bazimatch != null">
+        bazimatch = #{bazimatch,jdbcType=VARCHAR},
+      </if>
+      <if test="star != null">
+        star = #{star,jdbcType=VARCHAR},
+      </if>
+      <if test="starmatch != null">
+        starmatch = #{starmatch,jdbcType=VARCHAR},
+      </if>
+      <if test="ziwei != null">
+        ziwei = #{ziwei,jdbcType=VARCHAR},
+      </if>
+      <if test="ziweimatch != null">
+        ziweimatch = #{ziweimatch,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spare != null">
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+      <if test="spareint != null">
+        spareint = #{spareint,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.Lifebook">
+    update dt_lifebook
+    set userid = #{userid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      isLeap = #{isleap,jdbcType=VARCHAR},
+      lunaryear = #{lunaryear,jdbcType=VARCHAR},
+      lunarmonth = #{lunarmonth,jdbcType=VARCHAR},
+      lunarday = #{lunarday,jdbcType=VARCHAR},
+      numerology = #{numerology,jdbcType=VARCHAR},
+      numerologymatch = #{numerologymatch,jdbcType=VARCHAR},
+      fiveElements = #{fiveelements,jdbcType=VARCHAR},
+      horoscope = #{horoscope,jdbcType=VARCHAR},
+      horoscopeid = #{horoscopeid,jdbcType=VARCHAR},
+      horoscopename = #{horoscopename,jdbcType=VARCHAR},
+      horoscopeguardPlanets = #{horoscopeguardplanets,jdbcType=VARCHAR},
+      horoscopeguardPlanetsDesc = #{horoscopeguardplanetsdesc,jdbcType=VARCHAR},
+      horoscopeguardGod = #{horoscopeguardgod,jdbcType=VARCHAR},
+      horoscopemyth = #{horoscopemyth,jdbcType=VARCHAR},
+      horoscopeguardAngel = #{horoscopeguardangel,jdbcType=VARCHAR},
+      horoscopeguardCrystal = #{horoscopeguardcrystal,jdbcType=VARCHAR},
+      horoscopematch = #{horoscopematch,jdbcType=VARCHAR},
+      zodiac = #{zodiac,jdbcType=VARCHAR},
+      zodiacid = #{zodiacid,jdbcType=VARCHAR},
+      zodiacname = #{zodiacname,jdbcType=VARCHAR},
+      zodiacguardBuddha = #{zodiacguardbuddha,jdbcType=VARCHAR},
+      zodiacdesc = #{zodiacdesc,jdbcType=VARCHAR},
+      zodiacmatch = #{zodiacmatch,jdbcType=VARCHAR},
+      bazi = #{bazi,jdbcType=VARCHAR},
+      bazimatch = #{bazimatch,jdbcType=VARCHAR},
+      star = #{star,jdbcType=VARCHAR},
+      starmatch = #{starmatch,jdbcType=VARCHAR},
+      ziwei = #{ziwei,jdbcType=VARCHAR},
+      ziweimatch = #{ziweimatch,jdbcType=VARCHAR},
+      created = #{created,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      spare = #{spare,jdbcType=VARCHAR},
+      spareint = #{spareint,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

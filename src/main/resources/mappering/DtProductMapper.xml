@@ -102,6 +102,15 @@
       </if>
     </if>
   </select>
+  
+  <!-- 通过googleid 查询商品 -->
+  <select id="selectByProductID" parameterType="String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dt_product
+    where googleID = #{googleid,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

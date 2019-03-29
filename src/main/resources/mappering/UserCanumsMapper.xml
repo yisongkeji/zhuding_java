@@ -130,6 +130,16 @@
   	  </foreach>
   </update>
   
+    <!-- 更新用户购买的擦子数 -->
+   <update id="updateBuyNums" parameterType="com.foreseers.tj.model.UserCanums">
+  	update user_canums
+  	 set buynums = buynums + #{buynums,jdbcType=INTEGER}
+  	 where 
+  	  userid = #{userid,jdbcType=INTEGER}
+  	  
+  </update>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_canums
     where id = #{id,jdbcType=INTEGER}

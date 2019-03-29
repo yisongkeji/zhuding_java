@@ -1,5 +1,6 @@
 package com.foreseers.tj.service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,4 +34,10 @@ public interface UserService {
 	
 	Map<String,Object> showMyself(int userid) throws BusinessExpection;  //展示自己的个人信息
 	void compressPictures(String save);
+	
+	//更新vip时间
+	String userSetvip(int userid,int vipdate) throws ParseException;
+	
+	//判断头像是否是清晰头像
+	int showUserHead(int userid,int userinfoid);
 }

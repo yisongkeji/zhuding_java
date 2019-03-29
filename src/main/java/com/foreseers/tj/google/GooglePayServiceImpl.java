@@ -8,6 +8,9 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,12 +31,23 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.foreseers.tj.http.httptest;
+import com.foreseers.tj.mapper.UserTransactionMapper;
+import com.foreseers.tj.model.BusinessExpection;
+import com.foreseers.tj.model.DtProduct;
+import com.foreseers.tj.model.EmBussinsError;
+import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserCanums;
+import com.foreseers.tj.model.UserTransaction;
+import com.foreseers.tj.service.DtProductService;
+import com.foreseers.tj.service.UserCanumsService;
+import com.foreseers.tj.service.UserService;
 
 @Service
 @Transactional
@@ -41,13 +55,21 @@ public class GooglePayServiceImpl implements GooglePayService {
 
 	private final static Logger log = LoggerFactory.getLogger(GooglePayServiceImpl.class);
 	
+	@Autowired
+	private DtProductService dtProductService;
+	@Autowired
+	private UserCanumsService userCanumsService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private UserTransactionMapper userTransactionMapper;
 	
 	@Override
-	public Map check(String signtureData,String type) throws Exception {
+	public Map check(String productId,String purchaseToken,String userid) throws Exception {
 	
-		JSONObject body = JSON.parseObject(signtureData);  //购买结果
-		String productId = body.getString("productId");   //商品ID
-		String purchaseToken = body.getString("purchaseToken");  
+//		JSONObject body = JSON.parseObject(signtureData);  //购买结果
+//		String productId = body.getString("productId");   //商品ID
+//		String purchaseToken = body.getString("purchaseToken");  
 		
 		log.info("item"+productId);
 		log.info("code"+purchaseToken);
@@ -57,58 +79,120 @@ public class GooglePayServiceImpl implements GooglePayService {
 		Map<String,Object> map = new HashMap<>();
 		map.put("item", productId);
 		map.put("code", purchaseToken);
-		map.put("os", type);
-		/*
+		map.put("os", "android");
+		
 		String result =  httptest.sendPostDataByJson(url, JSON.toJSONString(map), "utf-8");
-		log.info("得到命书的接口的返回值"+result);
+		log.info("得到命书支付校验的返回值"+result);
 		//判断是否购买成功。
 		JSONObject jsn = JSON.parseObject(result);
-		*/
+		
 		Map<String,Object> returnmap = new HashMap<>();
 		returnmap.put("productId", productId);
 		returnmap.put("purchaseToken", purchaseToken);
-		returnmap.put("status", 1);
+
+		
 		//如果成功，判断是购买的什么，进行相应的操作。并通知前端购买成功
-		/*
+		
+			
 		if(jsn.getString("errCode").equals("200")) {
-			log.info("支付成功");
-		//	returnmap.put("status", 1);
-			//进行相应的操作	
+			String orderId = jsn.getString("orderId");
+			if(orderId != "" && orderId != null) {	
+				log.info("支付成功");			
+				String item = jsn.getString("item");
+				log.info("检验结果返回的item："+item);
+				//通过返回的item，判断购买的是什么， 进行相应的操作	
+				DtProduct dtProduct = dtProductService.selectByProductID(item);  //通过订单查询商品
+				log.info("查询到的商品："+dtProduct);
+
+				updateUser(dtProduct,userid);   //更新用户的擦子或者vip
+				
+				//保存交易记录			
+				User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
+				UserTransaction userTransaction = new UserTransaction();
+				userTransaction.setUserId(Integer.parseInt(userid));
+				userTransaction.setUserDate(user.getDate());
+				userTransaction.setUserTime(user.getTime());
+				userTransaction.setUserName(user.getUsername());
+				userTransaction.setGender(user.getSex());
+				userTransaction.setItem(productId);
+				userTransaction.setCode(purchaseToken);
+				userTransaction.setOs("A");
+				userTransaction.setTransactionId(orderId);
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date date = new Date();
+				String createTime = format.format(date);
+				userTransaction.setCreateTime(createTime);
+				log.info("将交易信息保存到数据库："+userTransaction);
+				userTransactionMapper.insertSelective(userTransaction); //保存到数据库
+				
+				//保存交易记录
+				returnmap.put("status", 1);
+
+				
+			 }else {
+					//如果校验是失败的
+					log.info("支付失败");
+					returnmap.put("status", 0);
+			 } 			
 		}else {
 			//如果校验是失败的
 			log.info("支付失败");
-		//	returnmap.put("status", 0);
+			returnmap.put("status", 0);
 		}
-		*/
+		
 		log.info("返回值："+returnmap);
 		return returnmap;
 		
 		
 	}
 	
-	/*
-	 * 获得token
-	 */
-	public String getToken() throws ClientProtocolException, IOException {
-		log.info("获取token");
-		//获得token的连接地址
-		String url = "https://accounts.google.com/o/oauth2/token";
-		String getaccess_token = "https://accounts.google.com/o/oauth2/token?grant_type=refresh_token&client_id=563766724382-i21rnc5797hr1dvtu8o0t31lu71gu6sb.apps.googleusercontent.com&client_secret=xUawulHpjGo81RgZleM56unW&refresh_token=1/EGrzSJK-HAx1Li0PaRNBX7E2jVuphgDz7N-YDbFFm1Q";
-		Map<String,String> map = new HashMap();
-		map.put("client_id", "563766724382-i21rnc5797hr1dvtu8o0t31lu71gu6sb.apps.googleusercontent.com");
-		map.put("grant_type", "refresh_token");
-		map.put("client_secret", "xUawulHpjGo81RgZleM56unW");
-		map.put("refresh_token", "1/EGrzSJK-HAx1Li0PaRNBX7E2jVuphgDz7N-YDbFFm1Q");
-	//	httptest httptest = new httptest();
-	//	String data = httptest.sendPostData(url, "UTF-8");   //sendPostDataByMap
-		String data =  sendPostDataByJson(getaccess_token,JSON.toJSONString(map), "utf-8");
-		log.info(data);
-		JSONObject jsn = JSON.parseObject(data);
-		String access_token = jsn.getString("access_token");
-		log.info(access_token);
-		return access_token;
-	}
+
+  public void updateUser(DtProduct dtProduct,String userid) throws NumberFormatException, ParseException, BusinessExpection {
 	
+	try {
+		//DtProduct dtProduct = (DtProduct)parmap.get("DtProduct");
+		//String userid = (String)parmap.get("userid");
+		
+		if(dtProduct.getType().equals("item")) {
+			//购买的擦字数
+			int num = dtProduct.getSpareint();
+			log.info("购买的擦子数为："+num);
+			//进行更新擦子数的方法
+			UserCanums userCanums = new UserCanums();
+			userCanums.setUserid(Integer.parseInt(userid));
+			userCanums.setBuynums(num);
+			userCanumsService.updateBuyNums(userCanums);
+			log.info("更新用户的擦子数");
+			//保存交易记录
+			
+			//保存交易记录
+		}
+		if(dtProduct.getType().equals("vip")) {
+			//购买的vip
+			int vip = dtProduct.getSpareint();
+			log.info("购买的vip的天数为："+vip);
+			//进行更新用户的vip的操作
+			log.info("更新用户的会员时间");
+			String result =  userService.userSetvip(Integer.parseInt(userid), vip);
+			if(result.equals("success")) {
+				log.info("更新数据库成功");
+			}else {
+				
+				throw new BusinessExpection(EmBussinsError.GENERAL_ERROR,"更新会员vip时间出错");
+			}			
+			//保存交易记录
+			
+			//保存交易记录
+		}
+
+	}catch(Exception e) {
+		log.error(e.getMessage());
+		throw new BusinessExpection(EmBussinsError.GENERAL_ERROR,"更新用户信息出错");
+	}
+		
+		
+		
+	}
 	 
 	
 /*
@@ -125,38 +209,5 @@ public class GooglePayServiceImpl implements GooglePayService {
         return bverify;
     }
 */
-    public  String sendPostDataByJson(String url, String json, String encoding) throws ClientProtocolException, IOException {
-        String result = "";
-
-       log.info("调用接口");
-        // 创建httpclient对象
-       CloseableHttpClient httpClient = HttpClients.createDefault();
-      //  HttpClient httpClient = new DefaultHttpClient(); 
-        // 创建post方式请求对象
-        HttpPost httpPost = new HttpPost(url);
-       log.info("得到httpPost");
-        // 设置参数到请求对象中
-    //   httpPost.setProtocolVersion(HttpVersion.HTTP_1_0);
-     //  httpPost.addHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
-       StringEntity stringEntity = new StringEntity(json, ContentType.APPLICATION_JSON);
-        stringEntity.setContentEncoding("utf-8");
-        stringEntity.setContentType("application/json");
-        httpPost.setEntity(stringEntity);
-        httpPost.setHeader("Content-Type:","application/json");
-        // 执行请求操作，并拿到结果（同步阻塞）
-        CloseableHttpResponse response = httpClient.execute(httpPost);
-      //  HttpResponse response = httpClient.execute(httpPost);
-        log.info("得到response");
-        // 获取结果实体
-        // 判断网络连接状态码是否正常(0--200都数正常)
-        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-      	log.info(response.getStatusLine().getStatusCode()+"");
-            result = EntityUtils.toString(response.getEntity(), "utf-8");
-        }
-        // 释放链接
-        response.close();
-
-        return result;
-    }
 
 }

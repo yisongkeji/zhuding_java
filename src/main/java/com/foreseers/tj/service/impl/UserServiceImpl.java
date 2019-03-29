@@ -1,7 +1,11 @@
 package com.foreseers.tj.service.impl;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +21,12 @@ import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.User;
+import com.foreseers.tj.model.UserCaHistory;
 import com.foreseers.tj.model.UserExample;
+import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.model.UserImage;
+import com.foreseers.tj.service.UserCaHistoryService;
+import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 
@@ -34,6 +42,10 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	@Autowired
 	private UserImageService userImageService;
+	@Autowired
+	private UserFriendService userFriendService;
+	@Autowired
+	private UserCaHistoryService userCaHistoryService;
 	
 	@Override
 	public int insertSelective(User record) {
@@ -171,6 +183,82 @@ public class UserServiceImpl implements UserService {
 	public int deleteByPrimaryKey(Integer id) {
 		// TODO Auto-generated method stub
 		return userMapper.deleteByPrimaryKey(id);
+	}
+
+	/*
+	 * //更新vip时间
+	 * @see com.foreseers.tj.service.UserService#userSetvip(int, int)
+	 */
+	@Override
+	public String userSetvip(int userid, int vipdate) throws ParseException {
+		try {
+			log.info("更新用户会员时间");	
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			User user = selectByPrimaryKey(userid);
+			String numstr = user.getReservedvar();
+			int num = Integer.parseInt(numstr) +20;
+			 Date date ;
+			if(user.getVip() == 1 ) {			
+				log.info("之前是会员");			
+				String 	dateString = user.getViptime();
+				 date = format.parse(dateString);
+				log.info("现在vip到期时间："+date);
+				
+			}else {
+				 date = new Date();
+			
+			}
+			
+			Calendar ca = Calendar.getInstance();
+			ca.setTime(date);
+			ca.add(Calendar.DATE, vipdate);
+			date = ca.getTime();
+			String userviptime = format.format(date);			 
+			 
+			log.info("vip到期日期:"+userviptime);
+			User userinfo = new User();
+			userinfo.setId(userid);
+			userinfo.setVip(1);
+			userinfo.setViptime(userviptime);
+			userinfo.setReservedvar(num+"");
+			log.info("更新用户会信息：user:"+userinfo);
+			userMapper.updateByPrimaryKeySelective(userinfo);
+			log.info("更新数据库成功");
+			return "success";
+			
+		}catch(Exception e) {	
+			log.error(e.getMessage());
+			return "fail";
+		}
+	}
+
+	@Override
+	public int showUserHead(int userid, int userinfoid) {
+		// TODO Auto-generated method stub
+		int lookhead = 0;
+		UserFriend userFriend = userFriendService.selectUserFriend(userid+"", userinfoid+"");
+    	if(userFriend != null) { //存在好友关系
+    		if(userFriend.getUserReation() == 0) { //是好友关系
+    			if(userFriend.getLookhead() == 1) {  //可以查看清晰头像
+    				log.info("两人是好友关系，切可以返回清晰头像");
+    				lookhead = 1;
+    			}
+    		}	
+    	}
+    	if(lookhead == 0) { //判断是否使用过擦子
+    		log.info("两人不是好友关系，或者成为好友时间不够，判断是否使用过擦子");
+			UserCaHistory userCaHistory = new UserCaHistory();
+			userCaHistory.setUserid(userid); // 主id
+			userCaHistory.setCaid(userinfoid);
+			UserCaHistory userCaHistoryinfo = userCaHistoryService.selectByUserCaHistory(userCaHistory); 
+			if(userCaHistoryinfo != null) {
+				log.info("使用过擦子，返回清晰头像");
+				lookhead = 1;
+			}
+			log.info("没有使用过擦子，不能查看清晰头像");
+    	}
+		
+		return lookhead;
 	}
 
 

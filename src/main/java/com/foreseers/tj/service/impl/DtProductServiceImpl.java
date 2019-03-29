@@ -1,5 +1,6 @@
 package com.foreseers.tj.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.foreseers.tj.mapper.DtProductMapper;
 import com.foreseers.tj.model.DtProduct;
@@ -26,6 +28,7 @@ public class DtProductServiceImpl implements DtProductService {
 	private DtProductMapper dtProductMapper;
 	
 	@Override
+	@Transactional
 	public List getProduct() {
 		// TODO Auto-generated method stub
 		DtProductExample productExample = new DtProductExample();
@@ -66,6 +69,65 @@ public class DtProductServiceImpl implements DtProductService {
 		log.info("返回的参数："+retuenlist);
 		return retuenlist;
 		
+	}
+
+	/*
+	 * 通过googleid查询商品
+	 * @see com.foreseers.tj.service.DtProductService#selectByProductID()
+	 */
+	@Override
+	public DtProduct selectByProductID(String googleid) {
+		// TODO Auto-generated method stub
+		//dtProductMapper.selectByProductID(googleid);
+		return dtProductMapper.selectByProductID(googleid);
+	}
+
+	@Override
+	@Transactional
+	public List getIapList() {
+		// TODO Auto-generated method stub
+		DtProductExample productExample = new DtProductExample();
+		productExample.setDistinct(false);
+		List<DtProduct>  list = dtProductMapper.selectByExample(productExample);
+		List<List> retuenlist = new ArrayList<>();
+		List<ReturnProduct> listiap = new ArrayList<>();
+		for(DtProduct dtProduct:list) {
+			if(dtProduct.getStatus().equals("Active")) {
+				//商品的信息是活动的
+				if(dtProduct.getType().equals("iap")) {
+					log.info("有命书的接口");
+					if(dtProduct.getSpareint() == null) {		
+						log.info("不是");
+						ReturnProduct returnProduct = new ReturnProduct();
+						returnProduct.setId(dtProduct.getId());
+						returnProduct.setAppleID(dtProduct.getAppleid());
+						returnProduct.setGoogleID(dtProduct.getGoogleid());
+						returnProduct.setName(dtProduct.getAppname());
+						returnProduct.setType(dtProduct.getType());
+						listiap.add(returnProduct);
+					}else {
+						LocalDate date = LocalDate.now();
+						int year = date.getYear();
+						if(dtProduct.getSpareint() == year) {
+							ReturnProduct returnProduct = new ReturnProduct();
+							returnProduct.setId(dtProduct.getId());
+							returnProduct.setAppleID(dtProduct.getAppleid());
+							returnProduct.setGoogleID(dtProduct.getGoogleid());
+							returnProduct.setName(dtProduct.getAppname());
+							returnProduct.setType(dtProduct.getType());
+							listiap.add(returnProduct);
+						}						
+					}
+	
+				}
+			}
+		}
+		
+		//Collections.sort(listiap);
+		
+		retuenlist.add(listiap);
+		log.info("返回的参数");
+		return retuenlist;
 	}
 
 	

@@ -31,6 +31,8 @@ public interface UserDefriendMapper {
     List<UserDefriend>  getBlackList(int userid);
 
 	void removeUser(UserDefriend userDefriend);
-
+	
+	//查询是否在黑名单中
+	UserDefriend selectUserDefriend(UserDefriend userDefriend);
 	
 }

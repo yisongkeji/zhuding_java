@@ -100,6 +100,14 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="selectUserDefriend" parameterType="com.foreseers.tj.model.UserDefriend" resultType="com.foreseers.tj.model.UserDefriend">
+    select 
+    <include refid="Base_Column_List" />
+    from user_defriend
+    where userid = #{userid,jdbcType=INTEGER}  and blackid = #{blackid,jdbcType=INTEGER}
+  </select>
+  
+  
   <select id="getBlackList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

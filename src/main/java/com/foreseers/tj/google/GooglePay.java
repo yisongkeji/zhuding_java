@@ -2,6 +2,7 @@ package com.foreseers.tj.google;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import com.foreseers.tj.action.BaseAction;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
+import com.foreseers.tj.service.UserService;
 
 @Controller
 @RequestMapping("/google")
@@ -28,6 +30,9 @@ public class GooglePay extends BaseAction {
 	@Autowired
 	private GooglePayService googlePayService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@RequestMapping("/check")
 	@ResponseBody
 	public ResultType check(HttpServletRequest request) throws Exception {
@@ -35,17 +40,34 @@ public class GooglePay extends BaseAction {
 		log.info("支付检验方法");
 	
 	
-		String signtureData = request.getParameter("signtureData");   //google 支付返回的字符串
-		String type = request.getParameter("type");   //google 支付返回的字符串
-		log.info(signtureData);
+		String productId = request.getParameter("productId");   //google 支付返回的字符串
+		String purchaseToken = request.getParameter("purchaseToken");   //google 支付返回的字符串
+		String userid = request.getParameter("userid");
+		log.info("请求参数：productId："+productId);
+		log.info("请求参数：purchaseToken："+purchaseToken);
+		log.info("请求参数：userid："+userid);
 		
-		if(signtureData == null ) {
+		if(productId == null || purchaseToken == null || userid == null) {
 			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
 		}
-//		log.info(signtureData.toJSONString());
-		Map result = googlePayService.check(signtureData,type);
+
+		Map result = googlePayService.check(productId,purchaseToken,userid);
 		
 		return ResultType.creat(result);
 	}
 	
+	/*
+	@RequestMapping("/testvip")
+	@ResponseBody
+	public String testvip() throws ParseException {
+		int userid = 68;
+		int vipdate = 30;
+		
+		String result =  userService.userSetvip(userid, vipdate);
+		
+		log.info("result");
+		
+		return result;
+	}
+	*/
 }

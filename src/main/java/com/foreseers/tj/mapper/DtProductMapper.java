@@ -27,4 +27,7 @@ public interface DtProductMapper {
     int updateByPrimaryKeySelective(DtProduct record);
 
     int updateByPrimaryKey(DtProduct record);
+    
+    //通过googleid 查询商品
+    DtProduct selectByProductID(String googleid);
 }

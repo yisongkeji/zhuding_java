@@ -61,4 +61,10 @@ public class UserCanumsServiceImpl implements UserCanumsService {
 
 	}
 
+	@Override
+	public int updateBuyNums(UserCanums userCanums) {
+		// TODO Auto-generated method stub
+		return userCanumsMapper.updateBuyNums(userCanums);
+	}
+
 }

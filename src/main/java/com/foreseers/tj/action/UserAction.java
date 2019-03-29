@@ -29,6 +29,8 @@ import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -215,6 +217,7 @@ public class UserAction extends BaseAction{
 	//	int accountId = userinfo.getId();
 		User user1= userService.QueryUser(facebookid);
 		int accountId = user1.getId();
+		log.info("用户的id:"+accountId);
 		log.info("accountId"+accountId);
 		String url = "https://api2047.foreseers.com/Dating/personalAnalysis";
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -668,7 +671,7 @@ public class UserAction extends BaseAction{
 	
 	/*
 	 * 计算vip到期时间
-	 */
+	 
 	@RequestMapping("/setvip")
 	@ResponseBody
 	public String setvip(HttpServletRequest request) {
@@ -687,6 +690,7 @@ public class UserAction extends BaseAction{
 		 
 		 return enddate;
 	}
+	*/
 	
 	/*
 	 * 设置个性签名
@@ -731,7 +735,8 @@ public class UserAction extends BaseAction{
 	@ResponseBody
 	public ResultType queryName(HttpServletRequest request) throws BusinessExpection {
 		log.info("进入查询用户名称方法");
-		String userid = request.getParameter("userid");
+		String userid = request.getParameter("userid");  //其他人id
+		String uid = request.getParameter("uid");   //自身ID
 		log.info("请求参数："+userid);
 		if(userid == null) {
 			log.error("参数不合法");
@@ -741,9 +746,86 @@ public class UserAction extends BaseAction{
 		Map<String,Object> map = new HashMap<>();
 		map.put("userid", user.getId());
 		map.put("username", user.getUsername());
-		map.put("head", user.getPicture());
+		//map.put("head", user.getPicture());
+		map.put("vip", user.getVip());
+		int lookhead = userService.showUserHead(Integer.parseInt(uid), Integer.parseInt(userid));  
+		if(lookhead == 0) {
+			map.put("head", user.getPicture());
+		}else {
+			map.put("head", user.getHead());
+		}
 		
 		return ResultType.creat(map);
 	}
+	
+	/*
+	 * 批量查询用户信息
+	 
+	
+	@PostMapping("/queryUserList1")
+	@ResponseBody
+	public ResultType queryUserList1(@RequestBody String data) {
+		log.info("进入queryUserList");
+		log.info(""+data);
+		List<Map> returnlist = new ArrayList<>();
+		JSONObject json=JSONObject.parseObject(data);
+		log.info(""+json);
+		String userid = json.getString("userid");
+		log.info("userid"+userid);
+		JSONArray userlist = json.getJSONArray("userlist");
+		for(int i= 0;i<userlist.size();i++) {
+			Map<String,Object> map = new HashMap<>();
+			User user = userService.selectByPrimaryKey((Integer)userlist.get(i));
+			map.put("userid", user.getId());
+			map.put("username", user.getUsername());
+		//	map.put("head", user.getHead());
+			map.put("vip", user.getVip());
+			
+			int lookhead = userService.showUserHead(Integer.parseInt(userid), (Integer)userlist.get(i));
+			if(lookhead == 0) {
+				map.put("head", user.getPicture());
+			}else {
+				map.put("head", user.getHead());
+			}
+			returnlist.add(map);
+		}		
+		
+		return ResultType.creat(returnlist);
+	}
+	*/
+	
+	
+	@PostMapping("/queryUserList")
+	@ResponseBody
+	public ResultType queryUserList(HttpServletRequest request) {
+		List<Map> returnlist = new ArrayList<>();
+		String userid = request.getParameter("userid");
+		String userlist = request.getParameter("userlist");
+		log.info(""+userid);
+		log.info(""+userlist);
+		String[] ids = userlist.split(",");
+		for(int i= 0;i<ids.length; i++) {
+			Map<String,Object> map = new HashMap<>();
+			User user = userService.selectByPrimaryKey(Integer.parseInt(ids[i]));
+			map.put("userid", user.getId());
+			map.put("username", user.getUsername());
+		//	map.put("head", user.getHead());
+			map.put("vip", user.getVip());
+			
+			int lookhead = userService.showUserHead(Integer.parseInt(userid), Integer.parseInt(ids[i]));
+			if(lookhead == 0) {
+				map.put("head", user.getPicture());
+			}else {
+				map.put("head", user.getHead());
+			}
+			returnlist.add(map);
+		}
+		
+		log.info("返回的参数："+returnlist);
+		return ResultType.creat(returnlist);
+	}
+	
+	
+
 	
 }

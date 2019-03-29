@@ -47,16 +47,19 @@ public class UserDefriendServiceImpl implements UserDefriendService{
 	public String pullDefriend(int userid, int blackid) {
 		// TODO Auto-generated method stub
 		try {
+			
 		UserDefriend userDefriend = new UserDefriend();
 		userDefriend.setUserid(userid);
 		userDefriend.setBlackid(blackid);
+		UserDefriend  userDefriendinfo =  userDefriendMapper.selectUserDefriend(userDefriend);
+		if(userDefriendinfo == null) {
+			LocalDate date = LocalDate.now();
+			DateTimeFormatter fatmat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			String time = date.format(fatmat);
+			userDefriend.setDefriendtime(time);
+			userDefriendMapper.insertSelective(userDefriend);
+			log.info("插入到数据库成功");
 		
-		LocalDate date = LocalDate.now();
-		DateTimeFormatter fatmat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String time = date.format(fatmat);
-		userDefriend.setDefriendtime(time);
-		userDefriendMapper.insertSelective(userDefriend);
-		log.info("插入到数据库成功");
 		//判断是否是好友,如果是解除好友关系  selectUserFriend
 		UserFriend userFriend =  userFriendService.selectUserFriend(userid+"", blackid+"");
 		if(userFriend != null) {
@@ -75,7 +78,8 @@ public class UserDefriendServiceImpl implements UserDefriendService{
 				UserService.addserfriendnum(blackid);
 				log.info("好友位加一");
 			}
-		}
+			}
+		}	
 		//判断是否是好友,如果是解除好友关系
 		return "success";
 		}catch(Exception e) {

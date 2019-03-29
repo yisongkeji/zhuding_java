@@ -126,19 +126,25 @@ public class UserCaHistoryAction extends BaseAction{
 			// log.info(user.getUsername());
 			// log.info(user.getSex());
 			 log.info("map"+map);
-			 if(list.size()>0) {
+			 if(returnlist.size()>0) {
 				 int status = 0;
-			 for(int i= 0;i<list.size();i++) {
-				 Map listmap = list.get(i);
-				 DateFormat format = new SimpleDateFormat("yyyy-MM-DD");
-				  String listtime = (String) listmap.get("time");
-				  String maptime = (String) map.get("time");
-				 if(listtime.equals(maptime)) {
-					 list.add(map);
-					// returnlist.add(list);
-					 status = 1;
-					 break;
-				 }
+			 for(int i= 0;i<returnlist.size();i++) {
+				 
+				 List<Map> list1 = returnlist.get(i);
+				 if(list1.size()>0) {
+					 for(int j=0;j<list1.size();j++) {
+						 Map listmap = list1.get(j);
+					//	 DateFormat format = new SimpleDateFormat("yyyy-MM-DD");
+						  String listtime = (String) listmap.get("time");
+						  String maptime = (String) map.get("time");
+						 if(listtime.equals(maptime)) {
+							 list1.add(map);
+							// returnlist.add(list);
+							 status = 1;
+							 break;
+						 }
+					 }	 
+				 }		 
 			 }
 			 if(status == 0) {
 				 List<Map> listnew = new ArrayList<>();
@@ -146,10 +152,12 @@ public class UserCaHistoryAction extends BaseAction{
 				 returnlist.add(listnew);
 			 }
 			}else {
-				list.add(map);	
+				 List<Map> listnew = new ArrayList<>();
+				 listnew.add(map);	
+				 returnlist.add(listnew);
 			}
 		 }	
-		 returnlist.add(list);
+	//	 returnlist.add(list);
 		 log.info("返回的参数："+returnlist);
 		return ResultType.creat(returnlist);
 	}
