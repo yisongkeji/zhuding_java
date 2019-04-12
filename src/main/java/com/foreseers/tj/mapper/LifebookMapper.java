@@ -16,18 +16,24 @@ public interface LifebookMapper {
 
     int insertSelective(Lifebook record);
 
+    List<Lifebook> selectByExampleWithBLOBs(LifebookExample example);
+
     List<Lifebook> selectByExample(LifebookExample example);
 
     Lifebook selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Lifebook record, @Param("example") LifebookExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Lifebook record, @Param("example") LifebookExample example);
+
     int updateByExample(@Param("record") Lifebook record, @Param("example") LifebookExample example);
 
     int updateByPrimaryKeySelective(Lifebook record);
 
+    int updateByPrimaryKeyWithBLOBs(Lifebook record);
+
     int updateByPrimaryKey(Lifebook record);
     
     //通过用户ID查询用户的命书用户
-	List<Lifebook> lifeUser(int parseInt);
+    List<Lifebook> lifeUser(int parseInt);
 }

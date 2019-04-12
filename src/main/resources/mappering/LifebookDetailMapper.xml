@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, icon, name, lifeuserid, created, updated, spare
+    id, title,comment, icon, name, lifeuserid, created, updated, spare
   </sql>
   <sql id="Blob_Column_List">
     comment
@@ -108,6 +108,15 @@
       order by ${orderByClause}
     </if>
   </select>
+  
+ <!-- 通过lifeid和name查询 --> 
+  <select id="selectByLifeuserid" parameterType="com.foreseers.tj.model.LifebookDetail" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lifebook_detail
+	where lifeuserid = #{lifeuserid,jdbcType=INTEGER} and name = #{name,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
@@ -120,6 +129,13 @@
     delete from lifebook_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
+ 
+ <!-- 删除命书用户算命信息 --> 
+ <delete id="deletelifeUser" parameterType="java.lang.Integer">
+    delete from lifebook_detail
+    where lifeuserid = #{lifeuserid,jdbcType=INTEGER}
+  </delete>
+  
   <delete id="deleteByExample" parameterType="com.foreseers.tj.model.LifebookDetailExample">
     delete from lifebook_detail
     <if test="_parameter != null">

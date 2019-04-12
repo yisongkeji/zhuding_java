@@ -11,6 +11,10 @@ public class LifebookExample {
 
     protected List<Criteria> oredCriteria;
 
+    private Integer limit;
+
+    private Integer offset;
+
     public LifebookExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -62,6 +66,22 @@ public class LifebookExample {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
+    public Integer getOffset() {
+        return offset;
     }
 
     protected abstract static class GeneratedCriteria {
@@ -162,6 +182,66 @@ public class LifebookExample {
 
         public Criteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridIsNull() {
+            addCriterion("userid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridIsNotNull() {
+            addCriterion("userid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridEqualTo(Integer value) {
+            addCriterion("userid =", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridNotEqualTo(Integer value) {
+            addCriterion("userid <>", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridGreaterThan(Integer value) {
+            addCriterion("userid >", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridGreaterThanOrEqualTo(Integer value) {
+            addCriterion("userid >=", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridLessThan(Integer value) {
+            addCriterion("userid <", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridLessThanOrEqualTo(Integer value) {
+            addCriterion("userid <=", value, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridIn(List<Integer> values) {
+            addCriterion("userid in", values, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridNotIn(List<Integer> values) {
+            addCriterion("userid not in", values, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridBetween(Integer value1, Integer value2) {
+            addCriterion("userid between", value1, value2, "userid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUseridNotBetween(Integer value1, Integer value2) {
+            addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
 
@@ -1355,76 +1435,6 @@ public class LifebookExample {
             return (Criteria) this;
         }
 
-        public Criteria andHoroscopemythIsNull() {
-            addCriterion("horoscopemyth is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythIsNotNull() {
-            addCriterion("horoscopemyth is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythEqualTo(String value) {
-            addCriterion("horoscopemyth =", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythNotEqualTo(String value) {
-            addCriterion("horoscopemyth <>", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythGreaterThan(String value) {
-            addCriterion("horoscopemyth >", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythGreaterThanOrEqualTo(String value) {
-            addCriterion("horoscopemyth >=", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythLessThan(String value) {
-            addCriterion("horoscopemyth <", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythLessThanOrEqualTo(String value) {
-            addCriterion("horoscopemyth <=", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythLike(String value) {
-            addCriterion("horoscopemyth like", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythNotLike(String value) {
-            addCriterion("horoscopemyth not like", value, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythIn(List<String> values) {
-            addCriterion("horoscopemyth in", values, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythNotIn(List<String> values) {
-            addCriterion("horoscopemyth not in", values, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythBetween(String value1, String value2) {
-            addCriterion("horoscopemyth between", value1, value2, "horoscopemyth");
-            return (Criteria) this;
-        }
-
-        public Criteria andHoroscopemythNotBetween(String value1, String value2) {
-            addCriterion("horoscopemyth not between", value1, value2, "horoscopemyth");
-            return (Criteria) this;
-        }
-
         public Criteria andHoroscopeguardangelIsNull() {
             addCriterion("horoscopeguardAngel is null");
             return (Criteria) this;
@@ -2605,73 +2615,73 @@ public class LifebookExample {
             return (Criteria) this;
         }
 
-        public Criteria andSpareIsNull() {
-            addCriterion("spare is null");
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
             return (Criteria) this;
         }
 
-        public Criteria andSpareIsNotNull() {
-            addCriterion("spare is not null");
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSpareEqualTo(String value) {
-            addCriterion("spare =", value, "spare");
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareNotEqualTo(String value) {
-            addCriterion("spare <>", value, "spare");
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareGreaterThan(String value) {
-            addCriterion("spare >", value, "spare");
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareGreaterThanOrEqualTo(String value) {
-            addCriterion("spare >=", value, "spare");
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareLessThan(String value) {
-            addCriterion("spare <", value, "spare");
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareLessThanOrEqualTo(String value) {
-            addCriterion("spare <=", value, "spare");
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareLike(String value) {
-            addCriterion("spare like", value, "spare");
+        public Criteria andStatusLike(String value) {
+            addCriterion("status like", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareNotLike(String value) {
-            addCriterion("spare not like", value, "spare");
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("status not like", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareIn(List<String> values) {
-            addCriterion("spare in", values, "spare");
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareNotIn(List<String> values) {
-            addCriterion("spare not in", values, "spare");
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareBetween(String value1, String value2) {
-            addCriterion("spare between", value1, value2, "spare");
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andSpareNotBetween(String value1, String value2) {
-            addCriterion("spare not between", value1, value2, "spare");
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
 

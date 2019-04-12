@@ -8,7 +8,10 @@ import java.util.Date;
  */
 public class Lifebook implements Serializable {
     private Integer id;
-    
+
+    /**
+     * 当前用户的ID
+     */
     private Integer userid;
 
     private String name;
@@ -45,8 +48,6 @@ public class Lifebook implements Serializable {
 
     private String horoscopeguardgod;
 
-    private String horoscopemyth;
-
     private String horoscopeguardangel;
 
     private String horoscopeguardcrystal;
@@ -81,34 +82,31 @@ public class Lifebook implements Serializable {
 
     private Date updated;
 
-    private String spare;
+    /**
+     * 状态
+     */
+    private String status;
 
     private Integer spareint;
 
+    private String horoscopemyth;
+
     private static final long serialVersionUID = 1L;
 
-    
-    
-    /**
-	 * @return the userid
-	 */
-	public Integer getUserid() {
-		return userid;
-	}
-
-	/**
-	 * @param userid the userid to set
-	 */
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public String getName() {
@@ -247,14 +245,6 @@ public class Lifebook implements Serializable {
         this.horoscopeguardgod = horoscopeguardgod;
     }
 
-    public String getHoroscopemyth() {
-        return horoscopemyth;
-    }
-
-    public void setHoroscopemyth(String horoscopemyth) {
-        this.horoscopemyth = horoscopemyth;
-    }
-
     public String getHoroscopeguardangel() {
         return horoscopeguardangel;
     }
@@ -391,12 +381,12 @@ public class Lifebook implements Serializable {
         this.updated = updated;
     }
 
-    public String getSpare() {
-        return spare;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSpare(String spare) {
-        this.spare = spare;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getSpareint() {
@@ -405,6 +395,14 @@ public class Lifebook implements Serializable {
 
     public void setSpareint(Integer spareint) {
         this.spareint = spareint;
+    }
+
+    public String getHoroscopemyth() {
+        return horoscopemyth;
+    }
+
+    public void setHoroscopemyth(String horoscopemyth) {
+        this.horoscopemyth = horoscopemyth;
     }
 
     @Override
@@ -420,6 +418,7 @@ public class Lifebook implements Serializable {
         }
         Lifebook other = (Lifebook) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getGender() == null ? other.getGender() == null : this.getGender().equals(other.getGender()))
             && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()))
@@ -437,7 +436,6 @@ public class Lifebook implements Serializable {
             && (this.getHoroscopeguardplanets() == null ? other.getHoroscopeguardplanets() == null : this.getHoroscopeguardplanets().equals(other.getHoroscopeguardplanets()))
             && (this.getHoroscopeguardplanetsdesc() == null ? other.getHoroscopeguardplanetsdesc() == null : this.getHoroscopeguardplanetsdesc().equals(other.getHoroscopeguardplanetsdesc()))
             && (this.getHoroscopeguardgod() == null ? other.getHoroscopeguardgod() == null : this.getHoroscopeguardgod().equals(other.getHoroscopeguardgod()))
-            && (this.getHoroscopemyth() == null ? other.getHoroscopemyth() == null : this.getHoroscopemyth().equals(other.getHoroscopemyth()))
             && (this.getHoroscopeguardangel() == null ? other.getHoroscopeguardangel() == null : this.getHoroscopeguardangel().equals(other.getHoroscopeguardangel()))
             && (this.getHoroscopeguardcrystal() == null ? other.getHoroscopeguardcrystal() == null : this.getHoroscopeguardcrystal().equals(other.getHoroscopeguardcrystal()))
             && (this.getHoroscopematch() == null ? other.getHoroscopematch() == null : this.getHoroscopematch().equals(other.getHoroscopematch()))
@@ -455,8 +453,9 @@ public class Lifebook implements Serializable {
             && (this.getZiweimatch() == null ? other.getZiweimatch() == null : this.getZiweimatch().equals(other.getZiweimatch()))
             && (this.getCreated() == null ? other.getCreated() == null : this.getCreated().equals(other.getCreated()))
             && (this.getUpdated() == null ? other.getUpdated() == null : this.getUpdated().equals(other.getUpdated()))
-            && (this.getSpare() == null ? other.getSpare() == null : this.getSpare().equals(other.getSpare()))
-            && (this.getSpareint() == null ? other.getSpareint() == null : this.getSpareint().equals(other.getSpareint()));
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getSpareint() == null ? other.getSpareint() == null : this.getSpareint().equals(other.getSpareint()))
+            && (this.getHoroscopemyth() == null ? other.getHoroscopemyth() == null : this.getHoroscopemyth().equals(other.getHoroscopemyth()));
     }
 
     @Override
@@ -464,6 +463,7 @@ public class Lifebook implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getGender() == null) ? 0 : getGender().hashCode());
         result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
@@ -481,7 +481,6 @@ public class Lifebook implements Serializable {
         result = prime * result + ((getHoroscopeguardplanets() == null) ? 0 : getHoroscopeguardplanets().hashCode());
         result = prime * result + ((getHoroscopeguardplanetsdesc() == null) ? 0 : getHoroscopeguardplanetsdesc().hashCode());
         result = prime * result + ((getHoroscopeguardgod() == null) ? 0 : getHoroscopeguardgod().hashCode());
-        result = prime * result + ((getHoroscopemyth() == null) ? 0 : getHoroscopemyth().hashCode());
         result = prime * result + ((getHoroscopeguardangel() == null) ? 0 : getHoroscopeguardangel().hashCode());
         result = prime * result + ((getHoroscopeguardcrystal() == null) ? 0 : getHoroscopeguardcrystal().hashCode());
         result = prime * result + ((getHoroscopematch() == null) ? 0 : getHoroscopematch().hashCode());
@@ -499,8 +498,9 @@ public class Lifebook implements Serializable {
         result = prime * result + ((getZiweimatch() == null) ? 0 : getZiweimatch().hashCode());
         result = prime * result + ((getCreated() == null) ? 0 : getCreated().hashCode());
         result = prime * result + ((getUpdated() == null) ? 0 : getUpdated().hashCode());
-        result = prime * result + ((getSpare() == null) ? 0 : getSpare().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getSpareint() == null) ? 0 : getSpareint().hashCode());
+        result = prime * result + ((getHoroscopemyth() == null) ? 0 : getHoroscopemyth().hashCode());
         return result;
     }
 
@@ -511,6 +511,7 @@ public class Lifebook implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", userid=").append(userid);
         sb.append(", name=").append(name);
         sb.append(", gender=").append(gender);
         sb.append(", date=").append(date);
@@ -528,7 +529,6 @@ public class Lifebook implements Serializable {
         sb.append(", horoscopeguardplanets=").append(horoscopeguardplanets);
         sb.append(", horoscopeguardplanetsdesc=").append(horoscopeguardplanetsdesc);
         sb.append(", horoscopeguardgod=").append(horoscopeguardgod);
-        sb.append(", horoscopemyth=").append(horoscopemyth);
         sb.append(", horoscopeguardangel=").append(horoscopeguardangel);
         sb.append(", horoscopeguardcrystal=").append(horoscopeguardcrystal);
         sb.append(", horoscopematch=").append(horoscopematch);
@@ -546,8 +546,9 @@ public class Lifebook implements Serializable {
         sb.append(", ziweimatch=").append(ziweimatch);
         sb.append(", created=").append(created);
         sb.append(", updated=").append(updated);
-        sb.append(", spare=").append(spare);
+        sb.append(", status=").append(status);
         sb.append(", spareint=").append(spareint);
+        sb.append(", horoscopemyth=").append(horoscopemyth);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

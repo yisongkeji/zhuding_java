@@ -15,12 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.foreseers.tj.action.BaseAction;
 import com.foreseers.tj.model.BusinessExpection;
+import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ResultType;
 
 @Controller
 @RequestMapping("/LifeBook")
-public class LifeBookController {
+public class LifeBookController extends BaseAction{
 
 	private static final Logger log = LoggerFactory.getLogger(LifeBookController.class);
 	@Autowired
@@ -31,7 +33,7 @@ public class LifeBookController {
 	 */
 	@RequestMapping("/lifeBook")
 	@ResponseBody
-	public ResultType lifeBook(HttpServletRequest request) throws BusinessExpection, ClientProtocolException, IOException {
+	public ResultType lifeBook(HttpServletRequest request) throws BusinessExpection,  IOException {
 		log.info("进入创建命书方法");
 		String name = request.getParameter("name");
 		String date = request.getParameter("date");
@@ -41,6 +43,9 @@ public class LifeBookController {
 		String timezone = request.getParameter("timezone");
 		String userid = request.getParameter("userid");
 		
+		if(userid == null) {
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
 		
 		Map<String,String> map = new HashMap<>();
 		map.put("name", name);
@@ -50,11 +55,29 @@ public class LifeBookController {
 		map.put("timezone", timezone);
 		map.put("userid", userid);
 	//	map.put("isLeap", isLeap);
+		log.info("请求的参数：map:"+map);
 		
 		Map retuenmap =  lifeBookService.lifeBook(map);
 		
 		return ResultType.creat(retuenmap);
 	}
+	
+	/*
+	 * 命书用户详情
+	 */
+	@RequestMapping("/lifebookUser")
+	@ResponseBody
+	public ResultType lifebookUser(HttpServletRequest request) throws BusinessExpection {
+		String lifeuserid = request.getParameter("lifeuserid");
+		if(lifeuserid == null) {
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		
+		Map retuenmap =  lifeBookService.lifebookUser(Integer.parseInt(lifeuserid));
+		
+		return ResultType.creat(retuenmap);
+	}
+	
 	
 	/*
 	 * 命书目录
@@ -74,28 +97,90 @@ public class LifeBookController {
 	 */
 	@RequestMapping("/lifeBookDetail")
 	@ResponseBody
-	public String lifeBookDetail(HttpServletRequest request) throws NumberFormatException, ClientProtocolException, IOException, BusinessExpection {
+	public ResultType lifeBookDetail(HttpServletRequest request) throws NumberFormatException, ClientProtocolException, IOException, BusinessExpection {
 		
 		String name =  request.getParameter("name");
 		String lifeuserid = request.getParameter("lifeuserid");
-		log.info("name:"+name);
-		lifeBookService.lifeBookDetail(name,Integer.parseInt(lifeuserid));
+		log.info("请求参数：name:"+name);
+		log.info("请求参数：lifeuserid:"+lifeuserid);
+		if(name == null || lifeuserid == null) {
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		List list = lifeBookService.lifeBookDetail(name,Integer.parseInt(lifeuserid));
 		
-		return null;
+		return ResultType.creat(list);
 	}
+	
+	
+	/*
+	 * 算命详细信息
+	 */
+	@RequestMapping("/lifeBookDetailname")
+	@ResponseBody
+	public  ResultType lifeBookDetailname(HttpServletRequest request) throws BusinessExpection {
+		log.info("进入算命详细信息接口");
+		String lifesuerid = request.getParameter("lifesuerid");
+		String name = request.getParameter("name");
+		String title = request.getParameter("title");
+		log.info("请求的参数：lifesuerid："+lifesuerid);
+		log.info("请求的参数：name："+name);
+		log.info("请求的参数：title："+title);
+		if(lifesuerid == null || name == null || title == null) {
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("title", title);
+		map.put("lifesuerid", lifesuerid);
+		
+		List returnlist = lifeBookService.lifeBookDetailname(map);
+		
+		log.info("返回的参数："+returnlist);
+		return ResultType.creat(returnlist);
+	}
+	
+	
 	
 	/*
 	 * 命书用户目录
 	 */
 	@RequestMapping("/lifeUser")
 	@ResponseBody
-	public ResultType lifeUser(HttpServletRequest request) {
+	public ResultType lifeUser(HttpServletRequest request) throws BusinessExpection {
 		log.info("进入命书用户列表接口");
 		String userid = request.getParameter("userid");
+		log.info("请求参数：userid："+userid);
+		if(userid == null) {
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
 		List<Map> returnlist =  lifeBookService.lifeUser(Integer.parseInt(userid));
 		
 		log.info("返回的参数："+returnlist);
 		
 		return ResultType.creat(returnlist);
 	}
+	
+	
+	/*
+	 * 删除命书用户
+	 */
+	@RequestMapping("/deletelifeUser")
+	@ResponseBody
+	public ResultType deletelifeUser(HttpServletRequest request) throws BusinessExpection {
+		String userid = request.getParameter("userid");
+		String lifeuserid = request.getParameter("lifeuserid");
+		log.info("请求参数：userid："+userid);
+		log.info("请求参数：lifeuserid："+lifeuserid);
+		if(userid == null || lifeuserid == null) {
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		Boolean result =  lifeBookService.deletelifeUser(Integer.parseInt(userid),Integer.parseInt(lifeuserid));
+		if(result) {
+			return ResultType.creat(result);
+		}
+		
+		return ResultType.creat(result,"fail");
+	}
+	
 }

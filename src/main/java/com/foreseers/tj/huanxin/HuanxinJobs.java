@@ -17,7 +17,6 @@ import com.foreseers.tj.service.UserCanumsService;
 @Component
 public class HuanxinJobs {
 
-	//private static Logger log = LoggerFactory.getLogger(HuanxinJobs.class);
 	 private static Logger log = LoggerFactory.getLogger(HuanxinJobs.class);
 	
 	 @Autowired
@@ -25,7 +24,7 @@ public class HuanxinJobs {
 	 /*
 	  *每天一点 保存前一天的聊天记录
 	  */
-//	@Scheduled(cron="0 0 1 * * ?")
+	@Scheduled(cron="0 0 1 * * ?")
 	public void getMessages() throws ClientProtocolException, IOException {
 		
 		//System.out.println("现在的时间是："+new Date());
@@ -35,6 +34,9 @@ public class HuanxinJobs {
 		//System.out.println(token);
 		hx.getMessage(token);
 		log.info("保存前一天的聊天记录");
+		//删除下载的压缩包
+		 hx.delpackage();
+		log.info("删除下载的文件");
 	}
 	
 	/*
@@ -44,9 +46,7 @@ public class HuanxinJobs {
 	public void updateUserNums() {
 		log.info("更新会员擦子数方法");
 		LocalTime localtime = LocalTime.now(); 
-		log.info("现在的时间："+localtime);
-//		UserCanumsAction userCanumsAction = new UserCanumsAction();
-//		userCanumsAction.updateUserNums();
+
 		userCanumsService.updateUserNums();
 	}
 	

@@ -34,7 +34,12 @@ public interface LifebookDetailMapper {
 
     int updateByPrimaryKey(LifebookDetail record);
 
+    // 算命详细信息
+	List<LifebookDetail> selectByLifeuserid(LifebookDetail record);
+	//删除命书用户
+	int deletelifeUser(int lifeuserid);
 
+	
 
 	
 }

@@ -10,6 +10,11 @@ public class UserTransaction implements Serializable {
 
     private Integer userId;
 
+    /**
+     * 命书用户id
+     */
+    private Integer lifeuserId;
+
     private String userDate;
 
     private String userTime;
@@ -72,6 +77,14 @@ public class UserTransaction implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getLifeuserId() {
+        return lifeuserId;
+    }
+
+    public void setLifeuserId(Integer lifeuserId) {
+        this.lifeuserId = lifeuserId;
     }
 
     public String getUserDate() {
@@ -200,6 +213,7 @@ public class UserTransaction implements Serializable {
         UserTransaction other = (UserTransaction) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getLifeuserId() == null ? other.getLifeuserId() == null : this.getLifeuserId().equals(other.getLifeuserId()))
             && (this.getUserDate() == null ? other.getUserDate() == null : this.getUserDate().equals(other.getUserDate()))
             && (this.getUserTime() == null ? other.getUserTime() == null : this.getUserTime().equals(other.getUserTime()))
             && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
@@ -222,6 +236,7 @@ public class UserTransaction implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getLifeuserId() == null) ? 0 : getLifeuserId().hashCode());
         result = prime * result + ((getUserDate() == null) ? 0 : getUserDate().hashCode());
         result = prime * result + ((getUserTime() == null) ? 0 : getUserTime().hashCode());
         result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
@@ -247,6 +262,7 @@ public class UserTransaction implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
+        sb.append(", lifeuserId=").append(lifeuserId);
         sb.append(", userDate=").append(userDate);
         sb.append(", userTime=").append(userTime);
         sb.append(", userName=").append(userName);

@@ -27,7 +27,6 @@ public interface UserTransactionMapper {
     int updateByPrimaryKeySelective(UserTransaction record);
 
     int updateByPrimaryKey(UserTransaction record);
-    
-    //查询购买记录
-    UserTransaction selectByUserTransaction(UserTransaction userTransaction);
+
+	UserTransaction selectByUserTransaction(UserTransaction userTransaction);
 }

@@ -10,6 +10,10 @@ public class UserTransactionExample {
 
     protected List<Criteria> oredCriteria;
 
+    private Integer limit;
+
+    private Integer offset;
+
     public UserTransactionExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -61,6 +65,22 @@ public class UserTransactionExample {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
+    public Integer getOffset() {
+        return offset;
     }
 
     protected abstract static class GeneratedCriteria {
@@ -221,6 +241,66 @@ public class UserTransactionExample {
 
         public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
             addCriterion("user_id not between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdIsNull() {
+            addCriterion("lifeuser_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdIsNotNull() {
+            addCriterion("lifeuser_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdEqualTo(Integer value) {
+            addCriterion("lifeuser_id =", value, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdNotEqualTo(Integer value) {
+            addCriterion("lifeuser_id <>", value, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdGreaterThan(Integer value) {
+            addCriterion("lifeuser_id >", value, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("lifeuser_id >=", value, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdLessThan(Integer value) {
+            addCriterion("lifeuser_id <", value, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("lifeuser_id <=", value, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdIn(List<Integer> values) {
+            addCriterion("lifeuser_id in", values, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdNotIn(List<Integer> values) {
+            addCriterion("lifeuser_id not in", values, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdBetween(Integer value1, Integer value2) {
+            addCriterion("lifeuser_id between", value1, value2, "lifeuserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLifeuserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("lifeuser_id not between", value1, value2, "lifeuserId");
             return (Criteria) this;
         }
 

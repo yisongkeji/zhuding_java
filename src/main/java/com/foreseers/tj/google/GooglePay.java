@@ -43,15 +43,17 @@ public class GooglePay extends BaseAction {
 		String productId = request.getParameter("productId");   //google 支付返回的字符串
 		String purchaseToken = request.getParameter("purchaseToken");   //google 支付返回的字符串
 		String userid = request.getParameter("userid");
+		String lifeuserid = request.getParameter("lifeuserid");
 		log.info("请求参数：productId："+productId);
 		log.info("请求参数：purchaseToken："+purchaseToken);
 		log.info("请求参数：userid："+userid);
+		log.info("请求参数：lifeuserid："+lifeuserid);
 		
-		if(productId == null || purchaseToken == null || userid == null) {
+		if(productId == null || purchaseToken == null || userid == null ) {
 			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
 		}
 
-		Map result = googlePayService.check(productId,purchaseToken,userid);
+		Map result = googlePayService.check(productId,purchaseToken,userid,lifeuserid);
 		
 		return ResultType.creat(result);
 	}

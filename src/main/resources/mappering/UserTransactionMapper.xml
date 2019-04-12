@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.foreseers.tj.model.UserTransaction">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="lifeuser_id" jdbcType="INTEGER" property="lifeuserId" />
     <result column="user_date" jdbcType="VARCHAR" property="userDate" />
     <result column="user_time" jdbcType="VARCHAR" property="userTime" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
@@ -78,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, user_date, user_time, user_name, gender, item, code, os, transaction_id, 
-    create_time, cash, handler, price, spare, spareint
+    id, user_id, lifeuser_id, user_date, user_time, user_name, gender, item, code, os, 
+    transaction_id, create_time, cash, handler, price, spare, spareint
   </sql>
   <select id="selectByExample" parameterType="com.foreseers.tj.model.UserTransactionExample" resultMap="BaseResultMap">
     select
@@ -94,21 +95,30 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
   </select>
+  
+    <!-- 查询购买记录 -->
+  <select id="selectByUserTransaction" parameterType="com.foreseers.tj.model.UserTransaction" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_transaction
+    where lifeuser_id = #{lifeuserId,jdbcType=INTEGER}  and item = #{item,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user_transaction
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <!-- 查询购买记录 -->
-  <select id="selectByUserTransaction" parameterType="com.foreseers.tj.model.UserTransaction" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user_transaction
-    where user_id = #{userId,jdbcType=INTEGER}  and item = #{item,jdbcType=VARCHAR}
-  </select>
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_transaction
     where id = #{id,jdbcType=INTEGER}
@@ -123,15 +133,15 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_transaction (user_id, user_date, user_time, 
-      user_name, gender, item, 
-      code, os, transaction_id, 
+    insert into user_transaction (user_id, lifeuser_id, user_date, 
+      user_time, user_name, gender, 
+      item, code, os, transaction_id, 
       create_time, cash, handler, 
       price, spare, spareint
       )
-    values (#{userId,jdbcType=INTEGER}, #{userDate,jdbcType=VARCHAR}, #{userTime,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{item,jdbcType=VARCHAR}, 
-      #{code,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{lifeuserId,jdbcType=INTEGER}, #{userDate,jdbcType=VARCHAR}, 
+      #{userTime,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{item,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=VARCHAR}, #{cash,jdbcType=VARCHAR}, #{handler,jdbcType=VARCHAR}, 
       #{price,jdbcType=VARCHAR}, #{spare,jdbcType=VARCHAR}, #{spareint,jdbcType=INTEGER}
       )
@@ -144,6 +154,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         user_id,
+      </if>
+      <if test="lifeuserId != null">
+        lifeuser_id,
       </if>
       <if test="userDate != null">
         user_date,
@@ -191,6 +204,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="lifeuserId != null">
+        #{lifeuserId,jdbcType=INTEGER},
       </if>
       <if test="userDate != null">
         #{userDate,jdbcType=VARCHAR},
@@ -251,6 +267,9 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.lifeuserId != null">
+        lifeuser_id = #{record.lifeuserId,jdbcType=INTEGER},
+      </if>
       <if test="record.userDate != null">
         user_date = #{record.userDate,jdbcType=VARCHAR},
       </if>
@@ -302,6 +321,7 @@
     update user_transaction
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
+      lifeuser_id = #{record.lifeuserId,jdbcType=INTEGER},
       user_date = #{record.userDate,jdbcType=VARCHAR},
       user_time = #{record.userTime,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
@@ -325,6 +345,9 @@
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="lifeuserId != null">
+        lifeuser_id = #{lifeuserId,jdbcType=INTEGER},
       </if>
       <if test="userDate != null">
         user_date = #{userDate,jdbcType=VARCHAR},
@@ -374,6 +397,7 @@
   <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.UserTransaction">
     update user_transaction
     set user_id = #{userId,jdbcType=INTEGER},
+      lifeuser_id = #{lifeuserId,jdbcType=INTEGER},
       user_date = #{userDate,jdbcType=VARCHAR},
       user_time = #{userTime,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},

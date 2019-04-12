@@ -6,6 +6,6 @@ import java.util.Map;
 
 public interface GooglePayService {
 
-	Map check(String productId,String purchaseToken,String userid) throws Exception ;
+	Map check(String productId,String purchaseToken,String userid,String lifeuserid) throws Exception ;
 
 }

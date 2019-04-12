@@ -807,18 +807,21 @@ public class UserAction extends BaseAction{
 		for(int i= 0;i<ids.length; i++) {
 			Map<String,Object> map = new HashMap<>();
 			User user = userService.selectByPrimaryKey(Integer.parseInt(ids[i]));
-			map.put("userid", user.getId());
-			map.put("username", user.getUsername());
-		//	map.put("head", user.getHead());
-			map.put("vip", user.getVip());
+			if(user != null) {
+				map.put("userid", user.getId());
+				map.put("username", user.getUsername());
+			//	map.put("head", user.getHead());
+				map.put("vip", user.getVip());
+				
+				int lookhead = userService.showUserHead(Integer.parseInt(userid), Integer.parseInt(ids[i]));
+				if(lookhead == 0) {
+					map.put("head", user.getPicture());
+				}else {
+					map.put("head", user.getHead());
+				}	
+			}	
+			returnlist.add(map);	
 			
-			int lookhead = userService.showUserHead(Integer.parseInt(userid), Integer.parseInt(ids[i]));
-			if(lookhead == 0) {
-				map.put("head", user.getPicture());
-			}else {
-				map.put("head", user.getHead());
-			}
-			returnlist.add(map);
 		}
 		
 		log.info("返回的参数："+returnlist);

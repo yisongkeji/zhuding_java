@@ -103,11 +103,40 @@ public class UserFriendServiceImpl implements UserFriendService {
 				long nh = 1000 * 60 * 60;//一小时的毫秒数
 				long diff = date.getTime()-friendt.getTime();
 				//long hour = diff / nh;            //到现在已经多个小时
-				Map<String,Object> map = new HashMap<String,Object>();
-				map.put("userid", userFriend.getUserId());
-				map.put("friend", userFriend.getFriendId());
-				map.put("hour", diff);
-				list.add(map);
+				//判断时间，更改权限
+				if(diff > 72*nh) {
+					//成为好友时间超过72小时
+					log.info("成为好友72小时，可以查看头像，和发送图片，和查看相册");
+					UserFriend userFriendinfo = new UserFriend();
+					userFriendinfo.setId(userFriend.getId());
+					userFriendinfo.setLookhead(1);
+					userFriendinfo.setLookimages(1);
+					userFriendinfo.setSendpix(1);
+					userFriendMapper.updateByPrimaryKeySelective(userFriendinfo);
+				}else {				
+					Map<String,Object> map = new HashMap<String,Object>();
+					map.put("userid", userFriend.getUserId());
+					map.put("friend", userFriend.getFriendId());
+					map.put("hour", diff);
+					list.add(map);
+					if(diff > 24*nh) {
+						//成为好友时间超过36小时
+						log.info("刚成为好友24小时，可以查看头像，和发送图片");
+						UserFriend userFriendinfo = new UserFriend();
+						userFriendinfo.setId(userFriend.getId());
+						userFriendinfo.setLookhead(1);
+						userFriendinfo.setSendpix(1);
+						userFriendMapper.updateByPrimaryKeySelective(userFriendinfo);
+					}if(diff > 8*nh) {
+						log.info("刚成为好友8小时，可以查看头像");
+						UserFriend userFriendinfo = new UserFriend();
+						userFriendinfo.setId(userFriend.getId());
+						userFriendinfo.setLookhead(1);
+						userFriendMapper.updateByPrimaryKeySelective(userFriendinfo);
+					}
+	
+				}
+				
 				}
 			}
 		}
@@ -132,6 +161,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 			userFriendinfo.setLookhead(0);
 			userFriendinfo.setLookimages(0);
 			userFriendinfo.setSendpix(0);
+			userFriendinfo.setFirendtime("null");
 			updateByPrimaryKeySelective(userFriendinfo);  //更新状态
 			//好友位数量加一  minuserfriendnum   addserfriendnum
 			userService.addserfriendnum(Integer.parseInt(userid));

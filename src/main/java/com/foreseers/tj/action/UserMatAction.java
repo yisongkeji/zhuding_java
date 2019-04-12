@@ -308,26 +308,21 @@ public class UserMatAction extends BaseAction{
 			        	JSONArray outer = cha.getJSONArray("outer");
 			        	List innerlist = new ArrayList<>();
 			        	List outerlist = new ArrayList<>();
+			        	String inner1 = "";
+			        	String outer1 = "";
 			        	for(int j=0;j<inner.size();j++) {
-			        		String str = inner.getString(i);
-			        		innerlist.add(str);
-			        	//	innerstr.append(str);
+			        		String str = inner.getString(j);
+			        		inner1 += "· "+str+"\n";
 			        	}
 			        	for(int z=0;z<outer.size();z++) {
 			        		String str = outer.getString(z);
-			        		outerlist.add(str);
-			        		//outerstr.append(str);
+			        		outer1 += "· "+str+"\n";
 			        	}
-			        	String innerstr = innerlist.toString();
-			        	String outerstr = outerlist.toString();
-			        	innerstr = innerstr.replace("[", "");
-			        	innerstr = innerstr.replace("]", "");
-			        	outerstr = outerstr.replace("[", "");
-			        	outerstr = outerstr.replace("]", "");
-			        	log.info("innerstr"+innerstr);
-			        	log.info("outerstr"+outerstr);
-			        	characteristicdesc = innerstr;
-			        	characteristicgood = outerstr;
+
+			        	log.info("innerstr"+inner1);
+			        	log.info("outerstr"+outer1);
+			        	characteristicdesc = inner1;
+			        	characteristicgood = outer1;
 			        	
 				//	 characteristicgood = characteristic.get("good").toString();
 				//	 characteristicbad = characteristic.get("bad").toString();
@@ -341,6 +336,7 @@ public class UserMatAction extends BaseAction{
 					 characterscore = resultjson.getInteger("character");
 				//	 characterdesc = character.get("desc").toString();
 					 String courting = resultjson.get("courting").toString();
+					 String treat = resultjson.get("treat").toString();
 					 //计算两用户之前的距离				
 					 int userinfodistance = 0;
 					 for(Map.Entry<Integer,Integer> entry:mapd.entrySet()) {
@@ -364,6 +360,7 @@ public class UserMatAction extends BaseAction{
 					 usermatchWithBLOBs.setCharacterscore(characterscore);
 					 usermatchWithBLOBs.setDistance(userinfodistance);
 					 usermatchWithBLOBs.setSpare(courting);
+					 usermatchWithBLOBs.setSpare1(treat);
 					 usermatchService.insertSelective(usermatchWithBLOBs);   
 					 log.info("插入到数据库");
 				}				
@@ -460,20 +457,22 @@ public class UserMatAction extends BaseAction{
 		int sevenday = 0;  //不可以查看
 		int thirthday = 0;  //不可以查看
 		if(userFriend != null) {
-			String time =  userFriend.getFirendtime();   //得到成为好友的时间
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date friendt = format.parse(time);  //成为好友的时间
-			Date date = new Date();  
-			long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
-			long diff = date.getTime()-friendt.getTime();
-			long day = diff / nd ;  
-			log.info("day:"+day);
-			if(day>7) {
-				sevenday = 1;  //可以查看
-			}
-			if(day>30) {
-				thirthday = 1;
-			}
+			if(userFriend.getUserReation() == 0) {
+				String time =  userFriend.getFirendtime();   //得到成为好友的时间
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date friendt = format.parse(time);  //成为好友的时间
+				Date date = new Date();  
+				long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
+				long diff = date.getTime()-friendt.getTime();
+				long day = diff / nd ;  
+				log.info("day:"+day);
+				if(day>7) {
+					sevenday = 1;  //可以查看
+				}
+				if(day>30) {
+					thirthday = 1;
+				}
+			}	
 		}
 
 		
@@ -537,6 +536,7 @@ public class UserMatAction extends BaseAction{
 	    		}
 	    	}
 	    }
+	
 	    returnUsermatch.setAge(age);	
 	    returnUsermatch.setNum(num);
 	    returnUsermatch.setSex(sex);

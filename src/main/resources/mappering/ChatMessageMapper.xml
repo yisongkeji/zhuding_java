@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foreseers.tj.mapper.ChatMessageMapper">
+  <resultMap id="BaseResultMap" type="com.foreseers.tj.model.ChatMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="msg_id" jdbcType="VARCHAR" property="msgId" />
+    <result column="usertime" jdbcType="VARCHAR" property="usertime" />
+    <result column="direction" jdbcType="VARCHAR" property="direction" />
+    <result column="from_user" jdbcType="VARCHAR" property="fromUser" />
+    <result column="to_user" jdbcType="VARCHAR" property="toUser" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="chat_type" jdbcType="VARCHAR" property="chatType" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="secret" jdbcType="VARCHAR" property="secret" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="thumb" jdbcType="VARCHAR" property="thumb" />
+    <result column="thumb_secret" jdbcType="VARCHAR" property="thumbSecret" />
+    <result column="addr" jdbcType="VARCHAR" property="addr" />
+    <result column="lat" jdbcType="DOUBLE" property="lat" />
+    <result column="lng" jdbcType="DOUBLE" property="lng" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, msg_id, usertime, direction, from_user, to_user, msg, type, chat_type, url, secret, 
+    filename, thumb, thumb_secret, addr, lat, lng
+  </sql>
+  <select id="selectByExample" parameterType="com.foreseers.tj.model.ChatMessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chat_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chat_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.foreseers.tj.model.ChatMessageExample">
+    delete from chat_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.foreseers.tj.model.ChatMessage">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into chat_message (msg_id, usertime, direction, 
+      from_user, to_user, msg, 
+      type, chat_type, url, 
+      secret, filename, thumb, 
+      thumb_secret, addr, lat, 
+      lng)
+    values (#{msgId,jdbcType=VARCHAR}, #{usertime,jdbcType=VARCHAR}, #{direction,jdbcType=VARCHAR}, 
+      #{fromUser,jdbcType=VARCHAR}, #{toUser,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{chatType,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{secret,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, #{thumb,jdbcType=VARCHAR}, 
+      #{thumbSecret,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{lat,jdbcType=DOUBLE}, 
+      #{lng,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foreseers.tj.model.ChatMessage">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into chat_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        msg_id,
+      </if>
+      <if test="usertime != null">
+        usertime,
+      </if>
+      <if test="direction != null">
+        direction,
+      </if>
+      <if test="fromUser != null">
+        from_user,
+      </if>
+      <if test="toUser != null">
+        to_user,
+      </if>
+      <if test="msg != null">
+        msg,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="chatType != null">
+        chat_type,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="secret != null">
+        secret,
+      </if>
+      <if test="filename != null">
+        filename,
+      </if>
+      <if test="thumb != null">
+        thumb,
+      </if>
+      <if test="thumbSecret != null">
+        thumb_secret,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="usertime != null">
+        #{usertime,jdbcType=VARCHAR},
+      </if>
+      <if test="direction != null">
+        #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUser != null">
+        #{fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="toUser != null">
+        #{toUser,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="chatType != null">
+        #{chatType,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        #{secret,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="thumb != null">
+        #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbSecret != null">
+        #{thumbSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 批量更新聊天记录 -->
+   <insert id="insertBatch" parameterType="java.util.List">
+  
+    insert into chat_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        msg_id,
+      </if>
+      <if test="usertime != null">
+        usertime,
+      </if>
+      <if test="direction != null">
+        direction,
+      </if>
+      <if test="fromUser != null">
+        from_user,
+      </if>
+      <if test="toUser != null">
+        to_user,
+      </if>
+      <if test="msg != null">
+        msg,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="chatType != null">
+        chat_type,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="secret != null">
+        secret,
+      </if>
+      <if test="filename != null">
+        filename,
+      </if>
+      <if test="thumb != null">
+        thumb,
+      </if>
+      <if test="thumbSecret != null">
+        thumb_secret,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+    </trim>
+   <foreach collection="list"  item="item" index="index" separator=",">
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="usertime != null">
+        #{usertime,jdbcType=VARCHAR},
+      </if>
+      <if test="direction != null">
+        #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUser != null">
+        #{fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="toUser != null">
+        #{toUser,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="chatType != null">
+        #{chatType,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        #{secret,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="thumb != null">
+        #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbSecret != null">
+        #{thumbSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=DOUBLE},
+      </if>
+    </trim>
+   </foreach> 
+  </insert>
+  
+  
+  
+  <select id="countByExample" parameterType="com.foreseers.tj.model.ChatMessageExample" resultType="java.lang.Long">
+    select count(*) from chat_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update chat_message
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.msgId != null">
+        msg_id = #{record.msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertime != null">
+        usertime = #{record.usertime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.direction != null">
+        direction = #{record.direction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromUser != null">
+        from_user = #{record.fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toUser != null">
+        to_user = #{record.toUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msg != null">
+        msg = #{record.msg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chatType != null">
+        chat_type = #{record.chatType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secret != null">
+        secret = #{record.secret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null">
+        filename = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumb != null">
+        thumb = #{record.thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbSecret != null">
+        thumb_secret = #{record.thumbSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null">
+        addr = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null">
+        lat = #{record.lat,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lng != null">
+        lng = #{record.lng,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update chat_message
+    set id = #{record.id,jdbcType=INTEGER},
+      msg_id = #{record.msgId,jdbcType=VARCHAR},
+      usertime = #{record.usertime,jdbcType=VARCHAR},
+      direction = #{record.direction,jdbcType=VARCHAR},
+      from_user = #{record.fromUser,jdbcType=VARCHAR},
+      to_user = #{record.toUser,jdbcType=VARCHAR},
+      msg = #{record.msg,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      chat_type = #{record.chatType,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      secret = #{record.secret,jdbcType=VARCHAR},
+      filename = #{record.filename,jdbcType=VARCHAR},
+      thumb = #{record.thumb,jdbcType=VARCHAR},
+      thumb_secret = #{record.thumbSecret,jdbcType=VARCHAR},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=DOUBLE},
+      lng = #{record.lng,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foreseers.tj.model.ChatMessage">
+    update chat_message
+    <set>
+      <if test="msgId != null">
+        msg_id = #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="usertime != null">
+        usertime = #{usertime,jdbcType=VARCHAR},
+      </if>
+      <if test="direction != null">
+        direction = #{direction,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUser != null">
+        from_user = #{fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="toUser != null">
+        to_user = #{toUser,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="chatType != null">
+        chat_type = #{chatType,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        secret = #{secret,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="thumb != null">
+        thumb = #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbSecret != null">
+        thumb_secret = #{thumbSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=DOUBLE},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foreseers.tj.model.ChatMessage">
+    update chat_message
+    set msg_id = #{msgId,jdbcType=VARCHAR},
+      usertime = #{usertime,jdbcType=VARCHAR},
+      direction = #{direction,jdbcType=VARCHAR},
+      from_user = #{fromUser,jdbcType=VARCHAR},
+      to_user = #{toUser,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      chat_type = #{chatType,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      secret = #{secret,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      thumb = #{thumb,jdbcType=VARCHAR},
+      thumb_secret = #{thumbSecret,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=DOUBLE},
+      lng = #{lng,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

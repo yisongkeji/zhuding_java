@@ -38,10 +38,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.foreseers.tj.http.httptest;
+import com.foreseers.tj.mapper.LifebookMapper;
 import com.foreseers.tj.mapper.UserTransactionMapper;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.DtProduct;
 import com.foreseers.tj.model.EmBussinsError;
+import com.foreseers.tj.model.Lifebook;
 import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserCanums;
 import com.foreseers.tj.model.UserTransaction;
@@ -63,18 +65,19 @@ public class GooglePayServiceImpl implements GooglePayService {
 	private UserService userService;
 	@Autowired
 	private UserTransactionMapper userTransactionMapper;
+	@Autowired
+	private LifebookMapper lifebookMapper;
 	
 	@Override
-	public Map check(String productId,String purchaseToken,String userid) throws Exception {
+	@Transactional
+	public Map check(String productId,String purchaseToken,String userid,String lifeuserid) throws Exception {
 	
-//		JSONObject body = JSON.parseObject(signtureData);  //购买结果
-//		String productId = body.getString("productId");   //商品ID
-//		String purchaseToken = body.getString("purchaseToken");  
-		
+
+	
 		log.info("item"+productId);
 		log.info("code"+purchaseToken);
 		//支付校验,调用命书接口判断
-		// String access_token = getToken();  //得到token
+
 		String url = "https://api2047.foreseers.com/Dating/verifyInapp"; //命书接口地址
 		Map<String,Object> map = new HashMap<>();
 		map.put("item", productId);
@@ -90,30 +93,41 @@ public class GooglePayServiceImpl implements GooglePayService {
 		returnmap.put("productId", productId);
 		returnmap.put("purchaseToken", purchaseToken);
 
-		
 		//如果成功，判断是购买的什么，进行相应的操作。并通知前端购买成功
+
 		
-			
 		if(jsn.getString("errCode").equals("200")) {
 			String orderId = jsn.getString("orderId");
 			if(orderId != "" && orderId != null) {	
 				log.info("支付成功");			
 				String item = jsn.getString("item");
 				log.info("检验结果返回的item："+item);
+			
 				//通过返回的item，判断购买的是什么， 进行相应的操作	
 				DtProduct dtProduct = dtProductService.selectByProductID(item);  //通过订单查询商品
+			
 				log.info("查询到的商品："+dtProduct);
 
 				updateUser(dtProduct,userid);   //更新用户的擦子或者vip
 				
-				//保存交易记录			
-				User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
+				//保存交易记录		
 				UserTransaction userTransaction = new UserTransaction();
+				if(lifeuserid == null) {
+					User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
+					userTransaction.setUserDate(user.getDate());
+					userTransaction.setUserTime(user.getTime());
+					userTransaction.setUserName(user.getUsername());
+					userTransaction.setGender(user.getSex());
+				}else {
+					Lifebook lifebook = lifebookMapper.selectByPrimaryKey(Integer.parseInt(lifeuserid));
+					userTransaction.setLifeuserId(Integer.parseInt(lifeuserid));
+					userTransaction.setUserDate(lifebook.getDate());
+					userTransaction.setUserTime(lifebook.getTime());
+					userTransaction.setUserName(lifebook.getName());
+					userTransaction.setGender(lifebook.getGender());
+				}
+				
 				userTransaction.setUserId(Integer.parseInt(userid));
-				userTransaction.setUserDate(user.getDate());
-				userTransaction.setUserTime(user.getTime());
-				userTransaction.setUserName(user.getUsername());
-				userTransaction.setGender(user.getSex());
 				userTransaction.setItem(productId);
 				userTransaction.setCode(purchaseToken);
 				userTransaction.setOs("A");
