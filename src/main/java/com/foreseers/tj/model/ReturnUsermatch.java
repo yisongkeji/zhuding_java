@@ -3,7 +3,7 @@ package com.foreseers.tj.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable {
+public class ReturnUsermatch extends UsermatchWithBLOBs  implements Serializable {
 
 	int age ;
 	int num;
@@ -13,23 +13,18 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 	String name;
 	String head;
 	//List<UserImage> images;
-	List<String> images;
-	int lookimages ;
-	String ziwei;
-	int sevenday;
-	int thirthday;
-	int lookhead;
+//	List<String> images;
+//	int lookimages ;
+//	String ziwei;
+//	int sevenday;
+//	int thirthday;
+//	int lookhead;
 	int vip;
 	
-	
-	
-	public List<String> getImages() {
-		return images;
-	}
 
-	public void setImages(List<String> images) {
-		this.images = images;
-	}
+
+
+
 
 	public int getVip() {
 		return vip;
@@ -39,45 +34,9 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 		this.vip = vip;
 	}
 
-	public int getLookhead() {
-		return lookhead;
-	}
 
-	public void setLookhead(int lookhead) {
-		this.lookhead = lookhead;
-	}
 
-	public String getZiwei() {
-		return ziwei;
-	}
 
-	public void setZiwei(String ziwei) {
-		this.ziwei = ziwei;
-	}
-
-	public int getSevenday() {
-		return sevenday;
-	}
-
-	public void setSevenday(int sevenday) {
-		this.sevenday = sevenday;
-	}
-
-	public int getThirthday() {
-		return thirthday;
-	}
-
-	public void setThirthday(int thirthday) {
-		this.thirthday = thirthday;
-	}
-
-	public int getLookimages() {
-		return lookimages;
-	}
-
-	public void setLookimages(int lookimages) {
-		this.lookimages = lookimages;
-	}
 
 
 	public String getHead() {
@@ -135,6 +94,24 @@ public class ReturnUsermatch extends UsermatchWithBLOBs implements Serializable 
 	public void setFriend(int friend) {
 		this.friend = friend;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ReturnUsermatch [age=").append(age).append(", num=").append(num).append(", ");
+		if (sex != null)
+			builder.append("sex=").append(sex).append(", ");
+		if (obligate != null)
+			builder.append("obligate=").append(obligate).append(", ");
+		builder.append("friend=").append(friend).append(", ");
+		if (name != null)
+			builder.append("name=").append(name).append(", ");
+		if (head != null)
+			builder.append("head=").append(head).append(", ");
+		builder.append("vip=").append(vip).append("]");
+		return builder.toString();
+	}
+
 
 
 

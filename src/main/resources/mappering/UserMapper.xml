@@ -292,7 +292,7 @@
  <select id="QueryUserByNUM" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select id
  <!--   <include refid="Base_Column_List" /> --> 
-    from (select * from dt_user   ORDER BY num desc LIMIT #{paihang,jdbcType=INTEGER} ) t 
+    from (select * from dt_user where id != #{userid,jdbcType=INTEGER}  ORDER BY num desc LIMIT #{paihang,jdbcType=INTEGER} ) t 
    ORDER BY RAND() LIMIT #{getnum,jdbcType=INTEGER};   
   </select>
   

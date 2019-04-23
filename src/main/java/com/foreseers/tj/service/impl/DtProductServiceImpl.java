@@ -89,13 +89,23 @@ public class DtProductServiceImpl implements DtProductService {
 		DtProductExample productExample = new DtProductExample();
 		productExample.setDistinct(false);
 		List<DtProduct>  list = dtProductMapper.selectByExample(productExample);
-		List<List> retuenlist = new ArrayList<>();
-		List<ReturnProduct> listiap = new ArrayList<>();
+	//	List<List> retuenlist = new ArrayList<>();
+		List<ReturnProduct> retuenlist = new ArrayList<>();
 		for(DtProduct dtProduct:list) {
 			if(dtProduct.getStatus().equals("Active")) {
 				//商品的信息是活动的
 				if(dtProduct.getType().equals("iap")) {
 					log.info("有命书的接口");
+					
+					ReturnProduct returnProduct = new ReturnProduct();
+					returnProduct.setId(dtProduct.getId());
+					returnProduct.setAppleID(dtProduct.getAppleid());
+					returnProduct.setGoogleID(dtProduct.getGoogleid());
+					returnProduct.setName(dtProduct.getAppname());
+					returnProduct.setType(dtProduct.getType());
+					retuenlist.add(returnProduct);
+					
+				/*	
 					if(dtProduct.getSpareint() == null) {		
 						log.info("不是");
 						ReturnProduct returnProduct = new ReturnProduct();
@@ -118,15 +128,16 @@ public class DtProductServiceImpl implements DtProductService {
 							listiap.add(returnProduct);
 						}						
 					}
-	
+				*/
+					
 				}
 			}
 		}
 		
 		//Collections.sort(listiap);
 		
-		retuenlist.add(listiap);
-		log.info("返回的参数");
+	
+		log.info("返回的参数:"+retuenlist);
 		return retuenlist;
 	}
 

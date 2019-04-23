@@ -74,6 +74,23 @@ public class ReturnProduct implements Comparable<ReturnProduct>{
 	//	return this.getId()-o.getId();
 		return o.getId()-this.getId();
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ReturnProduct [");
+		if (id != null)
+			builder.append("id=").append(id).append(", ");
+		if (googleID != null)
+			builder.append("googleID=").append(googleID).append(", ");
+		if (appleID != null)
+			builder.append("appleID=").append(appleID).append(", ");
+		if (name != null)
+			builder.append("name=").append(name).append(", ");
+		if (type != null)
+			builder.append("type=").append(type);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	
 }

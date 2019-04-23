@@ -40,7 +40,7 @@ public class GooglePay extends BaseAction {
 		log.info("支付检验方法");
 	
 	
-		String productId = request.getParameter("productId");   //google 支付返回的字符串
+		String productId = request.getParameter("productId");   //google 商品ID
 		String purchaseToken = request.getParameter("purchaseToken");   //google 支付返回的字符串
 		String userid = request.getParameter("userid");
 		String lifeuserid = request.getParameter("lifeuserid");

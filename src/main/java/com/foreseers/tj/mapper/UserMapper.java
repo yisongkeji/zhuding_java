@@ -39,7 +39,7 @@ public interface UserMapper {
 
 	List<User> selectUserlistbyCountry(User user);
 
-	List<Integer> QueryUserByNUM(Integer paihang, Integer getnum);
+	List<Integer> QueryUserByNUM(Integer paihang, Integer getnum,Integer userid);
 
 	List<Integer> QueryUserByqueNUM(Map map);
 

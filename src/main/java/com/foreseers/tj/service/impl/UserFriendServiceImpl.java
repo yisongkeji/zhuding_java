@@ -80,7 +80,7 @@ public class UserFriendServiceImpl implements UserFriendService {
 		userFriend.setLookimages(Integer.parseInt((String)map.get("lookimages")));
 		int num = userFriendMapper.updateByPrimaryKeySelective(userFriend);
 		//System.out.println(num);
-		String result = "false";
+		String result = "fail";
 		if(num == 1) {
 			result = "success";
 		}

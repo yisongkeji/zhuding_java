@@ -54,6 +54,7 @@ public class LifeBookController extends BaseAction{
 		map.put("gender", gender);
 		map.put("timezone", timezone);
 		map.put("userid", userid);
+		map.put("self", "other");
 	//	map.put("isLeap", isLeap);
 		log.info("请求的参数：map:"+map);
 		
@@ -67,7 +68,7 @@ public class LifeBookController extends BaseAction{
 	 */
 	@RequestMapping("/lifebookUser")
 	@ResponseBody
-	public ResultType lifebookUser(HttpServletRequest request) throws BusinessExpection {
+	public ResultType lifebookUser(HttpServletRequest request) throws BusinessExpection, NumberFormatException, IOException {
 		String lifeuserid = request.getParameter("lifeuserid");
 		if(lifeuserid == null) {
 			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
@@ -87,8 +88,9 @@ public class LifeBookController extends BaseAction{
 	public ResultType lifeBookCate(HttpServletRequest request) throws ClientProtocolException, IOException {
 		
 		String lifeuserid  = request.getParameter("lifeuserid");
+		String userid = request.getParameter("userid");
 		
-		List<Map> list = lifeBookService.lifeBookCate(Integer.parseInt(lifeuserid));
+		List<Map> list = lifeBookService.lifeBookCate(Integer.parseInt(lifeuserid),Integer.parseInt(userid));
 		return ResultType.creat(list);
 	}
 	
@@ -119,20 +121,20 @@ public class LifeBookController extends BaseAction{
 	@ResponseBody
 	public  ResultType lifeBookDetailname(HttpServletRequest request) throws BusinessExpection {
 		log.info("进入算命详细信息接口");
-		String lifesuerid = request.getParameter("lifesuerid");
+		String lifeuserid = request.getParameter("lifeuserid");
 		String name = request.getParameter("name");
 		String title = request.getParameter("title");
-		log.info("请求的参数：lifesuerid："+lifesuerid);
+		log.info("请求的参数：lifesuerid："+lifeuserid);
 		log.info("请求的参数：name："+name);
 		log.info("请求的参数：title："+title);
-		if(lifesuerid == null || name == null || title == null) {
+		if(lifeuserid == null || name == null || title == null) {
 			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
 		}
 		
 		Map<String,String> map = new HashMap<>();
 		map.put("name", name);
 		map.put("title", title);
-		map.put("lifesuerid", lifesuerid);
+		map.put("lifesuerid", lifeuserid);
 		
 		List returnlist = lifeBookService.lifeBookDetailname(map);
 		
@@ -147,7 +149,7 @@ public class LifeBookController extends BaseAction{
 	 */
 	@RequestMapping("/lifeUser")
 	@ResponseBody
-	public ResultType lifeUser(HttpServletRequest request) throws BusinessExpection {
+	public ResultType lifeUser(HttpServletRequest request) throws BusinessExpection, NumberFormatException, IOException {
 		log.info("进入命书用户列表接口");
 		String userid = request.getParameter("userid");
 		log.info("请求参数：userid："+userid);

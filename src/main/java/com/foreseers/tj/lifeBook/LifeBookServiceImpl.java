@@ -31,7 +31,9 @@ import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.Lifebook;
 import com.foreseers.tj.model.LifebookDetail;
 import com.foreseers.tj.model.Timezone;
+import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserTransaction;
+import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.ZoneService;
 
 import javafx.print.JobSettings;
@@ -52,6 +54,10 @@ public class LifeBookServiceImpl implements LifeBookService {
 	
 	@Autowired
 	private LifebookDetailMapper lifebookDetailMapper;
+	
+	@Autowired
+	private UserService userService;
+
 	
 	@Value("${hash}")
 	private String hash;
@@ -193,6 +199,11 @@ public class LifeBookServiceImpl implements LifeBookService {
 			lifebook.setZiwei(ziweivalue);
 			lifebook.setZiweimatch(ziweimatch);
 			lifebook.setStatus("Active");
+			if(map.get("self").equals("self")) {
+				lifebook.setSpareint(1);	
+			}else {
+				lifebook.setSpareint(0);
+			}
 			 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			 String time = sdf.format(new Date());
 			 lifebook.setCreated(time);
@@ -212,7 +223,8 @@ public class LifeBookServiceImpl implements LifeBookService {
 			 returnmap.put("ziweimatch", ziweimatch);
 			 returnmap.put("bazi", bazivalue);
 			 returnmap.put("bazimatch", bazimatch);
-			 		 
+			 returnmap.put("self", lifebook.getSpareint());	
+			 
 		}else {
 			log.error("调通接口失败");
 			throw new BusinessExpection(EmBussinsError.MINGSHU_ERROR);
@@ -229,11 +241,29 @@ public class LifeBookServiceImpl implements LifeBookService {
 	 */
 	@Override
 	@Transactional
-	public List<Map> lifeBookCate(int lifeuserid) throws ClientProtocolException, IOException {
+	public List<Map> lifeBookCate(int lifeuserid,int userid) throws ClientProtocolException, IOException {
 		
 		// TODO Auto-generated method stub
 		Map<String,String> map = new HashMap<>();
 		List<Map>  relist = new ArrayList<>();
+		
+		 Map<String,Object>  iapmap = new HashMap<>();
+		 iapmap.put("name", "整套命書");
+		 iapmap.put("size", 5);
+		 iapmap.put("storeId", "iap100");
+		 UserTransaction UserTransactioninfo = new UserTransaction();
+		 UserTransactioninfo.setLifeuserId(lifeuserid);
+		 UserTransactioninfo.setItem("com.foreseers.chat.iap100");
+		 UserTransaction userTransactioninfo = userTransactionMapper.selectByUserTransaction(UserTransactioninfo);
+		 if(userTransactioninfo == null) {
+			 log.info("没有购买过");
+			 iapmap.put("sign", 0);
+		 }else {
+			 log.info("购买过");
+			 iapmap.put("sign", 1);
+		 }
+		 relist.add(iapmap);
+		 
 		String url = "https://api2047.foreseers.com/Dating/lifeBookCate";
 		map.put("hash", hash);
 		String result =  httptest.sendPostDataByJson(url,JSON.toJSONString(map), "utf-8");
@@ -262,6 +292,7 @@ public class LifeBookServiceImpl implements LifeBookService {
 				 UserTransaction UserTransaction = new UserTransaction();
 				// UserTransaction.setUserId(lifeuserid);
 				 UserTransaction.setLifeuserId(lifeuserid);
+				 UserTransaction.setUserId(userid);
 				 UserTransaction.setItem("com.foreseers.chat."+storeId);
 				 
 				 UserTransaction userTransaction = userTransactionMapper.selectByUserTransaction(UserTransaction);
@@ -272,13 +303,14 @@ public class LifeBookServiceImpl implements LifeBookService {
 					 log.info("购买过");
 					 remap.put("sign", 1);
 				  }	
-				 }  
+				 }		 
 				 if(!"iap6".equals(storeId)) {
 					 relist.add(remap);
 				 }
 				
 			 }
-			
+
+			 
 		}
 		
 		log.info("返回的参数："+relist);
@@ -365,10 +397,29 @@ public class LifeBookServiceImpl implements LifeBookService {
 		return list;
 	}
 
+	/*
+	 * 命书用户列表(non-Javadoc)
+	 * @see com.foreseers.tj.lifeBook.LifeBookService#lifeUser(int)
+	 */
 	@Override
 	@Transactional
-	public List<Map> lifeUser(int parseInt) {
+	public List<Map> lifeUser(int parseInt) throws BusinessExpection, IOException {
 		// TODO Auto-generated method stub
+		Lifebook lifebookinfo = lifebookSelf(parseInt);
+		if(lifebookinfo == null) {
+			User user = userService.selectByPrimaryKey(parseInt);
+			Timezone timezone = zoneService.selectByPrimaryKey(user.getZone());
+			log.info("注册自身命书");
+			Map<String,String> map = new HashMap<>();
+			map.put("name", user.getUsername());
+			map.put("date", user.getDate());
+			map.put("time", user.getTime());
+			map.put("gender", user.getSex());
+			map.put("timezone", timezone.getName());
+			map.put("userid", parseInt+"");
+			map.put("self", "self");
+			lifeBook(map);
+		}
 		List<Lifebook> list = lifebookMapper.lifeUser(parseInt);
 		List<Map> returnlist = new ArrayList<>();
 		for(Lifebook lifebook:list) {
@@ -378,6 +429,7 @@ public class LifeBookServiceImpl implements LifeBookService {
 				map.put("name", lifebook.getName());
 				map.put("date", lifebook.getDate());
 				map.put("time", lifebook.getTime());
+				map.put("self", lifebook.getSpareint());
 				returnlist.add(map);
 			}
 		}
@@ -444,8 +496,10 @@ public class LifeBookServiceImpl implements LifeBookService {
 	 * 命书用户详情
 	 */
 	@Override
-	public Map lifebookUser(int parseInt) {
+	public Map lifebookUser(int parseInt) throws BusinessExpection, IOException {
 		// TODO Auto-generated method stub
+
+		
 		 Map<String,Object> returnmap = new HashMap<>();
 		Lifebook lifebook = lifebookMapper.selectByPrimaryKey(parseInt);
 		if(lifebook != null) {
@@ -464,6 +518,18 @@ public class LifeBookServiceImpl implements LifeBookService {
 			returnmap.put("bazimatch", lifebook.getBazimatch());
 		}
 		return returnmap;
+	}
+
+	/*
+	 * 查询用户自身命书
+	 * @see com.foreseers.tj.lifeBook.LifeBookService#lifebookSelf(int)
+	 */
+	@Override
+	public Lifebook lifebookSelf(int userid) {
+		// TODO Auto-generated method stub
+		
+		//lifebookMapper.lifebookSelf(userid);
+		return lifebookMapper.lifebookSelf(userid);
 	}
 
 }

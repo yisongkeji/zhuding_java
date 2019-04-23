@@ -36,4 +36,7 @@ public interface LifebookMapper {
     
     //通过用户ID查询用户的命书用户
     List<Lifebook> lifeUser(int parseInt);
+    
+  //查询用户自身命书
+  	Lifebook lifebookSelf(int userid);
 }

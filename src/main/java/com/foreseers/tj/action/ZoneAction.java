@@ -56,7 +56,7 @@ public class ZoneAction{
 	
 	@RequestMapping("/gettime")
 	@ResponseBody
-	public String  getTimezone(HttpServletRequest re) {
+	public ResultType  getTimezone(HttpServletRequest re) {
 		String name = re.getParameter("name");
 	//	Timezone zone =  zoneService.selectByName(name);
 	//	String date = re.getParameter("date");
@@ -64,7 +64,7 @@ public class ZoneAction{
 	//	 int age = datetime.getYear()+1900-Integer.parseInt(date);
 
 		
-		return name;
+		return ResultType.creat("success");
 		
 	}
 

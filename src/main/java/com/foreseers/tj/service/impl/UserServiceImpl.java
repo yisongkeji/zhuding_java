@@ -10,18 +10,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.foreseers.tj.http.httptest;
+import com.foreseers.tj.huanxin.HttpHuanxin;
+import com.foreseers.tj.lifeBook.LifeBookService;
+import com.foreseers.tj.mapper.UserCanumsMapper;
 import com.foreseers.tj.mapper.UserMapper;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.User;
 import com.foreseers.tj.model.UserCaHistory;
+import com.foreseers.tj.model.UserCanums;
 import com.foreseers.tj.model.UserExample;
 import com.foreseers.tj.model.UserFriend;
 import com.foreseers.tj.model.UserImage;
@@ -29,6 +40,7 @@ import com.foreseers.tj.service.UserCaHistoryService;
 import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
+import com.foreseers.tj.util.getAge;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.resizers.configurations.ScalingMode;
@@ -46,6 +58,13 @@ public class UserServiceImpl implements UserService {
 	private UserFriendService userFriendService;
 	@Autowired
 	private UserCaHistoryService userCaHistoryService;
+	@Autowired
+	private UserCanumsMapper userCanumsMapper;
+	@Autowired
+	private LifeBookService lifeBookService;
+	
+	@Value("${huanxinkey}")
+	private String huanxinkey;
 	
 	@Override
 	public int insertSelective(User record) {
@@ -91,9 +110,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Integer> QueryUserByNUM(Integer paihang, Integer getnum) {
+	public List<Integer> QueryUserByNUM(Integer paihang, Integer getnum,Integer userid) {
 		// TODO Auto-generated method stub
-		return userMapper.QueryUserByNUM(paihang, getnum);
+		return userMapper.QueryUserByNUM(paihang, getnum,userid);
 	}
 
 	@Override
@@ -259,6 +278,173 @@ public class UserServiceImpl implements UserService {
     	}
 		
 		return lookhead;
+	}
+
+	/*
+	 * 用户注册
+	 * @see com.foreseers.tj.service.UserService#insertUser(java.util.Map)
+	 */
+	@Override
+	@Transactional
+	public User insertUser(Map<String,Object> parmap) throws ClientProtocolException, IOException, BusinessExpection {
+		
+		String username = (String)parmap.get("username");
+		String date = (String)parmap.get("date");
+		String time = (String)parmap.get("time");
+		String gender = (String)parmap.get("gender");
+		String facebookid = (String)parmap.get("facebookid");
+		int  zone = (int)parmap.get("zone");
+		String country = (String)parmap.get("country");
+		String city = (String)parmap.get("city");
+		String area = (String)parmap.get("area");
+		String spare = (String)parmap.get("spare");
+		String spare1 = (String)parmap.get("spare1");
+		String lat = (String)parmap.get("lat");   //经度
+		String lng = (String)parmap.get("lng");   //纬度	
+		String zoneString = (String)parmap.get("zoneString");
+		
+		String ziwei = "";        //ziwei
+		String numerology = "";  //num
+		String horoscope = "";  //星座
+		String zodiac = "";    //生肖		
+		String bazi = "";     //八字
+		String cat1 = "";
+		String star = "";
+		
+		getAge getage = new getAge();
+		int age = getage.jiuanAge(date);
+		
+		
+		//现将用户信息插入表中
+		User userinfo = new User();
+		userinfo.setFacebook(facebookid);
+		userinfo.setUsername(username);
+		userinfo.setDate(date);
+		userinfo.setTime(time);
+		userinfo.setZone(zone);
+		userinfo.setCountry(country);
+		userinfo.setCity(city);
+		userinfo.setArea(area);
+		userinfo.setSpare(spare);
+		userinfo.setSpare1(spare1);
+		userinfo.setLat(Double.parseDouble(lat));
+		userinfo.setLng(Double.parseDouble(lng));
+		userinfo.setReservedint(age);
+		userinfo.setReservedvar(20+"");
+		log.info("user:"+userinfo);
+		 insertSelective(userinfo); 
+		log.info("保存到数据库成功");
+	//	int accountId = userinfo.getId();
+		User user1= QueryUser(facebookid);
+		int accountId = user1.getId();
+		log.info("用户的id:"+accountId);
+		log.info("accountId"+accountId);
+		String url = "https://api2047.foreseers.com/Dating/personalAnalysis";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("date", date);
+		map.put("time", time);
+		map.put("gender", gender);
+		map.put("accountId",accountId);
+		map.put("timezone", zone);
+		
+		httptest httptest = new httptest();
+		                     //sendPostDataByJson
+		log.info("调用命书接口");
+		String body = httptest.sendPostDataByJson(url,JSON.toJSONString(map),"utf-8");
+		log.info(body);
+		JSONObject jsn = JSON.parseObject(body);
+		 String errcode = jsn.getString("errCode");
+		if(errcode.equals("200") ) {
+			log.info("调用接口成功");
+			numerology = jsn.getString("numerology");  
+		    cat1 = jsn.getString("cat1");  //五行
+		    star = jsn.getString("star");  
+			horoscope = jsn.getString("horoscope");  //星座
+			zodiac = jsn.getString("zodiac");   //生肖
+			//ziwei
+			JSONArray ziweiArry = jsn.getJSONArray("ziwei");  
+			StringBuffer str = new StringBuffer();
+			String str1 = "";
+			 for(int j= 0;j<ziweiArry.size();j++) {
+				  String ziwei1 = ziweiArry.get(j).toString();
+				  str1 =  str.append(ziwei1+",").toString();
+			 } 
+			ziwei =  str1.substring(0,str1.length()-1);    //得到ziwei
+			 //八字
+			JSONArray baziarry = jsn.getJSONArray("bazi");    
+			StringBuffer strba = new StringBuffer();
+			String  strbazi = "";
+			for(int i = 0;i<baziarry.size();i++) {
+				strbazi = strba.append(baziarry.get(i)+",").toString();
+			}
+			bazi = strbazi.substring(0,strbazi.length()-1);
+					
+		}else {			
+			//userService.
+			log.error("调用接口失败");
+			log.error("errcode:"+errcode);
+			deleteByPrimaryKey(accountId);  //将用户记录删除
+			throw new BusinessExpection(EmBussinsError.MINGSHU_ERROR);
+		}
+		
+		// *环信注册 
+		 
+		HttpHuanxin httpHuanxin = new HttpHuanxin();
+		log.info("用户注册环信");
+	       String hstr= huanxinkey+"users";
+	       Map<String,Object> maph = new HashMap<String, Object>();
+	        maph.put("username", userinfo.getId());
+	        maph.put("password", "123");
+	        maph.put("nickname", username);
+	        CloseableHttpResponse reponse =  httpHuanxin.sendPostDataByJson(hstr, JSON.toJSONString(maph), "utf-8",null);
+	        int status = reponse.getStatusLine().getStatusCode();
+	        if(status != 200) {
+	        	log.error("环信接口注册失败");
+	        	log.error("状态码："+status);
+	        	deleteByPrimaryKey(accountId);  //将用户记录删除
+	        	throw new BusinessExpection(EmBussinsError.HUANXIN_ERROR);
+	        }
+	        
+			
+		User user = new User();
+		user.setId(accountId);
+		user.setSex(gender);
+		user.setBazi(bazi);
+		user.setUsername(username);
+		user.setDate(date);
+		user.setTime(time);
+		user.setFacebook(facebookid);
+		user.setCat1(cat1);
+		//user.setNum(Integer.parseInt(numerology));
+		user.setNumerology(Integer.parseInt(numerology));
+		user.setXingzuo(horoscope);
+		user.setZiwei(ziwei);
+		user.setZone(zone);
+		user.setZodiac(zodiac);
+		user.setUserstar(Integer.parseInt(star));
+		
+		log.info("返回值:"+user);
+		updateByPrimaryKeySelective(user);
+		//插入用户擦子数表
+		UserCanums UserCanums = new UserCanums();
+		UserCanums.setUserid(accountId);
+		UserCanums.setNums(0);
+		UserCanums.setEveryday(0);
+		UserCanums.setVipeveryday(0);
+		userCanumsMapper.insertSelective(UserCanums);
+		//用户注册命书
+		Map<String,String> lifemap = new HashMap<>();
+		lifemap.put("name", username);
+		lifemap.put("date", date);
+		lifemap.put("time", time);
+		lifemap.put("gender", gender);
+		lifemap.put("timezone", zoneString);
+		lifemap.put("userid", accountId+"");
+		lifemap.put("self", "self");
+		
+		lifeBookService.lifeBook(lifemap);
+		
+		return user;
 	}
 
 

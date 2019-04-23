@@ -40,10 +40,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.foreseers.tj.http.httptest;
 import com.foreseers.tj.huanxin.HttpHuanxin;
+import com.foreseers.tj.lifeBook.LifeBookService;
 import com.foreseers.tj.mapper.UserMapper;
 import com.foreseers.tj.mapper.ZoneMapper;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
+import com.foreseers.tj.model.Lifebook;
 import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.ReturnImage;
 import com.foreseers.tj.model.ReturnUser;
@@ -81,6 +83,9 @@ public class UserAction extends BaseAction{
 	
 	@Autowired
 	private UserCanumsService userCanumsService; 
+	
+	@Autowired
+	private LifeBookService lifeBookService;
 	
 	@Autowired
 	private WebUpload webUpload;
@@ -188,12 +193,28 @@ public class UserAction extends BaseAction{
 			throw new BusinessExpection(EmBussinsError.UNKNOWN_ERROR);
 			
 		}
-		//计算年龄
-//		 Date datetime = new Date();
-//		 String dateyear[] =  date.split("-");		 
-//		 int age = datetime.getYear()+1900-Integer.parseInt(dateyear[0]);	    
+		Map<String,Object> parmap = new HashMap<>();
+		parmap.put("username", username);
+		parmap.put("date", date);
+		parmap.put("time", time);
+		parmap.put("gender", gender);
+		parmap.put("facebookid", facebookid);
+		parmap.put("zone", zone);
+		parmap.put("country", country);
+		parmap.put("city", city);
+		parmap.put("area", area);
+		parmap.put("spare", spare);
+		parmap.put("spare1", spare1);
+		parmap.put("lat", lat);
+		parmap.put("lng", lng);
+	//	parmap.put("area", area);
+		parmap.put("zoneString", zoneString);
+		
+		User user = userService.insertUser(parmap);
+		/*
 		getAge getage = new getAge();
 		int age = getage.jiuanAge(date);
+		
 		
 		//现将用户信息插入表中
 		User userinfo = new User();
@@ -266,9 +287,9 @@ public class UserAction extends BaseAction{
 			userService.deleteByPrimaryKey(accountId);  //将用户记录删除
 			throw new BusinessExpection(EmBussinsError.MINGSHU_ERROR);
 		}
-		/*
-		 *环信注册 
-		 */
+		
+		// *环信注册 
+		 
 		HttpHuanxin httpHuanxin = new HttpHuanxin();
 		log.info("用户注册环信");
 	       String hstr=  "http://a1.easemob.com/1106190114019314/foreseers/users";
@@ -285,9 +306,7 @@ public class UserAction extends BaseAction{
 	        	throw new BusinessExpection(EmBussinsError.HUANXIN_ERROR);
 	        }
 	        
-			/*
-			 *环信注册 
-			 */		
+			
 		User user = new User();
 		user.setId(accountId);
 		user.setSex(gender);
@@ -316,6 +335,8 @@ public class UserAction extends BaseAction{
 		userCanumsService.insertSelective(UserCanums);
 		//插入用户擦子数表
 		
+		*/
+		log.info("返回的参数："+user);
 		return ResultType.creat(user);
 	}
 	
@@ -515,7 +536,10 @@ public class UserAction extends BaseAction{
 				}
 				
 			}			
-			//returnImage.setAge(age);
+			Lifebook lifebook = lifeBookService.lifebookSelf(userid);
+			if(lifebook != null ) {
+				returnImage.setLifeuserid(lifebook.getId());
+			}		
 			returnImage.setVipday((int)vipday);
 			returnImage.setCountnum(countimage);
 			returnImage.setListimage(listimage);
@@ -828,7 +852,22 @@ public class UserAction extends BaseAction{
 		return ResultType.creat(returnlist);
 	}
 	
-	
+	@RequestMapping("/getVipTime")
+	@ResponseBody
+	public ResultType getVipTime(HttpServletRequest request) throws BusinessExpection {
+		String userid = request.getParameter("userid");
+		if(userid == null) {
+			throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);
+		}
+		
+		User user = userService.selectByPrimaryKey(Integer.parseInt(userid));
+		Map<String,Object> map = new HashMap<>();
+		map.put("name", user.getUsername());
+		map.put("head", user.getHead());
+		map.put("viptime", user.getViptime());
+		
+		return ResultType.creat(map);
+	}
 
 	
 }

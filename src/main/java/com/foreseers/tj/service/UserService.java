@@ -1,8 +1,11 @@
 package com.foreseers.tj.service;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.ReturnUser;
@@ -24,7 +27,7 @@ public interface UserService {
 	 
 	 List<User> selectByExample(UserExample example);
 	 
-	 List<Integer> QueryUserByNUM(Integer paihang,Integer getnum);
+	 List<Integer> QueryUserByNUM(Integer paihang,Integer getnum,Integer userid);
 	 
 	 List<Integer> QueryUserByqueNUM(Map map);
 	 
@@ -40,4 +43,6 @@ public interface UserService {
 	
 	//判断头像是否是清晰头像
 	int showUserHead(int userid,int userinfoid);
+	
+	User insertUser(Map<String,Object> map) throws ClientProtocolException, IOException, BusinessExpection;
 }

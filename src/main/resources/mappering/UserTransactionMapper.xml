@@ -110,7 +110,7 @@
     select 
     <include refid="Base_Column_List" />
     from user_transaction
-    where lifeuser_id = #{lifeuserId,jdbcType=INTEGER}  and item = #{item,jdbcType=VARCHAR}
+    where lifeuser_id = #{lifeuserId,jdbcType=INTEGER}  and item = #{item,jdbcType=VARCHAR} and user_id = #{userId,jdbcType=INTEGER}
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

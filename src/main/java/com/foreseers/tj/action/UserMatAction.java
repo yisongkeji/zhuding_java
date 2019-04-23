@@ -19,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,9 +28,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.foreseers.tj.http.LocationUtils;
 import com.foreseers.tj.http.httptest;
+import com.foreseers.tj.lifeBook.LifeBookService;
 import com.foreseers.tj.mapper.UserDefriendMapper;
 import com.foreseers.tj.model.BusinessExpection;
 import com.foreseers.tj.model.EmBussinsError;
+import com.foreseers.tj.model.Lifebook;
 import com.foreseers.tj.model.ResultType;
 import com.foreseers.tj.model.ReturnUser;
 import com.foreseers.tj.model.ReturnUsermatch;
@@ -46,6 +49,7 @@ import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.service.UsermatchService;
+import com.foreseers.tj.util.ReturnUserInfo;
 import com.foreseers.tj.util.getAge;
 
 @Controller
@@ -67,9 +71,12 @@ public class UserMatAction extends BaseAction{
 	@Autowired
 	private UserDefriendMapper userDefriendMapper;
 	
+	@Autowired
+	private LifeBookService lifeBookService;
+	
 	@RequestMapping("/matching")
 	@ResponseBody
-	public ResultType matching(HttpServletRequest request) throws BusinessExpection, ClientProtocolException, IOException {
+	public synchronized ResultType matching(HttpServletRequest request) throws BusinessExpection, ClientProtocolException, IOException {
 		log.info("进入推荐附近的人的方法");
 		String facebook = request.getParameter("facebookid");
 		String country = request.getParameter("country");
@@ -180,7 +187,7 @@ public class UserMatAction extends BaseAction{
 			//插入两个根据num排行的随机数
 			int paihang = 20;
 			int getnum = 2;
-			 listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
+			 listuser = userService.QueryUserByNUM(paihang, getnum,accountId);  //推送上去的人
 			for(int j = 0;j<listuser.size();j++) {
 				if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {
 					idlist.add(listuser.get(j));   //添加推送的id
@@ -204,42 +211,46 @@ public class UserMatAction extends BaseAction{
 			if(idlist.size()<100) {
 				int paihang = 40;
 				int getnum = 5;
-				listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
+				listuser = userService.QueryUserByNUM(paihang, getnum,accountId);  //推送上去的人
 				for(int j = 0;j<listuser.size();j++) {
-					idlist.add(listuser.get(j));
-					log.info("推送的用户id为："+listuser.get(j));
-					 User touser = userService.selectByPrimaryKey(listuser.get(j)); //获得推送的人
-					 Double tolat = touser.getLat();
-					 Double tolan = touser.getLng();
-					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //计算距离 
-					 log.info("计算推送用户的距离："+distance);
-					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
-					 usermatchWithBLOBs.setZhuid(accountId);
-					 usermatchWithBLOBs.setCongid(listuser.get(j));
-					 usermatchWithBLOBs.setDistance(distance);
-					 log.info("重新计算推送的人距离");
-					 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
-					 mapd.put(listuser.get(j), distance);
+					if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {
+						idlist.add(listuser.get(j));
+						log.info("推送的用户id为："+listuser.get(j));
+						 User touser = userService.selectByPrimaryKey(listuser.get(j)); //获得推送的人
+						 Double tolat = touser.getLat();
+						 Double tolan = touser.getLng();
+						 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //计算距离 
+						 log.info("计算推送用户的距离："+distance);
+						 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+						 usermatchWithBLOBs.setZhuid(accountId);
+						 usermatchWithBLOBs.setCongid(listuser.get(j));
+						 usermatchWithBLOBs.setDistance(distance);
+						 log.info("重新计算推送的人距离");
+						 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+						 mapd.put(listuser.get(j), distance);
+					} 
 				}				
 			}else {
 				int paihang = 100;
 				int getnum = 10;
-				listuser = userService.QueryUserByNUM(paihang, getnum);  //推送上去的人
+				listuser = userService.QueryUserByNUM(paihang, getnum,accountId);  //推送上去的人
 				for(int j = 0;j<listuser.size();j++) {
-					idlist.add(listuser.get(j));	
-					log.info("推送的用户id为："+listuser.get(j));
-					 User touser = userService.selectByPrimaryKey(listuser.get(j)); //获得推送的人
-					 Double tolat = touser.getLat();
-					 Double tolan = touser.getLng();
-					 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //计算距离 
-					 log.info("计算推送用户的距离："+distance);
-					 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
-					 usermatchWithBLOBs.setZhuid(accountId);
-					 usermatchWithBLOBs.setCongid(listuser.get(j));
-					 usermatchWithBLOBs.setDistance(distance);
-					 log.info("重新计算推送的人距离");
-					 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
-					 mapd.put(listuser.get(j), distance);
+					if((!idlist.contains(listuser.get(j))) && (listuser.get(j)!= accountId)) {
+						idlist.add(listuser.get(j));	
+						log.info("推送的用户id为："+listuser.get(j));
+						 User touser = userService.selectByPrimaryKey(listuser.get(j)); //获得推送的人
+						 Double tolat = touser.getLat();
+						 Double tolan = touser.getLng();
+						 distance = local.getDistance(Double.parseDouble(lat),Double.parseDouble(lng), tolat, tolan); //计算距离 
+						 log.info("计算推送用户的距离："+distance);
+						 UsermatchWithBLOBs usermatchWithBLOBs = new UsermatchWithBLOBs();
+						 usermatchWithBLOBs.setZhuid(accountId);
+						 usermatchWithBLOBs.setCongid(listuser.get(j));
+						 usermatchWithBLOBs.setDistance(distance);
+						 log.info("重新计算推送的人距离");
+						 usermatchService.updateByzhuidKeySelective(usermatchWithBLOBs);
+						 mapd.put(listuser.get(j), distance);
+					}
 				}
 				
 			}
@@ -435,6 +446,146 @@ public class UserMatAction extends BaseAction{
 		return ResultType.creat(returnUserlist);
 	}
 	
+	
+	//
+	@RequestMapping("/userInfo")
+	@ResponseBody
+	public ResultType userInfo(HttpServletRequest request) throws BusinessExpection, ParseException {
+		log.info("进入好友详情页方法");
+		String uid = request.getParameter("uid");  						//当前用户id
+		int userid = Integer.parseInt(request.getParameter("userid"));  //其他人id
+		int userinfoid = Integer.parseInt(uid);	
+		log.info("请求参数：userinfoid"+userinfoid);
+		log.info("请求参数：userid"+userid);
+	//	int lookhead = 0;
+		ReturnUserInfo returnUsermatch = new ReturnUserInfo();
+		UsermatchWithBLOBs usermatchWithBLOBs = usermatchService.usermatchQuery(userinfoid, userid);
+		User user = userService.selectByPrimaryKey(userid);
+		if(usermatchWithBLOBs == null) {
+			log.error("两人之间没有关系");
+			throw new BusinessExpection(EmBussinsError.USER_NOT_EXIT);
+		}
+		UserFriend userFriend = userFriendService.selectUserFriend(userinfoid+"", userid+"");
+		int sevenday = 0;  //不可以查看
+		int thirthday = 0;  //不可以查看
+		if(userFriend != null) {
+			if(userFriend.getUserReation() == 0) {
+				String time =  userFriend.getFirendtime();   //得到成为好友的时间
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date friendt = format.parse(time);  //成为好友的时间
+				Date date = new Date();  
+				long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
+				long diff = date.getTime()-friendt.getTime();
+				/*
+				long day = diff / nd ;  
+				log.info("day:"+day);
+				if(day>7) {
+					sevenday = 1;  //可以查看
+				}
+				if(day>30) {
+					thirthday = 1;
+				}
+				*/
+				long miao = diff/1000 ;
+				if(miao>7) {
+					sevenday = 1;  //可以查看
+				}
+				if(miao>30) {
+					thirthday = 1;
+				}
+			}	
+		}
+
+		
+		int friend = 0;   //是好友关系
+		int lookimages = 0;  //不可以查看相册
+		int lookhead = 0 ;    //不能查看清晰头像
+		returnUsermatch.setHead(user.getPicture());
+		if(userFriend == null) {
+			friend = 1;         //不是好友
+		}else { 
+			if(userFriend.getUserReation() != 0) { // 不是好友关系
+				friend = 1;  
+			}else {  //两人是好友关系
+				//判断一下是否可以查看清晰头像
+				if(userFriend.getLookhead() == 1) {
+					// lookhead = 1;   //可以查看用户清晰头像
+					log.info("两人是好友，返回清晰头像");
+					 returnUsermatch.setHead(user.getHead());
+					 lookhead = 1;
+				}
+				if(userFriend.getLookimages() == 1) {
+					lookimages = userFriend.getLookimages();
+				//	returnUsermatch.setLookimages(lookimages);
+				}
+			}			
+		}
+	    //判断是否使用过擦子，判断是否头像是否的清晰的
+	
+		if(returnUsermatch.getHead() == user.getPicture()) {  //当前是模糊头像，判断是否使用过擦子
+			log.info("头像是模糊的头像，判断主用户是否擦过这个用户");
+			UserCaHistory userCaHistory = new UserCaHistory();
+			userCaHistory.setUserid(userinfoid); // 主id
+			userCaHistory.setCaid(userid);
+			UserCaHistory userCaHistoryinfo = userCaHistoryService.selectByUserCaHistory(userCaHistory); 
+			if(userCaHistoryinfo != null) {  
+				//有查询结果，说明被擦过
+				log.info("当前用户擦过这个用户，返回清晰头像");
+				returnUsermatch.setHead(user.getHead());
+				 lookhead = 1;
+			}
+			
+		}	
+	    String useryear =  user.getDate();
+	    int num = user.getNum();   //擦过的次数
+	    String sex = user.getSex();  //性别
+	    String obligate = user.getObligate();  //签名
+		//getAge getage = new getAge();
+	    int age = user.getReservedint();   //年龄  
+	    String name = user.getUsername();   //名称
+	    String ziwei = user.getZiwei();     //紫微
+	
+	    List<UserImage> list = userImageService.queryByUseridlist(userid);
+	    List<String>  imagelists = new ArrayList<>();
+	    if(list.size() >0) {
+	    	for(UserImage userImage:list) {
+	    		if(lookimages == 0) {
+	    			imagelists.add(userImage.getSpare());
+	    		}
+	    		if(lookimages == 1) {
+	    			imagelists.add(userImage.getImage());
+	    		}
+	    	}
+	    }
+	    Lifebook lifebook = lifeBookService.lifebookSelf(userid);
+	    if(lifebook != null) {
+	    	returnUsermatch.setLifeuserid(lifebook.getId());
+	    }
+	    returnUsermatch.setAge(age);	
+	    returnUsermatch.setNum(num);
+	    returnUsermatch.setSex(sex);
+	    returnUsermatch.setObligate(obligate);
+	    returnUsermatch.setFriend(friend);
+	    returnUsermatch.setName(name);
+	    returnUsermatch.setZiwei(ziwei);
+	    returnUsermatch.setSevenday(sevenday);
+	    returnUsermatch.setThirthday(thirthday);
+	    returnUsermatch.setLookhead(lookhead);
+	    returnUsermatch.setVip(user.getVip());
+	  //  returnUsermatch.setHead(head);
+	    returnUsermatch.setImages(imagelists);
+	    returnUsermatch.setUserdesc(usermatchWithBLOBs.getUserdesc());
+	    returnUsermatch.setUserscore(usermatchWithBLOBs.getUserscore());
+	    returnUsermatch.setDistance(usermatchWithBLOBs.getDistance());
+	  
+	    log.info("返回值："+returnUsermatch);
+		return ResultType.creat(returnUsermatch);
+		
+	}
+	
+	
+	
+	
 	//用户详细信息
 	@RequestMapping("/showUser")
 	@ResponseBody
@@ -495,7 +646,7 @@ public class UserMatAction extends BaseAction{
 				}
 				if(userFriend.getLookimages() == 1) {
 					lookimages = userFriend.getLookimages();
-					returnUsermatch.setLookimages(lookimages);
+					//returnUsermatch.setLookimages(lookimages);
 				}
 			}			
 		}
@@ -543,13 +694,14 @@ public class UserMatAction extends BaseAction{
 	    returnUsermatch.setObligate(obligate);
 	    returnUsermatch.setFriend(friend);
 	    returnUsermatch.setName(name);
-	    returnUsermatch.setZiwei(ziwei);
-	    returnUsermatch.setSevenday(sevenday);
-	    returnUsermatch.setThirthday(thirthday);
-	    returnUsermatch.setLookhead(lookhead);
+	 //   returnUsermatch.setZiwei(ziwei);
+	//    returnUsermatch.setSevenday(sevenday);
+	//    returnUsermatch.setThirthday(thirthday);
+	 //   returnUsermatch.setLookhead(lookhead);
 	    returnUsermatch.setVip(user.getVip());
 	  //  returnUsermatch.setHead(head);
-	    returnUsermatch.setImages(imagelists);
+	//    returnUsermatch.setImages(imagelists);
+
 	    BeanUtils.copyProperties(usermatchWithBLOBs, returnUsermatch);
 	    log.info("返回值："+returnUsermatch);
 		return ResultType.creat(returnUsermatch);

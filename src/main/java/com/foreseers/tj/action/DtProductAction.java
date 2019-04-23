@@ -39,6 +39,7 @@ public class DtProductAction extends BaseAction{
 	
 	/*
 	 * 获得命书商品列表		
+	 * 
 	@RequestMapping("/getIapList")
 	@ResponseBody
 	public ResultType getIapList() {
@@ -47,6 +48,6 @@ public class DtProductAction extends BaseAction{
 		
 		return ResultType.creat(list);
 	}
-	 */
+	*/ 
 	
 }

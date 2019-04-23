@@ -22,6 +22,9 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -38,14 +41,13 @@ public class huanxin {
 	private static final Logger log = LoggerFactory.getLogger(huanxin.class);
 
 	
-	StringBuffer  huanxinurl = new StringBuffer("http://a1.easemob.com/1106190114019314/foreseers/");
+	StringBuffer  huanxinurl = new StringBuffer("http://a1.easemob.com/1106190114019314/foreseers/"); //阿里云
 	
-	String org_name = "1106190114019314";
-	
-	String app_name = "foreseers";
+
+//	StringBuffer  huanxinurl = new StringBuffer("http://a1.easemob.com/1106190114019314/zzzz/");
 	
 	 String filePath = "/chatFiles/";
-	 
+
 	public void gettime(){
 		log.info("现在的时间是："+new Date());
 	}
@@ -63,9 +65,14 @@ public class huanxin {
 		String token = "";
 		HttpHuanxin httphuanxin = new HttpHuanxin();
         Map<String, String> map = new HashMap<String, String>();
-        map.put("grant_type","client_credentials");
-        map.put("client_id","YXA6HlxXgBiWEemPQ-MnLEqLUg");
-        map.put("client_secret","YXA6GloiOfyJ83aGrpEkFlIaQ3X1dsc");
+        //阿里云
+	        map.put("grant_type","client_credentials");
+	        map.put("client_id","YXA6HlxXgBiWEemPQ-MnLEqLUg");
+	        map.put("client_secret","YXA6GloiOfyJ83aGrpEkFlIaQ3X1dsc");
+        //本地
+//	      map.put("grant_type","client_credentials");
+//	      map.put("client_id","YXA6d67OQCKfEem14fvKxRhkWw");
+//	      map.put("client_secret","YXA6P9FFmiAc6FozZ4m5UsxK7E0_kmw");
 	       CloseableHttpResponse rebody =  httphuanxin.sendPostDataByJson(url, JSON.toJSONString(map), "utf-8", null);
 	       if(rebody.getStatusLine().getStatusCode() == 200) {
 	    	   String result =  EntityUtils.toString(rebody.getEntity(),"utf-8");
@@ -199,7 +206,7 @@ public class huanxin {
                 chatMessage.setMsgId(jsonObject.getString("msg_id"));
                 //chatMessage.setTimestamp(new Date(Long.parseLong(jsonObject.getString("timestamp"))).toString());
                 Date date = new Date(Long.parseLong(jsonObject.getString("timestamp")));
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String timestamp = df.format(date);
                 chatMessage.setUsertime(timestamp);
                 chatMessage.setDirection(jsonObject.getString("direction"));

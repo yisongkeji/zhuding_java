@@ -137,6 +137,14 @@
     where userid = #{userid,jdbcType=INTEGER}
   </select>
   
+   <!-- 查询用户自身命书 --> 
+  <select id="lifebookSelf" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dt_lifebook
+    where userid = #{userid,jdbcType=INTEGER} and spareint = 1;
+  </select>
+  
   <select id="selectByExample" parameterType="com.foreseers.tj.model.LifebookExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
