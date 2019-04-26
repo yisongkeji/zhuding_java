@@ -1,6 +1,10 @@
 package com.foreseers.tj.service.impl;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +13,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -40,7 +47,11 @@ import com.foreseers.tj.service.UserCaHistoryService;
 import com.foreseers.tj.service.UserFriendService;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
+import com.foreseers.tj.util.ImageUtil;
+import com.foreseers.tj.util.MyGaussianFilter;
 import com.foreseers.tj.util.getAge;
+//import com.jhlabs.image.GaussianFilter;
+import com.jhlabs.image.GaussianFilter;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.resizers.configurations.ScalingMode;
@@ -179,11 +190,15 @@ public class UserServiceImpl implements UserService {
 	 * @see com.foreseers.tj.service.UserService#compressPictures()
 	 */
 	@Override
-	public void compressPictures(String save) {
+	@Transactional
+	public String compressPictures(String imagepath,String save) throws BusinessExpection {
 		// TODO Auto-generated method stub
 		log.info("压缩图片方法");
 		log.info("图片路径："+save);
-        try {
+		log.info("imagepath:"+imagepath);
+		
+        try {     	
+        	//压缩图片
             Thumbnails.of(save).
                     scalingMode(
                     ScalingMode.BICUBIC).
@@ -193,11 +208,40 @@ public class UserServiceImpl implements UserService {
                     outputQuality(0.8).
                     toFile(save);
             log.info("压缩成功");
+            
+            GaussianFilter gaussianFilter = new GaussianFilter();
+            BufferedImage img = ImageIO.read(new File(save));
+            BufferedImage toImage = new BufferedImage(img.getWidth(), img.getHeight(),BufferedImage.TYPE_INT_RGB);
+            gaussianFilter.setRadius(80);
+            gaussianFilter.filter(img, toImage);
+        	DateFormat bf = new SimpleDateFormat("yyyyMMddHHmmss");//多态
+			Date date = new Date();
+			String result =  getRandom();
+			String name = bf.format(date)+result+"."+"jpg";
+			log.info("imagepath:"+imagepath+"/"+name);
+            ImageIO.write(toImage, "jpeg", new File(imagepath+"/"+name));
+           
+            return name;
+
         } catch (IOException e) {
         	log.error(e.getMessage());
+        	throw new BusinessExpection(EmBussinsError.GENERAL_ERROR,"压缩图片失败");
         }
+        
 	}
 
+	
+	public String getRandom() {
+		Random random = new Random();
+		String result="";
+		for (int i=0;i<6;i++)
+		{
+			result+=random.nextInt(10);
+		}
+		return result;
+	}
+	
+	    
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		// TODO Auto-generated method stub

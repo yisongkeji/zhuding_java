@@ -1,6 +1,9 @@
 package com.foreseers.tj.action;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -8,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 //import org.junit.runners.Parameterized.Parameter;
@@ -27,6 +31,10 @@ import com.foreseers.tj.model.UserImage;
 import com.foreseers.tj.service.UserImageService;
 import com.foreseers.tj.service.UserService;
 import com.foreseers.tj.util.WebUpload;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+
+import javafx.scene.image.Image;
 
 @Controller
 @RequestMapping("/userimage")
@@ -62,6 +70,7 @@ public class UserImageAction extends BaseAction{
 		if(file == null) {
 			 throw new BusinessExpection(EmBussinsError.ILLAGAL_PARAMETERS);	
 		}
+
 		 String imagename = file.getOriginalFilename();   //得到图片的后缀名
 		 log.info(imagename);
 		 String[] names = imagename.split("\\.");
@@ -82,14 +91,48 @@ public class UserImageAction extends BaseAction{
 			log.info("图片名称："+name);
 			String saveurl = httpurl+userid+"/"+name;
 			log.info("保存图片的路径"+saveurl);
-			file.transferTo(new File(save));   //保存图片
+//			file.transferTo(new File(save));   //保存图片
+			 File    destFile  = null;  
+			destFile = new File(save);
+	//resize图片大小		
+			FileInputStream in = (FileInputStream) file.getInputStream();
+			BufferedImage  image = javax.imageio.ImageIO.read(in);
+			int width =	image.getWidth();
+			int height = image.getHeight(); 
+			int w;
+			int h;
+			if(width > 1280 || height > 1280) {
+				if(width >= height ) {
+					w = 1280;
+					h = (int)Math.round((height * 1280 * 1.0 / width));
+				}else {
+					h = 1280;
+					w = (int)Math.round((width * 1280 * 1.0 / height));
+				}
+			}else {
+				w = width;
+				h = height;
+			}
+			log.info("压缩后的图片的长宽："+w+"````````"+h);
+			BufferedImage _image = new BufferedImage(w, h,BufferedImage.TYPE_INT_RGB);  //构建图片对象
+			 _image.getGraphics().drawImage(image, 0, 0, w, h, null);   //绘制缩小后的图片
+			 FileOutputStream out = new FileOutputStream(destFile);
+			log.info("图片resize完成");
+			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+			encoder.encode(_image); 
+            out.flush();  
+            out.close(); 
+	//resize图片大小
+			
 			//压缩图片
-			userService.compressPictures(save);
+			String bulrName =  userService.compressPictures(imagepath,save);
+			String bulrUrl = httpurl+userid+"/"+bulrName;
 			
 			UserImage userImage = new UserImage();
 			userImage.setUserid(Integer.parseInt(userid));
 			userImage.setImage(saveurl);
 			userImage.setImagename(name);
+			userImage.setSpare(bulrUrl);
 			userImageService.insertSelective(userImage);
 			 log.info("返回参数："+userImage);
 			return ResultType.creat(userImage);
@@ -97,7 +140,7 @@ public class UserImageAction extends BaseAction{
 	
 	/*
 	 * 上传模糊相册
-	 */
+	
 	@RequestMapping("/uploadblurimage")
 	@ResponseBody
 	public ResultType uploadblurimage(HttpServletRequest request,MultipartFile file) throws BusinessExpection, IllegalStateException, IOException {
@@ -151,6 +194,8 @@ public class UserImageAction extends BaseAction{
 
 			return ResultType.creat(userImage);
 	}
+	 */
+	
 	
 	/*
 	 * 删除相册

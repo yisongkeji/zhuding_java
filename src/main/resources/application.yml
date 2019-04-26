@@ -11,7 +11,7 @@ server:
     
 web:
   upload-path: /var/zhuding/head/   #头像地址  /var/zhuding/head/  e:/dt/head/
-  front-path:  /var/zhuding/image/  #相册地址 /var/zhuding/image/   e:/dt/image/
+  front-path:   /var/zhuding/image/  #相册地址 /var/zhuding/image/   e:/dt/image/
  
 httpurl: https://chat.foreseers.cn:443/   
 #httpurl: http://192.168.1.73:8080/   #图片保存到数据库的url地址  https://chat.foreseers.cn:443/

@@ -36,7 +36,7 @@ public interface UserService {
 	void addserfriendnum(int parseInt);
 	
 	Map<String,Object> showMyself(int userid) throws BusinessExpection;  //展示自己的个人信息
-	void compressPictures(String save);
+	String compressPictures(String imagepath,String save) throws BusinessExpection;
 	
 	//更新vip时间
 	String userSetvip(int userid,int vipdate) throws ParseException;
